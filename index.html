@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ifham Ishaq | Video Editor, 3D Artist & Graphic Designer</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Professional Video Editor, 3D Artist, and Graphic Designer specializing in high-retention content, motion graphics, and CGI. Based in Srinagar, India.">
+    <meta name="keywords"
+        content="video editing, 3D animation, graphic design, motion graphics, CGI, Blender, After Effects, Premiere Pro">
+    <meta name="author" content="Ifham Ishaq">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Ifham Ishaq | Video Editor & 3D Artist">
+    <meta property="og:description"
+        content="Professional Video Editor, 3D Artist, and Graphic Designer specializing in high-retention content and motion graphics.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta property="og:image" content="https://yourwebsite.com/og-image.jpg">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ifham Ishaq | Video Editor & 3D Artist">
+    <meta name="twitter:description"
+        content="Professional Video Editor, 3D Artist, and Graphic Designer specializing in high-retention content.">
+    <meta name="twitter:image" content="https://yourwebsite.com/twitter-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- GSAP & Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Press Start 2P"', 'cursive'],
+                        serif: ['"Press Start 2P"', 'cursive'],
+                    },
+                    colors: {
+                        dark: '#2d2d2d',
+                        darker: '#1a1a1a',
+                        primary: '#ff6b6b',      // Bright red - Retro gaming
+                        secondary: '#4ecdc4',    // Cyan - Retro complement
+                        accent: '#ffe66d',       // Yellow - Bright accent
+                        success: '#95e1d3',      // Mint green - Success
+                        warning: '#f38181',      // Coral - Warning
+                        info: '#aa96da',         // Purple - Information
+                    },
+                    borderRadius: {
+                        'none': '0',
+                    },
+                    boxShadow: {
+                        'retro': '8px 8px 0 rgba(0, 0, 0, 0.2)',
+                        'retro-lg': '12px 12px 0 rgba(0, 0, 0, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ifham Ishaq",
+        "jobTitle": "Video Editor, 3D Artist & Graphic Designer",
+        "url": "https://yourwebsite.com",
+        "email": "ifham.wani89@gmail.com",
+        "telephone": "+917006049548",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Srinagar",
+            "addressRegion": "Jammu and Kashmir",
+            "addressCountry": "India"
+        },
+        "sameAs": [
+            "https://www.linkedin.com/in/ifham-ishaq-628077395"
+        ],
+        "knowsAbout": ["Video Editing", "3D Animation", "Graphic Design", "Motion Graphics", "CGI", "Blender", "After Effects", "Premiere Pro"]
+    }
+    </script>
+</head>
+
+<body class="antialiased selection:bg-accent selection:text-white">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- WebGL Background -->
+    <div id="canvas-container"></div>
+
+    <!-- Video Modal Overlay -->
+    <div id="video-modal"
+        class="fixed inset-0 z-[100] bg-black/90 hidden flex items-center justify-center p-4 opacity-0 pointer-events-none backdrop-blur-md">
+        <div
+            class="relative w-full max-w-5xl aspect-video bg-black rounded-lg overflow-hidden border border-gray-800 shadow-2xl group">
+            <button onclick="closeModal()"
+                class="absolute top-4 right-4 z-20 text-white bg-black/50 p-2 rounded-full hover:bg-red-600 transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <iframe id="modal-iframe" class="w-full h-full" src="" frameborder="0" allow="autoplay; fullscreen"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 px-6 py-6 mix-blend-difference text-white">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html"
+                class="font-serif text-2xl font-bold tracking-tighter hover:text-red-500 transition-colors">Ifham
+                Ishaq.</a>
+            <div class="hidden md:flex space-x-8 text-xs font-bold uppercase tracking-widest">
+                <a href="#about" class="hover:text-red-500 transition-colors">About</a>
+                <a href="#skills" class="hover:text-red-500 transition-colors">Skills</a>
+                <a href="works.html" class="hover:text-red-500 transition-colors">Works</a>
+                <a href="#results" class="hover:text-red-500 transition-colors">Results</a>
+                <a href="#contact" class="hover:text-red-500 transition-colors">Contact</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <div id="mobile-menu-btn" class="mobile-menu-btn md:hidden">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-nav">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="works.html">Works</a>
+        <a href="#results">Results</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="text-center z-10 px-4">
+            <p class="reveal-text text-xs md:text-sm tracking-[0.4em] text-darker mb-6 uppercase">Video Editor | 3D
+                Artist | Graphic Designer</p>
+            <h1 class="font-serif text-6xl md:text-9xl leading-none mb-6">
+                <div class="overflow-hidden"><span class="reveal-hero inline-block">I WAS</span></div>
+                <div class="overflow-hidden"><span
+                        class="reveal-hero inline-block italic bg-gradient-to-r from-red-600 via-red-500 to-red-400 bg-clip-text text-transparent">CREATED</span>
+                </div>
+                <div class="overflow-hidden"><span class="reveal-hero inline-block">TO CREATE</span></div>
+            </h1>
+            <div class="mt-8 opacity-0 reveal-text">
+                <a href="#videos"
+                    class="inline-block px-8 py-4 bg-primary border-4 border-dark shadow-retro hover:shadow-retro-lg hover:-translate-y-1 transition-all uppercase text-sm tracking-widest font-bold text-white">
+                    <span>View Portfolio</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+            <i data-lucide="arrow-down" class="w-6 h-6 text-white"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="min-h-screen py-20 blur-reveal">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative group">
+                <div
+                    class="absolute -inset-1 bg-gradient-to-tr from-primary via-secondary to-accent rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000">
+                </div>
+                <div class="relative aspect-[4/5] bg-neutral-900 rounded-lg overflow-hidden">
+                    <!-- Placeholder for Superman/Portrait image from PDF -->
+                    <img src="https://images.unsplash.com/photo-1635863138275-d9b33299680b?q=80&w=1000&auto=format&fit=crop"
+                        alt="Ifham Ishaq - Video Editor and 3D Artist Portrait" loading="lazy"
+                        class="object-cover w-full h-full opacity-90">
+                    <div
+                        class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/50 to-transparent w-full">
+                        <span class="text-6xl font-serif text-white opacity-20">02</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <h2 class="text-5xl md:text-7xl font-serif leading-tight">
+                    A Little <br>
+                    <span class="bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent italic">About
+                        Me</span>
+                </h2>
+                <div class="space-y-6 text-lg text-dark font-light leading-relaxed">
+                    <p>I am a professional <strong class="text-white">Video Editor</strong> and <strong
+                            class="text-white">Graphic Designer</strong>. I've been working in video editing for the
+                        past three years. It was only in 2024 that I started <strong class="text-white">3D
+                            Animation</strong>.</p>
+                    <p>Currently, I am deep-diving into Motion Graphics to bridge the gap between storytelling and
+                        visual immersion. My goal is simple: retain attention through pacing and high-quality hooks.</p>
+                </div>
+
+                <div class="flex gap-4 pt-4">
+                    <div
+                        class="px-6 py-3 border border-gray-700 rounded-full text-sm uppercase tracking-wider hover:border-primary hover:bg-primary/10 transition-all">
+                        4 Years Exp</div>
+                    <div
+                        class="px-6 py-3 border border-gray-700 rounded-full text-sm uppercase tracking-wider hover:border-accent hover:bg-accent/10 transition-all">
+                        J&K, India</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Software -->
+    <section id="skills" class="py-20 bg-neutral-900/30 blur-reveal">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 mb-20">
+                <h2 class="text-5xl font-serif">Skills & <br><span class="text-outline">Expertise</span></h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Skill Column 1 -->
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold border-b-4 border-dark pb-2 text-primary">Video Editing</h3>
+                        <ul class="space-y-3 text-darker text-sm tracking-wide">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>
+                                Short form video (Hooks)</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>
+                                Long form video (Pacing)</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-primary"></i>
+                                Attention Retention</li>
+                        </ul>
+                    </div>
+                    <!-- Skill Column 2 -->
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold border-b-4 border-dark pb-2 text-secondary">3D & Graphics</h3>
+                        <ul class="space-y-3 text-darker text-sm tracking-wide">
+                            <li class="flex items-center gap-2"><i data-lucide="check"
+                                    class="w-4 h-4 text-secondary"></i>
+                                High quality scenes</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check"
+                                    class="w-4 h-4 text-secondary"></i>
+                                Camera Tracking & CGI</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check"
+                                    class="w-4 h-4 text-secondary"></i>
+                                Quality Car Animations</li>
+                        </ul>
+                    </div>
+                    <!-- Skill Column 3 - Graphic Design -->
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold border-b-4 border-dark pb-2 text-accent">Graphic Design</h3>
+                        <ul class="space-y-3 text-darker text-sm tracking-wide">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i>
+                                Thumbnail Design</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i>
+                                Logo Design</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i>
+                                Brand Identity</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i>
+                                Poster Design</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-accent"></i>
+                                High CTR</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Software Grid -->
+            <div class="border-t-4 border-dark pt-16">
+                <h3 class="text-center text-xs uppercase tracking-[0.4em] mb-12 text-dark">Software Arsenal</h3>
+                <div class="flex flex-wrap justify-center gap-8 text-center">
+                    <!-- Adobe After Effects -->
+                    <div class="p-6 hover:-translate-y-1 transition-transform w-40 border-4 border-dark shadow-retro"
+                        style="background-color: #4ecdc4;">
+                        <div class="flex justify-center mb-4">
+                            <img src="assets/after-effects-logo.png" alt="After Effects"
+                                class="w-20 h-20 object-contain" loading="lazy">
+                        </div>
+                        <p class="text-[10px] text-dark uppercase tracking-widest font-bold">After Effects</p>
+                        <span class="text-[8px] block mt-2 text-dark">2+ Years</span>
+                    </div>
+
+                    <!-- Blender -->
+                    <div class="p-6 hover:-translate-y-1 transition-transform w-40 border-4 border-dark shadow-retro"
+                        style="background-color: #ffe66d;">
+                        <div class="flex justify-center mb-4">
+                            <img src="assets/Blender-Symbol.png" alt="Blender" class="w-20 h-20 object-contain"
+                                loading="lazy">
+                        </div>
+                        <p class="text-[10px] text-dark uppercase tracking-widest font-bold">Blender 3D</p>
+                        <span class="text-[8px] block mt-2 text-dark">3+ Years</span>
+                    </div>
+
+                    <!-- Premiere Pro -->
+                    <div class="p-6 hover:-translate-y-1 transition-transform w-40 border-4 border-dark shadow-retro"
+                        style="background-color: #f38181;">
+                        <div class="flex justify-center mb-4">
+                            <img src="assets/Adobe_Premiere_Pro.png" alt="Premiere Pro" class="w-20 h-20 object-contain"
+                                loading="lazy">
+                        </div>
+                        <p class="text-[10px] text-dark uppercase tracking-widest font-bold">Premiere Pro</p>
+                        <span class="text-[8px] block mt-2 text-dark">2+ Years</span>
+                    </div>
+
+                    <!-- DaVinci Resolve -->
+                    <div class="p-6 hover:-translate-y-1 transition-transform w-40 border-4 border-dark shadow-retro"
+                        style="background-color: #95e1d3;">
+                        <div class="flex justify-center mb-4">
+                            <img src="assets/davinchi.png" alt="DaVinci Resolve" class="w-20 h-20 object-contain"
+                                loading="lazy">
+                        </div>
+                        <p class="text-[10px] text-dark uppercase tracking-widest font-bold">DaVinci</p>
+                        <span class="text-[8px] block mt-2 text-dark">2+ Years</span>
+                    </div>
+
+                    <!-- CapCut -->
+                    <div class="p-6 hover:-translate-y-1 transition-transform w-40 border-4 border-dark shadow-retro"
+                        style="background-color: #aa96da;">
+                        <div class="flex justify-center mb-4">
+                            <img src="assets/CapCut-Symbol.png" alt="CapCut" class="w-20 h-20 object-contain"
+                                loading="lazy">
+                        </div>
+                        <p class="text-[10px] text-dark uppercase tracking-widest font-bold">CapCut</p>
+                        <span class="text-[8px] block mt-2 text-dark">5+ Years</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Edits Slideshow -->
+    <section id="videos" class="py-20 blur-reveal">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12">
+                <h2 class="text-5xl md:text-6xl font-serif mb-2">Video <span
+                        class="italic bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">Edits</span>
+                </h2>
+                <p class="text-dark text-sm">Professional video editing & motion graphics</p>
+            </div>
+
+            <!-- Video Grid - Pinterest Style -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Video 1 - Stranger Things (Vertical) -->
+                <div onclick="openModal('https://drive.google.com/file/d/1pUECbC1kOra2arVztr1KYXEe1tORq55K/preview')"
+                    class="group relative overflow-hidden cursor-pointer border-4 border-dark shadow-retro hover:shadow-retro-lg transition-all aspect-[9/16]">
+                    <img src="https://drive.google.com/thumbnail?id=1pUECbC1kOra2arVztr1KYXEe1tORq55K&sz=w600"
+                        alt="Stranger Things Recreation" loading="lazy"
+                        class="object-cover w-full h-full transition duration-500 group-hover:scale-105">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
+                        <div class="bg-primary p-4 border-4 border-dark">
+                            <i data-lucide="play" class="w-12 h-12 text-white fill-white"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video 2 - Fruit Bar (Vertical) -->
+                <div onclick="openModal('https://drive.google.com/file/d/1x2Dz51oxtYV9vLA6khI4xMmrtjb1fhZs/preview')"
+                    class="group relative overflow-hidden cursor-pointer border-4 border-dark shadow-retro hover:shadow-retro-lg transition-all aspect-[9/16]">
+                    <img src="https://drive.google.com/thumbnail?id=1x2Dz51oxtYV9vLA6khI4xMmrtjb1fhZs&sz=w1200"
+                        alt="Fruit Bar Commercial" loading="lazy"
+                        class="object-cover w-full h-full transition duration-500 group-hover:scale-105">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
+                        <div class="bg-accent p-4 border-4 border-dark">
+                            <i data-lucide="play" class="w-12 h-12 text-dark fill-dark"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video 3 - Motion Graphics (Vertical) -->
+                <div onclick="openModal('https://drive.google.com/file/d/1PyH0EDXU5FOo1Ohfa8daqj3pfJ5A13ch/preview')"
+                    class="group relative overflow-hidden cursor-pointer border-4 border-dark shadow-retro hover:shadow-retro-lg transition-all aspect-[9/16]">
+                    <img src="https://drive.google.com/thumbnail?id=1PyH0EDXU5FOo1Ohfa8daqj3pfJ5A13ch&sz=w1200"
+                        alt="Motion Graphics" loading="lazy"
+                        class="object-cover w-full h-full transition duration-500 group-hover:scale-105">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
+                        <div class="bg-primary p-4 border-4 border-dark">
+                            <i data-lucide="play" class="w-12 h-12 text-white fill-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thumbnails Slideshow -->
+    <section id="thumbnails" class="py-20 bg-neutral-900/30 blur-reveal">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12">
+                <div>
+                    <h2 class="text-5xl md:text-6xl font-serif mb-2">Thumbnail <span
+                            class="italic bg-gradient-to-r from-red-600 to-red-900 bg-clip-text text-transparent">Designs</span>
+                    </h2>
+                    <p class="text-dark text-sm">High CTR thumbnail designs for YouTube & social media</p>
+                </div>
+            </div>
+
+            <!-- Graphic Design Grid - Pinterest Style -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Design 1 -->
+                <div onclick="openImageModal('Graphic Designing/1.png')"
+                    class="group relative overflow-hidden aspect-video cursor-pointer border-4 border-dark shadow-retro hover:shadow-retro-lg transition-all">
+                    <img src="Graphic Designing/1.png" alt="Graphic Design 1" loading="lazy"
+                        class="object-cover w-full h-full transition duration-500 group-hover:scale-105">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
+                        <div class="bg-accent p-4 border-4 border-dark">
+                            <i data-lucide="maximize-2" class="w-8 h-8 text-dark"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design 2 -->
+                <div onclick="openImageModal('Graphic Designing/2.jpg')"
+                    class="group relative overflow-hidden aspect-video cursor-pointer border-4 border-dark shadow-retro hover:shadow-retro-lg transition-all">
+                    <img src="Graphic Designing/2.jpg" alt="Graphic Design 2" loading="lazy"
+                        class="object-cover w-full h-full transition duration-500 group-hover:scale-105">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
+                        <div class="bg-secondary p-4 border-4 border-dark">
+                            <i data-lucide="maximize-2" class="w-8 h-8 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design 3 -->
+                <div onclick="openImageModal('Graphic Designing/Untitled-1.jpg')"
+                    class="group relative overflow-hidden aspect-video cursor-pointer border-4 border-dark shadow-retro hover:shadow-retro-lg transition-all">
+                    <img src="Graphic Designing/Untitled-1.jpg" alt="Graphic Design 3" loading="lazy"
+                        class="object-cover w-full h-full transition duration-500 group-hover:scale-105">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
+                        <div class="bg-primary p-4 border-4 border-dark">
+                            <i data-lucide="maximize-2" class="w-8 h-8 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design 4 -->
+                <div onclick="openImageModal('Graphic Designing/Untitledsscovered.jpg')"
+                    class="group relative overflow-hidden aspect-video cursor-pointer border-4 border-dark shadow-retro hover:shadow-retro-lg transition-all">
+                    <img src="Graphic Designing/Untitledsscovered.jpg" alt="Graphic Design 4" loading="lazy"
+                        class="object-cover w-full h-full transition duration-500 group-hover:scale-105">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
+                        <div class="bg-accent p-4 border-4 border-dark">
+                            <i data-lucide="maximize-2" class="w-8 h-8 text-dark"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design 5 -->
+                <div onclick="openImageModal('Graphic Designing/bvhv.jpg')"
+                    class="group relative overflow-hidden aspect-video cursor-pointer border-4 border-dark shadow-retro hover:shadow-retro-lg transition-all">
+                    <img src="Graphic Designing/bvhv.jpg" alt="Graphic Design 5" loading="lazy"
+                        class="object-cover w-full h-full transition duration-500 group-hover:scale-105">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
+                        <div class="bg-secondary p-4 border-4 border-dark">
+                            <i data-lucide="maximize-2" class="w-8 h-8 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design 6 -->
+                <div onclick="openImageModal('Graphic Designing/fb.jpg')"
+                    class="group relative overflow-hidden aspect-video cursor-pointer border-4 border-dark shadow-retro hover:shadow-retro-lg transition-all">
+                    <img src="Graphic Designing/fb.jpg" alt="Graphic Design 6" loading="lazy"
+                        class="object-cover w-full h-full transition duration-500 group-hover:scale-105">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
+                        <div class="bg-primary p-4 border-4 border-dark">
+                            <i data-lucide="maximize-2" class="w-8 h-8 text-white"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Design 7 -->
+                <div onclick="openImageModal('Graphic Designing/pine g 03345088943   thumbnail3.jpg')"
+                    class="group relative overflow-hidden aspect-video cursor-pointer border-4 border-dark shadow-retro hover:shadow-retro-lg transition-all">
+                    <img src="Graphic Designing/pine g 03345088943   thumbnail3.jpg" alt="Graphic Design 7"
+                        loading="lazy" class="object-cover w-full h-full transition duration-500 group-hover:scale-105">
+                    <div
+                        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
+                        <div class="bg-accent p-4 border-4 border-dark">
+                            <i data-lucide="maximize-2" class="w-8 h-8 text-dark"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section (Animated) -->
+    <section id="results" class="py-20 blur-reveal">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-green-900/10 to-transparent"></div>
+
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div>
+                <h2 class="text-4xl md:text-5xl font-serif mb-6">Guaranteed <br>Results</h2>
+                <p class="text-darker mb-8 leading-relaxed">My designs aren't just visually appealing; they are
+                    engineered for performance. I analyze viewer retention and click-through rates to optimize content.
+                </p>
+
+                <div class="grid grid-cols-2 gap-8">
+                    <div class="p-6 bg-white/5 rounded-lg border border-white/5">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-bold text-darker">15.5</span><span
+                                class="text-xl text-dark">%</span>
+                        </div>
+                        <p class="text-[10px] uppercase tracking-wider mt-2 text-dark">Average CTR</p>
+                        <div class="text-red-500 text-sm mt-1">Version A (C+)</div>
+                    </div>
+                    <div class="p-6 bg-green-500/10 rounded-lg border border-green-500/20">
+                        <div class="flex items-baseline gap-1">
+                            <span class="counter-value text-4xl font-bold text-green-400" data-target="25">0</span><span
+                                class="text-xl text-green-500">%</span>
+                        </div>
+                        <p class="text-[10px] uppercase tracking-wider mt-2 text-green-500">Optimized CTR</p>
+                        <div class="text-green-400 text-sm mt-1">Version B (A+)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <!-- Comparison Card -->
+                <div
+                    class="bg-gray-800 rounded-xl p-2 border border-gray-700 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-500">
+                    <div class="bg-neutral-900 rounded-lg overflow-hidden relative">
+                        <div
+                            class="absolute top-4 right-4 bg-green-500 text-black font-bold px-3 py-1 rounded text-xs shadow-lg z-10 animate-pulse">
+                            Score: 89 (A+)</div>
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800"
+                            alt="Analytics Performance Graph showing high engagement metrics" loading="lazy"
+                            class="w-full opacity-90">
+                        <div class="p-4">
+                            <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-green-500 w-[89%]"></div>
+                            </div>
+                            <div class="flex justify-between mt-2 text-xs text-darker uppercase">
+                                <span>Engagement</span>
+                                <span class="text-green-400">High</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact"
+        class="min-h-screen flex flex-col justify-center items-center text-center relative px-6 py-20">
+        <h2 class="text-sm md:text-base font-bold text-red-500 tracking-[0.3em] uppercase mb-4">Are you ready?</h2>
+        <h1
+            class="text-6xl md:text-9xl font-serif hover:italic hover:text-white/80 transition-all duration-300 cursor-pointer mb-8">
+            <a href="mailto:ifham.wani89@gmail.com">WORK WITH ME</a>
+        </h1>
+
+        <!-- Contact Form -->
+        <div class="contact-form w-full max-w-2xl mb-12">
+            <form id="contact-form" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <input type="text" name="name" placeholder="Your Name" required aria-label="Your Name">
+                    <input type="email" name="email" placeholder="Your Email" required aria-label="Your Email">
+                </div>
+                <input type="text" name="subject" placeholder="Subject" aria-label="Subject">
+                <textarea name="message" rows="5" placeholder="Your Message" required
+                    aria-label="Your Message"></textarea>
+                <button type="submit"
+                    class="w-full px-8 py-4 bg-accent border-4 border-dark shadow-retro hover:shadow-retro-lg hover:-translate-y-1 transition-all uppercase text-sm tracking-widest font-bold text-dark">
+                    <span>Send Message</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Download Resume Button -->
+        <div class="mb-12">
+            <a href="#"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-secondary border-4 border-dark shadow-retro hover:shadow-retro-lg hover:-translate-y-1 transition-all text-sm uppercase tracking-wider text-white font-bold">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span>Download Resume</span>
+            </a>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-8 md:gap-24 text-left">
+            <div class="group">
+                <span class="block text-gray-600 text-[10px] tracking-widest mb-2 font-bold">EMAIL</span>
+                <a href="mailto:ifham.wani89@gmail.com"
+                    class="text-xl md:text-2xl font-serif group-hover:text-red-500 transition-colors border-b border-gray-800 pb-1">ifham.wani89@gmail.com</a>
+            </div>
+            <div class="group">
+                <span class="block text-gray-600 text-[10px] tracking-widest mb-2 font-bold">PHONE</span>
+                <a href="tel:+917006049548"
+                    class="text-xl md:text-2xl font-serif group-hover:text-red-500 transition-colors border-b border-gray-800 pb-1">+91
+                    70060 49548</a>
+            </div>
+        </div>
+
+        <div class="mt-16 flex gap-6">
+            <a href="https://www.linkedin.com/in/ifham-ishaq-628077395" target="_blank" rel="noopener noreferrer"
+                aria-label="LinkedIn Profile"
+                class="p-3 border border-gray-800 rounded-full hover:bg-red-600 hover:border-red-600 transition-all">
+                <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
+            <a href="mailto:ifham.wani89@gmail.com" aria-label="Send Email"
+                class="p-3 border border-gray-800 rounded-full hover:bg-red-500 hover:border-red-500 transition-all">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+            </a>
+        </div>
+
+        <footer class="absolute bottom-6 w-full text-center text-dark text-xs tracking-widest">
+            &copy; 2026 IFHAM ISHAQ. SRINAGAR, INDIA.
+        </footer>
+    </section>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>
