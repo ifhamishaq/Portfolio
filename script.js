@@ -117,6 +117,31 @@ function closeModal() {
     }, 300);
 }
 
+// FAQ Toggle Logic
+function toggleFAQ(button) {
+    const answer = button.nextElementSibling;
+    const icon = button.querySelector('i');
+
+    // Close other FAQ items
+    const allAnswers = document.querySelectorAll('.faq-answer');
+    const allIcons = document.querySelectorAll('.faq-item button i');
+
+    allAnswers.forEach((item, index) => {
+        if (item !== answer) {
+            item.style.maxHeight = '0';
+            allIcons[index].style.transform = 'rotate(0deg)';
+        }
+    });
+
+    if (answer.style.maxHeight === '0px' || answer.style.maxHeight === '') {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        icon.style.transform = 'rotate(45deg)';
+    } else {
+        answer.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+    }
+}
+
 // Close modal on click outside
 modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
@@ -137,22 +162,28 @@ const imageModal = document.getElementById('image-modal');
 const modalImage = document.getElementById('modal-image');
 
 function openImageModal(imageSrc) {
-    if (!imageModal) {
+    if (!window.imageModal) {
         // Create image modal if it doesn't exist
         const modalHTML = `
-            <div id="image-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
-                <button onclick="closeImageModal()" class="absolute top-4 right-4 p-3 bg-primary border-4 border-dark hover:bg-secondary transition-colors z-10">
-                    <i data-lucide="x" class="w-6 h-6 text-white"></i>
+            <div id="image-modal" class="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300 backdrop-blur-xl">
+                <button onclick="closeImageModal()" class="absolute top-8 right-8 p-4 bg-primary border-4 border-dark hover:bg-secondary hover:-translate-y-1 transition-all z-10 shadow-retro">
+                    <i data-lucide="x" class="w-8 h-8 text-white"></i>
                 </button>
-                <img id="modal-image" src="" alt="Full size image" class="max-w-full max-h-full object-contain border-4 border-dark shadow-retro-lg">
+                <div class="relative max-w-5xl w-full max-h-[85vh] flex items-center justify-center group">
+                    <img id="modal-image" src="" alt="Full size image" class="max-w-full max-h-full object-contain border-4 border-dark shadow-retro-lg transition-transform duration-500 group-hover:scale-[1.02]">
+                </div>
             </div>
         `;
         document.body.insertAdjacentHTML('beforeend', modalHTML);
         lucide.createIcons(); // Reinitialize icons
 
-        // Get references after creating
         window.imageModal = document.getElementById('image-modal');
         window.modalImage = document.getElementById('modal-image');
+
+        // Close on click outside
+        window.imageModal.addEventListener('click', (e) => {
+            if (e.target === window.imageModal) closeImageModal();
+        });
     }
 
     window.imageModal.classList.remove('hidden');
@@ -331,7 +362,14 @@ const initGSAP = () => {
     // Trigger Counters
     ScrollTrigger.create({
         trigger: "#results",
-        start: "top 75%",
+        start: "top 85%",
+        once: true,
+        onEnter: () => animateCounters()
+    });
+
+    ScrollTrigger.create({
+        trigger: "#clients",
+        start: "top 85%",
         once: true,
         onEnter: () => animateCounters()
     });
@@ -377,16 +415,28 @@ const initContactForm = () => {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData);
 
-        // Here you would typically send to a backend or service like Formspree
-        // For now, we'll use mailto as fallback
+        // Show success message
+        const originalContent = form.innerHTML;
+        form.innerHTML = `
+            <div class="p-12 border-4 border-dark bg-success/20 animate-reveal">
+                <div class="flex justify-center mb-6">
+                    <div class="p-6 bg-success border-4 border-dark shadow-retro">
+                        <i data-lucide="check-circle" class="w-16 h-16 text-dark"></i>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-serif mb-4">MESSAGE RECEIVED!</h3>
+                <p class="text-dark mb-8">Thanks for reaching out. I'll get back to you soon!</p>
+                <button onclick="location.reload()" class="px-8 py-4 bg-primary border-4 border-dark shadow-retro hover:shadow-retro-lg transition-all text-xs font-bold text-white uppercase">Send Another</button>
+            </div>
+        `;
+        lucide.createIcons();
+
+        // Optional: still trigger mailto as a fallback or actual delivery method
         const mailtoLink = `mailto:ifham.wani89@gmail.com?subject=${encodeURIComponent(data.subject || 'Portfolio Contact')}&body=${encodeURIComponent(data.message)}`;
         window.location.href = mailtoLink;
 
-        setTimeout(() => {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-            form.reset();
-        }, 2000);
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
     });
 };
 
@@ -599,6 +649,27 @@ const initBlurReveal = () => {
     });
 };
 
+// --- 16. Back to Top Button ---
+const initBackToTop = () => {
+    const btn = document.getElementById('back-to-top');
+    if (!btn) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            btn.classList.remove('hidden');
+        } else {
+            btn.classList.add('hidden');
+        }
+    });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+};
+
 // --- Initialize Everything ---
 window.addEventListener('load', () => {
     initThreeJS();
@@ -607,6 +678,7 @@ window.addEventListener('load', () => {
     initContactForm();
     initCustomCursor();
     initBlurReveal();
+    initBackToTop();
     startAutoPlay();
     hidePreloader();
 });
@@ -616,6 +688,7 @@ window.openModal = openModal;
 window.closeModal = closeModal;
 window.openImageModal = openImageModal;
 window.closeImageModal = closeImageModal;
+window.toggleFAQ = toggleFAQ;
 window.openGallery = openGallery;
 window.slideVideo = slideVideo;
 window.goToVideoSlide = goToVideoSlide;
