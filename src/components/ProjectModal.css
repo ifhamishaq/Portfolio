@@ -97,10 +97,11 @@
 
 .modal-category {
     font-family: var(--mono);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     letter-spacing: 0.1rem;
     color: var(--accent);
     margin-bottom: 10px;
+    font-weight: 700;
 }
 
 .modal-title {

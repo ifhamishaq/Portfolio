@@ -58,11 +58,11 @@
 
 .form-label {
     font-family: var(--mono);
-    font-size: 0.65rem;
-    font-weight: 600;
+    font-size: 0.7rem;
+    font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--text-muted);
 }
 
 .form-input {

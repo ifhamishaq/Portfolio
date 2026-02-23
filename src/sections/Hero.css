@@ -101,13 +101,28 @@
     transform: translateX(6px);
 }
 
+/* 3D Model Container */
+.hero-3d-container {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(280px, 35vw, 500px);
+    height: clamp(280px, 35vw, 500px);
+    z-index: 1;
 }
 
-.project-card-desc {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    /* This is now #D1D1D1 - much more visible */
-    line-height: 1.5;
+.hero-3d-loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
 }
 
 /* Stats */
@@ -134,11 +149,13 @@
 
 .hero-stat-label {
     font-family: var(--mono);
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--text-dim);
+    color: var(--text-muted);
+    /* Brighter */
     margin-top: 4px;
+    font-weight: 600;
 }
 
 /* Scroll indicator */

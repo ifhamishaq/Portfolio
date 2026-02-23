@@ -21,20 +21,11 @@
     margin-top: 64px;
 }
 
-.modal-category {
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    /* Larger */
-    letter-spacing: 0.1rem;
-    color: var(--accent);
-    margin-bottom: 10px;
-    font-weight: 700;
-}
-
 .about-text p {
     font-family: var(--mono);
     font-size: 0.85rem;
     color: var(--text-muted);
+    /* This is now #E0E0E0 - very visible */
     line-height: 1.9;
     margin-bottom: 24px;
 }
@@ -105,18 +96,6 @@
 
 .about-tools {
     margin-top: 40px;
-}
-
-.about-to.hero-stat-label {
-    font-family: var(--mono);
-    font-size: 0.65rem;
-    /* Larger */
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    /* Brighter */
-    margin-top: 4px;
-    font-weight: 600;
 }
 
 .about-tools-title {
