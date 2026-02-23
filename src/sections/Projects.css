@@ -1,0 +1,111 @@
+/* Projects Section — Minimalist grid */
+.projects {
+    padding: var(--section-padding) 0;
+    position: relative;
+    z-index: 1;
+}
+
+.projects-header {
+    margin-bottom: 64px;
+}
+
+.projects-tabs {
+    display: flex;
+    gap: 16px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+}
+
+.projects-tab {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: none;
+    border: 2px solid var(--border);
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.projects-tab:hover {
+    border-color: var(--text);
+    color: var(--text);
+}
+
+.projects-tab.active {
+    color: var(--text);
+    background: var(--accent);
+    border-color: var(--accent);
+    font-weight: 700;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 24px;
+}
+
+/* See More Button */
+.projects-see-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 56px;
+}
+
+.projects-see-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+    background: var(--accent);
+    padding: 18px 44px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-out-expo);
+}
+
+.projects-see-more-btn:hover {
+    background: var(--text);
+    color: var(--bg);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.projects-see-more-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s;
+}
+
+.projects-see-more-btn:hover svg {
+    transform: translateX(6px);
+}
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .projects-tabs {
+        gap: 10px;
+    }
+
+    .projects-tab {
+        font-size: 0.65rem;
+        padding: 8px 16px;
+    }
+
+    .projects-see-more-btn {
+        padding: 14px 32px;
+        font-size: 0.7rem;
+    }
+}
