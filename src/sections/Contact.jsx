@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import ShinyText from '../components/Animations/ShinyText';
+import DecryptedText from '../components/Animations/DecryptedText';
 import './Contact.css';
 
 const SERVICES = [
@@ -38,7 +40,9 @@ export default function Contact() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <div className="section-label">// Contact</div>
+                    <div className="section-label">
+                        <DecryptedText text="// Contact" />
+                    </div>
                     <h2 className="contact-title">
                         Let's <em>Create</em><br />Together
                     </h2>
@@ -138,7 +142,7 @@ export default function Contact() {
                             </div>
 
                             <button type="submit" className="form-submit" data-cursor-hover>
-                                Send Message
+                                <ShinyText text="Send Message" speed={3} />
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M5 12h14M12 5l7 7-7 7" />
                                 </svg>
@@ -150,7 +154,7 @@ export default function Contact() {
                         <div className="contact-alt-group">
                             <span>Reach me directly:</span>
                             <a href="mailto:ifham.wani89@gmail.com" className="contact-alt-link" data-cursor-hover>
-                                ifham.wani89@gmail.com
+                                <DecryptedText text="ifham.wani89@gmail.com" />
                             </a>
                         </div>
                         <div className="contact-alt-group">

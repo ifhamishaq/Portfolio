@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { PROJECTS } from '../data/projects';
+import ShinyText from '../components/Animations/ShinyText';
+import DecryptedText from '../components/Animations/DecryptedText';
+import SplitText from '../components/Animations/SplitText';
 import './WorkShowcase.css';
 
 // Pick a mix of projects for the slideshow
@@ -31,7 +34,9 @@ export default function WorkShowcase() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
-                    <div className="section-label">// Selected Work</div>
+                    <div className="section-label">
+                        <DecryptedText text="// Selected Work" />
+                    </div>
                     <h2 className="section-title">Recent Projects</h2>
                 </motion.div>
 
@@ -52,8 +57,12 @@ export default function WorkShowcase() {
                                     )}
                                 </div>
                                 <div className="showcase-slide-info">
-                                    <div className="showcase-slide-category">{project.category}</div>
-                                    <h3 className="showcase-slide-title">{project.title}</h3>
+                                    <div className="showcase-slide-category">
+                                        <DecryptedText text={project.category} />
+                                    </div>
+                                    <h3 className="showcase-slide-title">
+                                        <SplitText text={project.title} />
+                                    </h3>
                                     <p className="showcase-slide-desc">{project.description}</p>
                                 </div>
                             </motion.div>
@@ -85,7 +94,7 @@ export default function WorkShowcase() {
                         data-cursor-hover
                         onClick={() => navigate('/portfolio')}
                     >
-                        View Full Portfolio
+                        <ShinyText text="View Full Portfolio" speed={4} />
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>

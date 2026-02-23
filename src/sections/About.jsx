@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { Film, Palette, Box, Sparkles, Globe } from 'lucide-react';
+import SplitText from '../components/Animations/SplitText';
+import DecryptedText from '../components/Animations/DecryptedText';
 import './About.css';
 
 const SKILLS = [
@@ -47,8 +49,12 @@ export default function About() {
         <section className="about" id="about">
             <div className="container">
                 <motion.div {...fadeIn}>
-                    <div className="section-label">// About</div>
-                    <h2 className="section-title">The Artist</h2>
+                    <div className="section-label">
+                        <DecryptedText text="// About" />
+                    </div>
+                    <h2 className="section-title">
+                        <SplitText text="The Artist" />
+                    </h2>
                 </motion.div>
 
                 <div className="about-grid">
@@ -87,7 +93,9 @@ export default function About() {
                             <div className="about-tools-title">Tools & Software</div>
                             <div className="about-tools-list">
                                 {TOOLS.map((tool) => (
-                                    <span key={tool} className="about-tool-tag">{tool}</span>
+                                    <span key={tool} className="about-tool-tag">
+                                        <DecryptedText text={tool} />
+                                    </span>
                                 ))}
                             </div>
                         </div>

@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import SplitText from '../components/Animations/SplitText';
+import DecryptedText from '../components/Animations/DecryptedText';
 import './Hero.css';
 
 export default function Hero() {
@@ -21,9 +23,15 @@ export default function Hero() {
         <section className="hero" ref={ref} id="home">
             <motion.div className="hero-content" style={{ opacity }}>
                 <motion.div style={{ y: titleY }}>
-                    <div className="hero-label">Ifham Ishaq</div>
+                    <div className="hero-label">
+                        <DecryptedText text="Ifham Ishaq" />
+                    </div>
                     <h1 className="hero-title">
-                        The <em>Analog</em><br />Laboratory
+                        <SplitText text="The Analog" />
+                        <br />
+                        <em style={{ display: 'inline-block', marginTop: '10px' }}>
+                            <SplitText text="Laboratory" delay={0.5} />
+                        </em>
                     </h1>
                 </motion.div>
 
