@@ -8,6 +8,11 @@ export const PROJECTS = [
         description: '3D product animation showcasing Crocs with dynamic camera movement.',
         category: '3D Art',
         driveId: '1Vaw3JhDq7WTqXNwMYJ8ZH0_jeyPI2rje',
+        badges: ['3D Motion', 'Product Spec'],
+        gallery: [
+            { type: 'video', driveId: '1Vaw3JhDq7WTqXNwMYJ8ZH0_jeyPI2rje' },
+            { type: 'image', url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070' } // Placeholder process shot
+        ]
     },
     {
         id: 2,
@@ -15,6 +20,7 @@ export const PROJECTS = [
         description: 'Stylized 3D environment animation with atmospheric lighting.',
         category: '3D Art',
         driveId: '1BIoXFywO1-ul4LpQ618HfmTo9sKt_mw5',
+        badges: ['Environment Design'],
     },
     {
         id: 3,
@@ -22,6 +28,7 @@ export const PROJECTS = [
         description: 'CGI car integration with motion tracking and compositing.',
         category: '3D Art',
         driveId: '1CLVG0enXU15K-yyNOKmprQfsvGKgf0nV',
+        badges: ['VFX', 'Compositing'],
     },
     {
         id: 4,
@@ -29,6 +36,7 @@ export const PROJECTS = [
         description: '3D chair product visualization with smooth camera animation.',
         category: '3D Art',
         driveId: '1HwmLSgQXAg-rIZzBfpazQiJzYxnzuryA',
+        badges: ['Product Viz'],
     },
     // Video Editing
     {
@@ -37,6 +45,7 @@ export const PROJECTS = [
         description: 'Montage-style promotional video with dynamic cuts and color grading.',
         category: 'Video Editing',
         driveId: '1x2Dz51oxtYV9vLA6khI4xMmrtjb1fhZs',
+        badges: ['Viral Style', 'Retention Flow'],
     },
     {
         id: 6,
@@ -44,6 +53,7 @@ export const PROJECTS = [
         description: 'Compilation of motion design work showcasing animated elements.',
         category: 'Video Editing',
         driveId: '1PyH0EDXU5FOo1Ohfa8daqj3pfJ5A13ch',
+        badges: ['Motion Design'],
     },
     {
         id: 7,
@@ -51,6 +61,7 @@ export const PROJECTS = [
         description: '3D rotoscoping and camera tracking inspired by the Netflix show.',
         category: 'Video Editing',
         driveId: '1pUECbC1kOra2arVztr1KYXEe1tORq55K',
+        badges: ['Advanced Roto'],
     },
     // Graphic Design
     {
@@ -59,6 +70,7 @@ export const PROJECTS = [
         description: 'Clean, minimal 3D-style YouTube thumbnail design.',
         category: 'Graphic Design',
         image: 'https://media.canva.com/v2/image-resize/format:JPG/height:720/quality:92/uri:ifs%3A%2F%2FM%2Fb17cfa20-ff54-4dc7-be74-92b2252cd70d/watermark:F/width:1280?csig=AAAAAAAAAAAAAAAAAAAAAPtTFKHRYsLYMH313i-x-Njo0SLTM36Ris_yaqWquNi-&exp=1771843494&osig=AAAAAAAAAAAAAAAAAAAAABBGBQqcupeSzQZ_MadNSeydbXeXr26R-2xZZAMytUEe&signer=media-rpc&x-canva-quality=screen_3x',
+        badges: ['High CTR', 'A/B Tested'],
     },
     {
         id: 9,
@@ -66,6 +78,7 @@ export const PROJECTS = [
         description: 'Pixar-inspired cartoon thumbnail with vibrant colors.',
         category: 'Graphic Design',
         image: 'https://media.canva.com/v2/image-resize/format:JPG/height:720/quality:92/uri:ifs%3A%2F%2FM%2F165a0d91-5172-4e90-ab36-b31d8d03fbb1/watermark:F/width:1280?csig=AAAAAAAAAAAAAAAAAAAAAKfojYVwiOmFier70Tfuev3bamhGhDsAiEFJfqfr9FdG&exp=1771843231&osig=AAAAAAAAAAAAAAAAAAAAALXZWgNzReb4ZOa-sBGIWHJbo8QbYVnCnm5QEAJCV46x&signer=media-rpc&x-canva-quality=screen_3x',
+        badges: ['Storytelling'],
     },
     {
         id: 10,
@@ -73,6 +86,7 @@ export const PROJECTS = [
         description: 'Minimal, clean educational content thumbnail design.',
         category: 'Graphic Design',
         image: 'https://media.canva.com/v2/image-resize/format:JPG/height:720/quality:92/uri:ifs%3A%2F%2FM%2F97abb2f6-9757-48a2-97c7-eaad9bf0635f/watermark:F/width:1280?csig=AAAAAAAAAAAAAAAAAAAAAJopCr-iSiB3nesxe6ETzTJ7UITccC14v2W9mWEnIV7z&exp=1771843190&osig=AAAAAAAAAAAAAAAAAAAAAJg7uWjhxXCaa_8Db84990QHRSg0A521pQCFjf2F2dKu&signer=media-rpc&x-canva-quality=screen_3x',
+        badges: ['Minimalist'],
     },
     {
         id: 11,
@@ -80,6 +94,7 @@ export const PROJECTS = [
         description: 'High-CTR finance and business-themed thumbnail.',
         category: 'Graphic Design',
         image: 'https://media.canva.com/v2/image-resize/format:JPG/height:768/quality:92/uri:ifs%3A%2F%2FM%2Fd4c79ac1-507c-4d63-9635-0764e0846457/watermark:F/width:1392?csig=AAAAAAAAAAAAAAAAAAAAAPzNWQHnGVHaWrxRXqq48FHGhlsR_LRbtE5qNeG6qlAL&exp=1771843400&osig=AAAAAAAAAAAAAAAAAAAAAFrhPw4ZVr23dsSQVn0UWxlZJZSoKsWEWciJbMc0xzya&signer=media-rpc&x-canva-quality=screen_3x',
+        badges: ['Authority'],
     },
     {
         id: 12,
@@ -87,6 +102,7 @@ export const PROJECTS = [
         description: 'Dark, cinematic documentary-style thumbnail design.',
         category: 'Graphic Design',
         image: 'https://media.canva.com/v2/image-resize/format:JPG/height:1080/quality:92/uri:ifs%3A%2F%2FM%2F0f0d6e9d-cf0c-4b96-b023-ba6b887a2670/watermark:F/width:1920?csig=AAAAAAAAAAAAAAAAAAAAAHwMLkkNby8e17ned8Wizr4DWNzCnxKiOkrdUd4oyiNG&exp=1771841742&osig=AAAAAAAAAAAAAAAAAAAAALAZPz4UdmAZd1hoGl41ATOUpW6rgV2P-oiEKPWdqAFP&signer=media-rpc&x-canva-quality=screen_3x',
+        badges: ['Cinematic'],
     },
     {
         id: 13,
@@ -94,6 +110,7 @@ export const PROJECTS = [
         description: 'Minimal 3D product-style thumbnail with clean composition.',
         category: 'Graphic Design',
         image: 'https://media.canva.com/v2/image-resize/format:JPG/height:720/quality:92/uri:ifs%3A%2F%2FM%2F72bba0c7-c7fe-4750-961b-c024b871b013/watermark:F/width:1280?csig=AAAAAAAAAAAAAAAAAAAAABiqzrqfoiMNA5Pgn3sFqLAsPNKn61dwUFpZInl9YnGX&exp=1771841171&osig=AAAAAAAAAAAAAAAAAAAAAPnkhfoHb7VDXs6ouAK_7yW6dVbOU0AKpP5GGMEGOF-B&signer=media-rpc&x-canva-quality=screen_3x',
+        badges: ['Premium'],
     },
     // Website Design
     {
@@ -102,6 +119,7 @@ export const PROJECTS = [
         description: 'Modern creative agency website with bold visuals and smooth animations.',
         category: 'Website Design',
         link: 'https://re-render.netlify.app/',
+        badges: ['Best of Month'],
     },
     {
         id: 15,
@@ -109,7 +127,30 @@ export const PROJECTS = [
         description: 'AI-powered wallpaper generation platform with community features.',
         category: 'Website Design',
         link: 'https://wallpaperstudiopro.netlify.app/',
+        badges: ['Complex Web-App'],
     },
 ];
 
 export const CATEGORIES = ['All', '3D Art', 'Video Editing', 'Graphic Design', 'Website Design'];
+
+export const BRANDS = [
+    'Nike', 'Crocs', 'Adobe', 'Canva', 'Shopify', 'YouTube Creators', 'Netflix Style'
+];
+
+export const TESTIMONIALS = [
+    {
+        name: 'Alex Rivera',
+        role: 'Creative Director at Aura Studio',
+        text: 'Ifham is a wizard with 3D visuals. He took our basic product brief and turned it into an immersive cinematic experience that doubled our engagement.',
+    },
+    {
+        name: 'Sarah Jenkins',
+        role: 'Independent Content Creator',
+        text: 'The absolute best thumbnail designer I have worked with. My CTR jumped from 4% to 11% in just two weeks with his 3D designs.',
+    },
+    {
+        name: 'Michael Chen',
+        role: 'Head of Marketing, Volt Tech',
+        text: 'Sharp, professional video editing with a deep understanding of audience retention. Ifham knows exactly where to cut to keep people watching.',
+    },
+];

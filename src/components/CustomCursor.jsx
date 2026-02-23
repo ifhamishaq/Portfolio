@@ -1,12 +1,14 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './CustomCursor.css';
 
 export default function CustomCursor() {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
+  const textRef = useRef(null);
   const mouse = useRef({ x: 0, y: 0 });
   const ring = useRef({ x: 0, y: 0 });
   const raf = useRef(null);
+  const [cursorText, setCursorText] = useState('');
 
   useEffect(() => {
     const isTouchDevice = 'ontouchstart' in window;
@@ -31,35 +33,42 @@ export default function CustomCursor() {
       raf.current = requestAnimationFrame(animate);
     };
 
-    const onMouseEnterInteractive = () => {
+    const onMouseEnterInteractive = (e) => {
       dotRef.current?.classList.add('hovering');
       ringRef.current?.classList.add('hovering');
+
+      const target = e.currentTarget;
+      const text = target.getAttribute('data-cursor-text');
+      if (text) {
+        setCursorText(text);
+        ringRef.current?.classList.add('has-text');
+      }
     };
 
     const onMouseLeaveInteractive = () => {
       dotRef.current?.classList.remove('hovering');
       ringRef.current?.classList.remove('hovering');
+      ringRef.current?.classList.remove('has-text');
+      setCursorText('');
     };
 
     window.addEventListener('mousemove', onMouseMove);
     raf.current = requestAnimationFrame(animate);
 
-    const interactiveEls = document.querySelectorAll('a, button, [data-cursor-hover]');
-    interactiveEls.forEach((el) => {
-      el.addEventListener('mouseenter', onMouseEnterInteractive);
-      el.addEventListener('mouseleave', onMouseLeaveInteractive);
-    });
-
-    // Re-observe for new interactive elements
-    const observer = new MutationObserver(() => {
-      const newEls = document.querySelectorAll('a, button, [data-cursor-hover]');
-      newEls.forEach((el) => {
+    const setupListeners = () => {
+      const interactiveEls = document.querySelectorAll('a, button, [data-cursor-hover]');
+      interactiveEls.forEach((el) => {
         el.removeEventListener('mouseenter', onMouseEnterInteractive);
         el.removeEventListener('mouseleave', onMouseLeaveInteractive);
         el.addEventListener('mouseenter', onMouseEnterInteractive);
         el.addEventListener('mouseleave', onMouseLeaveInteractive);
       });
-    });
+    };
+
+    setupListeners();
+
+    // Re-observe for new interactive elements
+    const observer = new MutationObserver(setupListeners);
     observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
@@ -72,7 +81,10 @@ export default function CustomCursor() {
   return (
     <>
       <div ref={dotRef} className="cursor-dot" />
-      <div ref={ringRef} className="cursor-ring" />
+      <div ref={ringRef} className="cursor-ring">
+        {cursorText && <span ref={textRef} className="cursor-text">{cursorText}</span>}
+      </div>
     </>
   );
 }
+
