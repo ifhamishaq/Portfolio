@@ -134,23 +134,29 @@ export const PROJECTS = [
 export const CATEGORIES = ['All', '3D Art', 'Video Editing', 'Graphic Design', 'Website Design'];
 
 export const BRANDS = [
-    'Nike', 'Crocs', 'Adobe', 'Canva', 'Shopify', 'YouTube Creators', 'Netflix Style'
+    'Jeff Rose CPF (400k subs)',
+    'Omer Majid (1m subs)',
+    'Borror The Leader (streamer)',
+    'Johnny Wonder (26k subs)',
+    'BelsiEditors',
+    'Creative Agencies',
+    '3D Product Brands'
 ];
 
 export const TESTIMONIALS = [
     {
-        name: 'Alex Rivera',
-        role: 'Creative Director at Aura Studio',
-        text: 'Ifham is a wizard with 3D visuals. He took our basic product brief and turned it into an immersive cinematic experience that doubled our engagement.',
+        name: 'musamoosa22',
+        role: 'Fiverr Client',
+        text: 'Loved Working with the Guy! Really Really Responsive, Quick Delivery on the Demos and Overall VERY Fun to work with. Whoever\'s Reading this, REALLY Recommend working with him! The guy knows his Stuff! 5/5',
     },
     {
-        name: 'Sarah Jenkins',
-        role: 'Independent Content Creator',
-        text: 'The absolute best thumbnail designer I have worked with. My CTR jumped from 4% to 11% in just two weeks with his 3D designs.',
+        name: 'Belsi Editors',
+        role: 'Website Design',
+        text: 'The best portfolio website developer we have ever worked with. The attention to detail and smooth animations have completely transformed our brand presentation.',
     },
     {
-        name: 'Michael Chen',
-        role: 'Head of Marketing, Volt Tech',
-        text: 'Sharp, professional video editing with a deep understanding of audience retention. Ifham knows exactly where to cut to keep people watching.',
+        name: 'Jeff Rose CPF',
+        role: 'Poster Design',
+        text: 'Stunning posters that capture the essence of our brand perfectly. High-impact designs and extremely creative approach to static visuals.',
     },
 ];

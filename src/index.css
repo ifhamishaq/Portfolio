@@ -5,19 +5,19 @@
 
 :root {
   /* Colors */
-  --bg: #F5F5F5;
-  --bg-elevated: #FFFFFF;
-  --bg-card: rgba(0, 0, 0, 0.03);
-  --text: #080808;
-  --text-muted: #444444;
-  --text-dim: #777777;
+  --bg: #080808;
+  --bg-elevated: #151515;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --text: #FFFFFF;
+  --text-muted: #D1D1D1;
+  --text-dim: #999999;
   --accent: #32E612;
-  /* Slightly more saturated neon for light backgrounds */
-  --accent-dim: rgba(50, 230, 18, 0.1);
-  --border: rgba(0, 0, 0, 0.12);
-  --border-hover: rgba(0, 0, 0, 0.25);
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.1);
+  /* Radiant neon for dark backgrounds */
+  --accent-dim: rgba(50, 230, 18, 0.2);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  --glass-bg: rgba(10, 10, 10, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
 
   /* Typography */
   --heading: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -126,18 +126,18 @@ video {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.04;
+  opacity: 0.05;
   background-image:
     repeating-linear-gradient(0deg,
       transparent,
       transparent 99px,
-      rgba(0, 0, 0, 0.3) 99px,
-      rgba(0, 0, 0, 0.3) 100px),
+      rgba(255, 255, 255, 0.3) 99px,
+      rgba(255, 255, 255, 0.3) 100px),
     repeating-linear-gradient(90deg,
       transparent,
       transparent 99px,
-      rgba(0, 0, 0, 0.3) 99px,
-      rgba(0, 0, 0, 0.3) 100px);
+      rgba(255, 255, 255, 0.3) 99px,
+      rgba(255, 255, 255, 0.3) 100px);
 }
 
 /* Utility */

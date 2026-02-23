@@ -25,10 +25,18 @@
 }
 
 .project-card-media img,
-.project-card-media video {
+.project-card-media video,
+.project-card-iframe {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.project-card-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
 }
 
 .project-card-overlay {

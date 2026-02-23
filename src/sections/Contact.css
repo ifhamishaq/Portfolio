@@ -87,7 +87,7 @@
 .form-input:focus {
     border-color: var(--text);
     background: var(--bg-elevated);
-    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.03);
 }
 
 .form-select {

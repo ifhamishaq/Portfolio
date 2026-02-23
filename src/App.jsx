@@ -55,9 +55,9 @@ export default function App() {
       <CustomCursor />
       <CRTOverlay />
       <Squares
-        borderColor="rgba(0,0,0,0.08)"
+        borderColor="rgba(255,255,255,0.05)"
         squareSize={40}
-        hoverFillColor="rgba(50, 230, 18, 0.1)"
+        hoverFillColor="rgba(50, 230, 18, 0.15)"
       />
       <Navbar />
       <AnimatePresence mode="wait">

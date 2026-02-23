@@ -40,9 +40,11 @@
 }
 
 .testimonial-text {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    /* Larger */
     line-height: 1.7;
     color: var(--text);
+    /* Stronger contrast */
     margin-bottom: 25px;
     position: relative;
     z-index: 1;
