@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ShinyText from '../components/Animations/ShinyText';
 import DecryptedText from '../components/Animations/DecryptedText';
+import Magnet from '../components/Animations/Magnet';
 import './Contact.css';
 
 const SERVICES = [
@@ -141,12 +142,14 @@ export default function Contact() {
                                 />
                             </div>
 
-                            <button type="submit" className="form-submit" data-cursor-hover>
-                                <ShinyText text="Send Message" speed={3} />
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M5 12h14M12 5l7 7-7 7" />
-                                </svg>
-                            </button>
+                            <Magnet padding={50} strength={0.2}>
+                                <button type="submit" className="form-submit" data-cursor-hover>
+                                    <ShinyText text="Send Message" speed={3} />
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </Magnet>
                         </form>
                     )}
 

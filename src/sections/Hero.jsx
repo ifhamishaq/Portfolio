@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import SplitText from '../components/Animations/SplitText';
 import DecryptedText from '../components/Animations/DecryptedText';
+import Magnet from '../components/Animations/Magnet';
 import './Hero.css';
 
 export default function Hero() {
@@ -41,18 +42,20 @@ export default function Hero() {
                     and immersive 3D experiences.
                 </motion.p>
 
-                <motion.button
-                    className="hero-cta"
-                    onClick={scrollToWork}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    data-cursor-hover
-                >
-                    View My Work
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                </motion.button>
+                <Magnet padding={80} strength={0.2}>
+                    <motion.button
+                        className="hero-cta"
+                        onClick={scrollToWork}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        data-cursor-hover
+                    >
+                        View My Work
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </motion.button>
+                </Magnet>
             </motion.div>
 
             {/* Stats */}

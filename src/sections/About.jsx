@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { Film, Palette, Box, Sparkles, Globe } from 'lucide-react';
 import SplitText from '../components/Animations/SplitText';
 import DecryptedText from '../components/Animations/DecryptedText';
+import SpotlightCard from '../components/Animations/SpotlightCard';
 import './About.css';
 
 const SKILLS = [
@@ -113,21 +114,24 @@ export default function About() {
                             return (
                                 <motion.div
                                     key={skill.title}
-                                    className="about-skill-card"
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.4, delay: 0.1 * i }}
                                 >
-                                    <div className="about-skill-icon">
-                                        <Icon size={24} strokeWidth={1.5} />
-                                    </div>
-                                    <div className="about-skill-title">{skill.title}</div>
-                                    <ul className="about-skill-list">
-                                        {skill.items.map((item) => (
-                                            <li key={item}>{item}</li>
-                                        ))}
-                                    </ul>
+                                    <SpotlightCard>
+                                        <div className="about-skill-card" style={{ border: 'none', background: 'transparent', padding: 0 }}>
+                                            <div className="about-skill-icon">
+                                                <Icon size={24} strokeWidth={1.5} />
+                                            </div>
+                                            <div className="about-skill-title">{skill.title}</div>
+                                            <ul className="about-skill-list">
+                                                {skill.items.map((item) => (
+                                                    <li key={item}>{item}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </SpotlightCard>
                                 </motion.div>
                             );
                         })}

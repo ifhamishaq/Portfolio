@@ -1,0 +1,4 @@
+.magnet-container {
+    display: inline-block;
+    will-change: transform;
+}

@@ -9,6 +9,7 @@ import Services from './sections/Services';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
 import Portfolio from './pages/Portfolio';
+import Squares from './components/Animations/Squares';
 
 function HomePage() {
   return (
@@ -29,7 +30,11 @@ export default function App() {
     <>
       <CustomCursor />
       <CRTOverlay />
-      <div className="drafting-grid" />
+      <Squares
+        borderColor="rgba(0,0,0,0.08)"
+        squareSize={40}
+        hoverFillColor="rgba(50, 230, 18, 0.1)"
+      />
       <Navbar />
       <Routes location={location}>
         <Route path="/" element={<HomePage />} />

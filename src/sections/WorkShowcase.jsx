@@ -5,6 +5,7 @@ import { PROJECTS } from '../data/projects';
 import ShinyText from '../components/Animations/ShinyText';
 import DecryptedText from '../components/Animations/DecryptedText';
 import SplitText from '../components/Animations/SplitText';
+import Magnet from '../components/Animations/Magnet';
 import './WorkShowcase.css';
 
 // Pick a mix of projects for the slideshow
@@ -89,16 +90,18 @@ export default function WorkShowcase() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                 >
-                    <button
-                        className="showcase-cta-btn"
-                        data-cursor-hover
-                        onClick={() => navigate('/portfolio')}
-                    >
-                        <ShinyText text="View Full Portfolio" speed={4} />
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </button>
+                    <Magnet padding={50} strength={0.2}>
+                        <button
+                            className="showcase-cta-btn"
+                            data-cursor-hover
+                            onClick={() => navigate('/portfolio')}
+                        >
+                            <ShinyText text="View Full Portfolio" speed={4} />
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </Magnet>
                 </motion.div>
             </div>
         </section>
