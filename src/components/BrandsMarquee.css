@@ -32,9 +32,11 @@
     font-size: 1.5rem;
     font-weight: 700;
     padding: 0 4rem;
-    color: var(--text);
-    opacity: 0.4;
-    transition: opacity 0.3s ease;
+    color: var(--text-dim);
+    /* Switched from full white to text-dim for a cleaner look that is still 100% visible */
+    opacity: 1;
+    /* Removed transparency */
+    transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 .brand-item:hover {

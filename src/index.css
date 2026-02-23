@@ -6,14 +6,16 @@
 :root {
   /* Colors */
   --bg: #080808;
-  --bg-elevated: #151515;
-  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-elevated: #1A1A1A;
+  --bg-card: rgba(255, 255, 255, 0.08);
   --text: #FFFFFF;
-  --text-muted: #D1D1D1;
-  --text-dim: #999999;
+  --text-muted: #E0E0E0;
+  /* Near white for body/muted text */
+  --text-dim: #BBBBBB;
+  /* High visibility for labels */
   --accent: #32E612;
   /* Radiant neon for dark backgrounds */
-  --accent-dim: rgba(50, 230, 18, 0.2);
+  --accent-dim: rgba(50, 230, 18, 0.25);
   --border: rgba(255, 255, 255, 0.08);
   --border-hover: rgba(255, 255, 255, 0.18);
   --glass-bg: rgba(10, 10, 10, 0.75);
