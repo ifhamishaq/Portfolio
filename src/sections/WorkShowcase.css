@@ -1,8 +1,8 @@
-/* Work Showcase — Minimal Slideshow */
 .work-showcase {
     padding: var(--section-padding) 0;
     position: relative;
     z-index: 1;
+    background: var(--bg-elevated);
 }
 
 .work-showcase-header {

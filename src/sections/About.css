@@ -55,7 +55,7 @@
 
 .about-skill-card {
     padding: 28px;
-    background: var(--bg);
+    background: var(--bg-elevated);
     border: 1px solid var(--border);
     transition: border-color 0.3s, background 0.3s;
 }
@@ -118,6 +118,7 @@
     font-size: 0.68rem;
     font-weight: 500;
     padding: 8px 16px;
+    background: var(--bg-elevated);
     border: 1px solid var(--border);
     color: var(--text-muted);
     transition: all 0.3s;
