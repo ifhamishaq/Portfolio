@@ -14,15 +14,26 @@ const SHOWCASE_ITEMS = PROJECTS.filter(p => p.driveId || p.gallery || p.image).s
 
 export default function WorkShowcase() {
     const [current, setCurrent] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
     const navigate = useNavigate();
 
-    // Auto-advance every 4 seconds
+    // Auto-advance logic with pause capability
     useEffect(() => {
+        if (isPaused) return;
+        
         const timer = setInterval(() => {
             setCurrent((prev) => (prev + 1) % SHOWCASE_ITEMS.length);
-        }, 4000);
+        }, 5000); // Slightly slower for better readability
+        
         return () => clearInterval(timer);
-    }, []);
+    }, [isPaused, current]);
+
+    const handleManualChange = (index) => {
+        setCurrent(index);
+        // Momentarily pause auto-advance on manual interaction
+        setIsPaused(true);
+        setTimeout(() => setIsPaused(false), 8000); // Pause for 8s
+    };
 
     const project = SHOWCASE_ITEMS[current];
 
@@ -53,13 +64,30 @@ export default function WorkShowcase() {
                                 exit={{ opacity: 0, x: -60, filter: "blur(10px)" }}
                                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                             >
-                                <div className="showcase-slide-media">
+                                <div 
+                                    className="showcase-slide-media"
+                                    onClick={() => navigate('/portfolio')}
+                                    style={{ cursor: 'pointer' }}
+                                >
                                     {project.image ? (
                                         <img src={project.image} alt={project.title} loading="lazy" />
+                                    ) : project.driveId ? (
+                                        <div className="showcase-video-preview">
+                                            <iframe
+                                                src={`https://drive.google.com/file/d/${project.driveId}/preview`}
+                                                allow="autoplay"
+                                                title={project.title}
+                                            />
+                                            <div className="video-overlay-hint">
+                                                <span>Preview</span>
+                                            </div>
+                                        </div>
                                     ) : project.gallery && project.gallery.length > 0 ? (
                                         <img src={project.gallery[0].url} alt={project.title} loading="lazy" />
                                     ) : (
-                                        <div style={{width: '100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center'}}>No Preview</div>
+                                        <div className="showcase-no-preview">
+                                            <span>No Preview Available</span>
+                                        </div>
                                     )}
                                 </div>
                                 <div className="showcase-slide-info">
@@ -86,7 +114,7 @@ export default function WorkShowcase() {
                             <button
                                 key={i}
                                 className={`showcase-dot ${i === current ? 'active' : ''}`}
-                                onClick={() => setCurrent(i)}
+                                onClick={() => handleManualChange(i)}
                                 aria-label={`Slide ${i + 1}`}
                             />
                         ))}
