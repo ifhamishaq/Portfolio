@@ -3,6 +3,7 @@ import { Film, Palette, Box, Sparkles, Globe } from 'lucide-react';
 import SplitText from '../components/Animations/SplitText';
 import DecryptedText from '../components/Animations/DecryptedText';
 import SpotlightCard from '../components/Animations/SpotlightCard';
+import LanyardCard from '../components/Animations/LanyardCard';
 import './About.css';
 
 const SKILLS = [
@@ -35,12 +36,12 @@ const SKILLS = [
 
 const TOOLS = [
     'Adobe Premiere Pro', 'After Effects', 'Photoshop',
-    'Illustrator', 'Blender',
+    'Illustrator', 'Blender', 'Canva'
 ];
 
 const fadeIn = {
-    initial: { opacity: 0, y: 30, filter: "blur(10px)" },
-    whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
     transition: { duration: 0.6 },
 };
@@ -59,87 +60,74 @@ export default function About() {
                 </motion.div>
 
                 <div className="about-grid">
-                    <motion.div
-                        className="about-text"
-                        initial={{ opacity: 0, x: -30, filter: "blur(10px)" }}
-                        whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                    {/* Bento Card 1: Cinematic Intro */}
+                    <motion.div 
+                        className="bento-item bento-intro"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <div className="about-highlight">
-                            Crafting visuals that captivate, retain, and convert.
-                        </div>
-
-                        <div className="about-portrait-wrapper">
-                            <img src="/portrait.jpg" alt="Ifham Ishaq" className="about-portrait" loading="lazy" />
-                            <div className="about-portrait-overlay"></div>
-                        </div>
-
-                        <p>
-                            I'm <strong>Ifham Ishaq</strong> — a multidisciplinary creative specializing in
-                            video editing, graphic design, 3D art, and website design
-                            with <strong>3+ years of professional experience</strong>. Based in India,
-                            I collaborate with creators, agencies, and brands across the globe.
+                        <h3 className="about-highlight">
+                            Bridging the gap between <span style={{ color: 'var(--accent)', fontStyle: 'italic' }}>technical precision</span> and raw cinematic emotion.
+                        </h3>
+                        <p style={{ color: 'var(--text-dim)', fontSize: '0.95rem', maxWidth: '90%' }}>
+                            Based in the digital frontier, I specialize in high-impact visual storytelling through 3D, VFX, and modern web interfaces.
                         </p>
-
-                        <p>
-                            My expertise spans <strong>retention-driven video editing</strong>,
-                            <strong> high-CTR thumbnail design</strong>, <strong>cinematic 3D visuals</strong>,
-                            and <strong>modern, responsive website design</strong>. Every project I take on
-                            is crafted to maximize audience engagement and elevate brand presence.
-                        </p>
-
-                        <p>
-                            Whether it's a scroll-stopping thumbnail, an immersive 3D product scene,
-                            a conversion-focused landing page, or a full video production — I deliver
-                            polished, professional work that drives measurable results.
-                        </p>
-
-                        <div className="about-tools">
-                            <div className="about-tools-title">Tools & Software</div>
-                            <div className="about-tools-list">
-                                {TOOLS.map((tool) => (
-                                    <span key={tool} className="about-tool-tag">
-                                        <DecryptedText text={tool} />
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
                     </motion.div>
 
+                    {/* Bento Card 2: The Physical Hook (Lanyard) */}
                     <motion.div
-                        className="about-skills-grid"
-                        initial={{ opacity: 0, x: 30, filter: "blur(10px)" }}
-                        whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                        className="bento-item bento-lanyard"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
+                        transition={{ duration: 0.8 }}
                     >
-                        {SKILLS.map((skill, i) => {
-                            const Icon = skill.icon;
-                            return (
-                                <motion.div
-                                    key={skill.title}
-                                    initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-                                    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.4, delay: 0.1 * i }}
-                                >
-                                    <SpotlightCard>
-                                        <div className="about-skill-card" style={{ border: 'none', background: 'transparent', padding: 0 }}>
-                                            <div className="about-skill-icon">
-                                                <Icon size={24} strokeWidth={1.5} />
-                                            </div>
-                                            <div className="about-skill-title">{skill.title}</div>
-                                            <ul className="about-skill-list">
-                                                {skill.items.map((item) => (
-                                                    <li key={item}>{item}</li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </SpotlightCard>
-                                </motion.div>
-                            );
-                        })}
+                         <LanyardCard />
+                    </motion.div>
+
+                    {/* Bento Card 3-7: Skills */}
+                    {SKILLS.map((skill, i) => {
+                        const Icon = skill.icon;
+                        return (
+                            <motion.div
+                                key={skill.title}
+                                className="bento-item bento-skill"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: 0.1 * i }}
+                            >
+                                <div className="about-skill-card">
+                                    <div className="about-skill-icon">
+                                        <Icon size={32} strokeWidth={1} />
+                                    </div>
+                                    <div>
+                                        <div className="about-skill-title">{skill.title}</div>
+                                        <ul className="about-skill-list">
+                                            {skill.items.map((item) => (
+                                                <li key={item}>{item}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+
+                    {/* Bento Card 8: Tools */}
+                    <motion.div 
+                        className="bento-item bento-tools"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <div className="about-tools-title">Tech Stack</div>
+                        <div className="about-tools-list">
+                            {TOOLS.map((tool) => (
+                                <span key={tool} className="about-tool-tag">{tool}</span>
+                            ))}
+                        </div>
                     </motion.div>
                 </div>
             </div>

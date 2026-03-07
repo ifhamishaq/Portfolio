@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import CustomCursor from './components/CustomCursor';
@@ -15,15 +16,12 @@ import Portfolio from './pages/Portfolio';
 import Admin from './pages/Admin';
 import Squares from './components/Animations/Squares';
 import BackToTop from './components/BackToTop';
+import TransitionWipe from './components/Animations/TransitionWipe';
+import NoiseOverlay from './components/Animations/NoiseOverlay';
 
 function HomePage() {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+    <PageTransitionWrapper>
       <Hero />
       <BrandsMarquee />
       <WorkShowcase />
@@ -31,36 +29,50 @@ function HomePage() {
       <Services />
       <Testimonials />
       <Contact />
-    </motion.div>
+    </PageTransitionWrapper>
   );
 }
 
 function PageTransitionWrapper({ children }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -20 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-    >
-      {children}
-    </motion.div>
+    <>
+      <TransitionWipe />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        {children}
+      </motion.div>
+    </>
   );
 }
 
 export default function App() {
   const location = useLocation();
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   return (
     <>
       <CustomCursor />
       <CRTOverlay />
+      <NoiseOverlay theme={theme} />
       <Squares
-        borderColor="rgba(255,255,255,0.05)"
+        borderColor={theme === 'dark' ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)"}
         squareSize={40}
-        hoverFillColor="rgba(50, 230, 18, 0.15)"
+        hoverFillColor={theme === 'dark' ? "rgba(50, 230, 18, 0.15)" : "rgba(26, 159, 0, 0.1)"}
       />
-      <Navbar />
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<HomePage />} />

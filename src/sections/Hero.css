@@ -17,11 +17,12 @@
 
 .hero-label {
     font-family: var(--mono);
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+    font-weight: 400;
     letter-spacing: 0.4em;
     text-transform: uppercase;
-    color: var(--text-dim);
-    margin-bottom: 28px;
+    color: var(--accent);
+    margin-bottom: 32px;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -40,20 +41,20 @@
 
 .hero-title {
     font-family: var(--heading);
-    font-size: clamp(3.5rem, 10vw, 9rem);
-    font-weight: 900;
+    font-size: clamp(3.2rem, 15vw, 11rem);
+    font-weight: 400;
     line-height: 0.9;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.02em;
     color: var(--text);
-    text-transform: uppercase;
-    margin-bottom: 28px;
+    text-transform: none;
+    margin-bottom: clamp(24px, 6vh, 40px);
 }
 
 .hero-title em {
-    font-style: normal;
-    color: var(--bg);
-    background: var(--accent);
-    padding: 0 8px;
+    font-style: italic;
+    color: var(--accent);
+    background: transparent;
+    padding: 0;
     display: inline;
 }
 
@@ -144,21 +145,21 @@
 
 .hero-stat-number {
     font-family: var(--heading);
-    font-size: 2.5rem;
-    font-weight: 900;
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-weight: 400;
     color: var(--text);
-    letter-spacing: -0.03em;
+    letter-spacing: -0.01em;
+    line-height: 1;
 }
 
 .hero-stat-label {
     font-family: var(--mono);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--text-muted);
-    /* Brighter */
-    margin-top: 4px;
-    font-weight: 600;
+    color: var(--accent);
+    margin-top: 8px;
+    opacity: 0.6;
 }
 
 /* Scroll indicator */
@@ -176,7 +177,7 @@
 .hero-scroll-line {
     width: 2px;
     height: 48px;
-    background: linear-gradient(to bottom, var(--text), transparent);
+    background: linear-gradient(to bottom, var(--accent), transparent);
     animation: scrollPulse 2s ease-in-out infinite;
 }
 

@@ -2,8 +2,9 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import SplitText from '../components/Animations/SplitText';
 import DecryptedText from '../components/Animations/DecryptedText';
+import InfiniteMarquee from '../components/Animations/InfiniteMarquee';
 import Magnet from '../components/Animations/Magnet';
-import Hero3DScene from '../components/Animations/Hero3DScene';
+import DotGrid from '../components/Animations/DotGrid';
 import './Hero.css';
 
 export default function Hero() {
@@ -23,28 +24,41 @@ export default function Hero() {
 
     return (
         <section className="hero" ref={ref} id="home">
-            {/* 3D Background Canvas */}
-            <Hero3DScene />
+            {/* Shutter Entrance */}
+            <motion.div 
+                className="shutter-top"
+                initial={{ y: 0 }}
+                animate={{ y: '-100%' }}
+                transition={{ duration: 1.2, ease: [0.87, 0, 0.13, 1], delay: 0.5 }}
+            />
+            <motion.div 
+                className="shutter-bottom"
+                initial={{ y: 0 }}
+                animate={{ y: '100%' }}
+                transition={{ duration: 1.2, ease: [0.87, 0, 0.13, 1], delay: 0.5 }}
+            />
+
+            {/* Massive background Infinite Marquee */}
+            <InfiniteMarquee text="VISUAL STORYTELLING • MOTION DESIGN • 3D ART • " />
+
+            {/* Interactive Dot Grid Background */}
+            <DotGrid dotColor="rgba(255,255,255,0.08)" activeColor="#32E612" dotSize={1.5} gap={30} />
             
             <motion.div className="hero-content" style={{ opacity }}>
                 <motion.div style={{ y: titleY }}>
                     <div className="hero-label">
-                        <DecryptedText text="Ifham Ishaq" />
+                        <DecryptedText text="Creative Director" />
                     </div>
                     <h1 className="hero-title">
-                        <SplitText text="The Analog" />
-                        <br />
-                        <em style={{ display: 'inline-block', marginTop: '10px' }}>
-                            <SplitText text="Laboratory" delay={0.5} />
+                        Building the <br />
+                        <em style={{ display: 'inline-block' }}>
+                            Analog Lab
                         </em>
                     </h1>
+                    <p className="hero-subtitle" style={{ color: 'var(--text-dim)', fontSize: '1.2rem', maxWidth: '540px', marginBottom: '40px', lineHeight: '1.5' }}>
+                        Transforming raw concepts into cinematic digital experiences through technical mastery and artistic vision.
+                    </p>
                 </motion.div>
-
-                <motion.p className="hero-subtitle" style={{ y: subtitleY }}>
-                    Video Editor · 3D Artist · Graphic Designer<br />
-                    Crafting cinematic visuals, high-CTR thumbnails,<br />
-                    and immersive 3D experiences.
-                </motion.p>
 
                 <Magnet padding={80} strength={0.2}>
                     <motion.button

@@ -16,6 +16,7 @@ export default function Admin() {
     const [link, setLink] = useState('');
     const [badges, setBadges] = useState('');
     const [imageFile, setImageFile] = useState(null);
+    const [editingId, setEditingId] = useState(null); // ID of project being edited
 
     // Load current projects on mount
     useEffect(() => {
@@ -24,12 +25,19 @@ export default function Admin() {
 
     const fetchProjects = async () => {
         try {
-            const res = await fetch('http://localhost:3001/api/projects');
+            const res = await fetch('http://localhost:3002/api/projects');
+            if (!res.ok) throw new Error(`Server returned ${res.status}`);
+            
+            const contentType = res.headers.get('content-type');
+            if (contentType && !contentType.includes('application/json')) {
+                throw new Error('Server returned non-JSON response. Is server.js running on port 3001?');
+            }
+
             const data = await res.json();
             setProjects(data);
         } catch (err) {
-            console.error('Error fetching projects. Is server.js running?', err);
-            setStatus('Failed to connect to Local Admin Server');
+            console.error('Error fetching projects:', err);
+            setStatus(`Connection Error: ${err.message}. Make sure server is running.`);
         }
     };
 
@@ -41,7 +49,7 @@ export default function Admin() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setStatus('Uploading...');
+        setStatus(editingId ? 'Updating...' : 'Uploading...');
 
         let finalImageUrl = '';
 
@@ -51,7 +59,7 @@ export default function Admin() {
                 const formData = new FormData();
                 formData.append('image', imageFile);
 
-                const uploadRes = await fetch('http://localhost:3001/api/upload', {
+                const uploadRes = await fetch('http://localhost:3002/api/upload', {
                     method: 'POST',
                     body: formData,
                 });
@@ -62,39 +70,40 @@ export default function Admin() {
             }
 
             // 2. Build the project object
-            const newProject = {
+            const projectDataObj = {
                 title,
                 description,
                 category,
-                badges: badges // will be split by backend
+                badges: badges 
             };
 
-            if (driveId) newProject.driveId = driveId;
-            if (link) newProject.link = link;
-            if (finalImageUrl) newProject.image = finalImageUrl;
+            if (driveId) projectDataObj.driveId = driveId;
+            if (link) projectDataObj.link = link;
+            if (finalImageUrl) projectDataObj.image = finalImageUrl;
 
-            // 3. Send to API to write to projectsData.json
-            const projectRes = await fetch('http://localhost:3001/api/projects', {
-                method: 'POST',
+            // 3. Send to API
+            const url = editingId 
+                ? `http://localhost:3002/api/projects/${editingId}`
+                : 'http://localhost:3002/api/projects';
+            
+            const method = editingId ? 'PUT' : 'POST';
+
+            const projectRes = await fetch(url, {
+                method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newProject),
+                body: JSON.stringify(projectDataObj),
             });
-            const projectData = await projectRes.json();
             
-            if (projectData.error) throw new Error(projectData.error);
+            if (!projectRes.ok) {
+                const errorData = await projectRes.json().catch(() => ({ error: `Server error ${projectRes.status}` }));
+                throw new Error(errorData.error || `Server returned ${projectRes.status}`);
+            }
 
-            setStatus('Success! Project Added.');
+            const result = await projectRes.json();
+
+            setStatus(editingId ? 'Success! Project Updated.' : 'Success! Project Added.');
             
-            // Reset form
-            setTitle('');
-            setDescription('');
-            setDriveId('');
-            setLink('');
-            setBadges('');
-            setImageFile(null);
-            document.getElementById('image-upload').value = '';
-            
-            // Refresh list
+            resetForm();
             fetchProjects();
 
         } catch (err) {
@@ -103,10 +112,48 @@ export default function Admin() {
         }
     };
 
+    const resetForm = () => {
+        setTitle('');
+        setDescription('');
+        setCategory('3D Art');
+        setDriveId('');
+        setLink('');
+        setBadges('');
+        setImageFile(null);
+        setEditingId(null);
+        const fileInput = document.getElementById('image-upload');
+        if (fileInput) fileInput.value = '';
+    };
+
+    const handleEdit = (project) => {
+        setEditingId(project.id);
+        setTitle(project.title);
+        setDescription(project.description);
+        setCategory(project.category);
+        setDriveId(project.driveId || '');
+        setLink(project.link || '');
+        setBadges(project.badges ? project.badges.join(', ') : '');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const handleDelete = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this project?')) return;
+        setStatus('Deleting...');
+        try {
+            const res = await fetch(`http://localhost:3002/api/projects/${id}`, { method: 'DELETE' });
+            const data = await res.json();
+            if (data.error) throw new Error(data.error);
+            setStatus('Project Deleted.');
+            fetchProjects();
+        } catch (err) {
+            setStatus(`Delete Failed: ${err.message}`);
+        }
+    };
+
     const handlePublish = async () => {
         setStatus('Pushing to GitHub... This takes a few seconds.');
         try {
-            const res = await fetch('http://localhost:3001/api/deploy', { method: 'POST' });
+            const res = await fetch('http://localhost:3002/api/deploy', { method: 'POST' });
             const data = await res.json();
             if (data.error) throw new Error(data.error);
             setStatus(`Publish Complete: ${data.message}`);
@@ -136,7 +183,10 @@ export default function Admin() {
 
             <div className="admin-grid">
                 <div className="admin-card">
-                    <h2>Add New Project</h2>
+                    <div className="admin-card-header">
+                        <h2>{editingId ? 'Edit Project' : 'Add New Project'}</h2>
+                        {editingId && <button className="btn-cancel" onClick={resetForm}>Cancel Edit</button>}
+                    </div>
                     <form onSubmit={handleSubmit} className="admin-form">
                         
                         <div className="form-group row">
@@ -182,7 +232,7 @@ export default function Admin() {
                         </div>
 
                         <button type="submit" className="btn-primary" style={{marginTop: '20px'}}>
-                            Save Project
+                            {editingId ? 'Update Project' : 'Save Project'}
                         </button>
                     </form>
                 </div>
@@ -200,6 +250,10 @@ export default function Admin() {
                                     {p.image && <span className="icon-img">🖼️ Image</span>}
                                     {p.driveId && <span className="icon-vid">🎬 Video</span>}
                                     {p.link && <span className="icon-link">🔗 Link</span>}
+                                </div>
+                                <div className="admin-list-actions">
+                                    <button className="btn-edit" onClick={() => handleEdit(p)}>Edit</button>
+                                    <button className="btn-delete" onClick={() => handleDelete(p.id)}>Delete</button>
                                 </div>
                             </div>
                         ))}

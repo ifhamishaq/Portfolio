@@ -232,11 +232,89 @@
     color: var(--text-dim);
 }
 
+/* Admin Actions */
+.admin-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 15px;
+}
+
+.admin-card-header h2 {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.btn-cancel {
+    background: var(--bg);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.admin-list-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-edit, .btn-delete {
+    padding: 6px 12px;
+    font-size: 0.65rem;
+    font-family: var(--mono);
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+}
+
+.btn-edit {
+    background: var(--bg-elevated);
+    color: var(--text);
+}
+
+.btn-edit:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-delete {
+    background: rgba(255, 51, 102, 0.1);
+    color: #FF3366;
+}
+
+.btn-delete:hover {
+    background: #FF3366;
+    color: #fff;
+}
+
 @media (max-width: 900px) {
     .admin-grid {
         grid-template-columns: 1fr;
     }
     .row {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-list-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .admin-list-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .btn-edit, .btn-delete {
+        flex: 1;
+        text-align: center;
     }
 }

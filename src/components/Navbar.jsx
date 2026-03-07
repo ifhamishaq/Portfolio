@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
+import ThemeToggle from './ThemeToggle';
 
-export default function Navbar() {
+export default function Navbar({ theme, toggleTheme }) {
     const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
@@ -46,13 +47,17 @@ export default function Navbar() {
                 LAB<span> // Ifham</span>
             </a>
 
-            <button
-                className={`navbar-toggle ${open ? 'open' : ''}`}
-                onClick={() => setOpen(!open)}
-                aria-label="Toggle menu"
-            >
-                <span /><span /><span />
-            </button>
+            <div className="navbar-actions">
+                <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+                
+                <button
+                    className={`navbar-toggle ${open ? 'open' : ''}`}
+                    onClick={() => setOpen(!open)}
+                    aria-label="Toggle menu"
+                >
+                    <span /><span /><span />
+                </button>
+            </div>
 
             <ul className={`navbar-links ${open ? 'open' : ''}`}>
                 <li><a href="#work" onClick={(e) => { e.preventDefault(); scrollTo('work'); }}>Work</a></li>

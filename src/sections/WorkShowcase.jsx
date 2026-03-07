@@ -64,10 +64,15 @@ export default function WorkShowcase() {
                                 </div>
                                 <div className="showcase-slide-info">
                                     <div className="showcase-slide-category">
-                                        <DecryptedText text={project.category} />
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                                            <DecryptedText text={project.category} />
+                                            <span style={{ fontVariantNumeric: 'tabular-nums', opacity: 0.5 }}>
+                                                {String(current + 1).padStart(2, '0')} / {String(SHOWCASE_ITEMS.length).padStart(2, '0')}
+                                            </span>
+                                        </div>
                                     </div>
                                     <h3 className="showcase-slide-title">
-                                        <SplitText text={project.title} />
+                                        {project.title}
                                     </h3>
                                     <p className="showcase-slide-desc">{project.description}</p>
                                 </div>

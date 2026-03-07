@@ -1,0 +1,77 @@
+.marquee-container {
+  overflow: hidden;
+  width: 100vw;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: flex;
+  white-space: nowrap;
+  pointer-events: auto; /* Enable mouse events for tracking */
+  z-index: 1; /* Move slightly above grid to capture mouse */
+  --mouse-x: -1000px;
+  --mouse-y: -1000px;
+}
+
+.marquee-track {
+  display: flex;
+  will-change: transform;
+}
+
+.marquee-content {
+  display: flex;
+  animation: scrollLeft 80s linear infinite; /* Slower, more calming */
+}
+
+.marquee-text {
+  font-size: clamp(8rem, 20vw, 25rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: var(--heading);
+  padding: 0 4rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  
+  /* The Dot Matrix Reveal */
+  background-image: radial-gradient(var(--accent) 1.5px, transparent 1.5px);
+  background-size: 30px 30px; /* Matched to DotGrid gap */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  
+  /* Fallback / Shell */
+  -webkit-text-stroke: 1px var(--text);
+  
+  /* Flashlight Mask */
+  -webkit-mask-image: radial-gradient(
+    circle 200px at var(--mouse-x) var(--mouse-y),
+    black 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  mask-image: radial-gradient(
+    circle 200px at var(--mouse-x) var(--mouse-y),
+    black 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  
+  opacity: 0.3;
+  transition: opacity 0.4s;
+}
+
+.marquee-text:hover {
+  opacity: 1;
+}
+
+/* Remove specialized outline/filled classes since we use masking now */
+.outline-text, .filled-text {
+  color: transparent;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

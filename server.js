@@ -12,13 +12,17 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3001;
+const PORT = 3002;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-// Serve static files from public so uploaded images are visible
-app.use(express.static(path.join(__dirname, 'public')));
+
+// Request logging middleware
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
 
 // Set up image uploads
 const storage = multer.diskStorage({
@@ -94,6 +98,58 @@ app.post('/api/projects', async (req, res) => {
     }
 });
 
+// Update an existing project
+app.put('/api/projects/:id', async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const updatedData = req.body;
+        
+        const rawData = await fs.readFile(dataFilePath, 'utf8');
+        let projects = JSON.parse(rawData);
+        
+        const index = projects.findIndex(p => p.id === id);
+        if (index === -1) {
+            return res.status(404).json({ error: 'Project not found' });
+        }
+        
+        // Merge updates
+        if (typeof updatedData.badges === 'string') {
+            updatedData.badges = updatedData.badges.split(',').map(b => b.trim()).filter(b => b);
+        }
+        
+        projects[index] = { ...projects[index], ...updatedData };
+        
+        await fs.writeFile(dataFilePath, JSON.stringify(projects, null, 4));
+        res.json({ success: true, project: projects[index] });
+    } catch (err) {
+        console.error('Error updating project:', err);
+        res.status(500).json({ error: 'Failed to update project' });
+    }
+});
+
+// Delete a project
+app.delete('/api/projects/:id', async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        
+        const rawData = await fs.readFile(dataFilePath, 'utf8');
+        let projects = JSON.parse(rawData);
+        
+        const initialLength = projects.length;
+        projects = projects.filter(p => p.id !== id);
+        
+        if (projects.length === initialLength) {
+            return res.status(404).json({ error: 'Project not found' });
+        }
+        
+        await fs.writeFile(dataFilePath, JSON.stringify(projects, null, 4));
+        res.json({ success: true, message: 'Project deleted' });
+    } catch (err) {
+        console.error('Error deleting project:', err);
+        res.status(500).json({ error: 'Failed to delete project' });
+    }
+});
+
 // Deploy to GitHub
 app.post('/api/deploy', async (req, res) => {
     try {
@@ -113,7 +169,18 @@ app.post('/api/deploy', async (req, res) => {
         res.status(500).json({ error: 'Git deployment failed', details: err.message });
     }
 });
+// Root health check
+app.get('/', (req, res) => {
+    res.json({ status: 'Local Admin Server Running', endpoints: ['/api/projects', '/api/upload', '/api/deploy'] });
+});
 
+// Serve static files AFTER API routes
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Fallback 404 as JSON
+app.use((req, res) => {
+    res.status(404).json({ error: `Path not found: ${req.url}` });
+});
 app.listen(PORT, () => {
     console.log(`Local Admin Server running on http://localhost:${PORT}`);
 });

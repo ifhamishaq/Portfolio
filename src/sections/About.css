@@ -42,43 +42,71 @@
 
 .about-grid {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 80px;
-    align-items: start;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    gap: 16px;
     margin-top: 64px;
 }
 
-.about-text p {
-    font-family: var(--mono);
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    /* This is now #E0E0E0 - very visible */
-    line-height: 1.9;
-    margin-bottom: 24px;
+.bento-item {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s var(--ease-out-expo);
 }
 
-.about-text p strong {
-    color: var(--text);
-    font-weight: 700;
+.bento-item:hover {
+    border-color: var(--accent);
+    background: var(--bg-card);
+}
+
+/* Specific Bento Spans */
+.bento-lanyard {
+    grid-column: span 2;
+    grid-row: span 4;
+    padding: 0; /* Let canvas take full space */
+    min-height: 500px;
+}
+
+.bento-skill {
+    grid-column: span 1;
+    grid-row: span 2;
+}
+
+.bento-intro {
+    grid-column: span 2;
+    grid-row: span 2;
+    background: linear-gradient(135deg, var(--bg-elevated), var(--bg));
+}
+
+.bento-tools {
+    grid-column: span 2;
+    grid-row: span 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .about-highlight {
     font-family: var(--heading);
-    font-size: clamp(1.5rem, 3vw, 2.4rem);
-    font-weight: 900;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-weight: 400;
     color: var(--text);
-    line-height: 1.2;
-    margin-bottom: 36px;
-    padding-left: 24px;
-    border-left: 4px solid var(--accent);
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    text-transform: none;
+    letter-spacing: -0.01em;
 }
 
-.about-skills-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
+/* Skills within Bento */
+.about-skill-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .about-skill-card {
@@ -94,31 +122,38 @@
 }
 
 .about-skill-icon {
-    font-size: 1.5rem;
-    margin-bottom: 12px;
+    color: var(--accent);
+    margin-bottom: 20px;
+    opacity: 0.8;
 }
 
 .about-skill-title {
     font-family: var(--heading);
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 400;
     color: var(--text);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    line-height: 1.2;
 }
 
 .about-skill-list {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    color: var(--text-muted);
-    line-height: 2;
+    font-family: var(--body);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.6;
     list-style: none;
 }
 
+.about-skill-list li {
+    margin-bottom: 6px;
+}
+
 .about-skill-list li::before {
-    content: '→ ';
-    color: var(--text-dim);
+    content: '○';
+    font-size: 0.6rem;
+    margin-right: 12px;
+    color: var(--accent);
+    vertical-align: middle;
 }
 
 .about-tools {
@@ -138,7 +173,7 @@
 .about-tools-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
 }
 
 .about-tool-tag {
@@ -162,13 +197,31 @@
 
 @media (max-width: 1024px) {
     .about-grid {
-        grid-template-columns: 1fr;
-        gap: 48px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .bento-lanyard {
+        grid-column: span 2;
+        order: -1;
     }
 }
 
-@media (max-width: 768px) {
-    .about-skills-grid {
+@media (max-width: 640px) {
+    .about-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .bento-intro, .bento-lanyard, .bento-skill, .bento-tools {
+        grid-column: span 1;
+        min-height: auto;
+    }
+    .bento-lanyard {
+        height: 400px;
+        order: -1; /* Keep lanyard at the top */
+    }
+    .about-highlight {
+        font-size: 1.5rem;
+    }
+    .bento-skill-title {
+        font-size: 1rem;
     }
 }
