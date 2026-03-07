@@ -39,8 +39,8 @@ const TOOLS = [
 ];
 
 const fadeIn = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
+    initial: { opacity: 0, y: 30, filter: "blur(10px)" },
+    whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
     viewport: { once: true },
     transition: { duration: 0.6 },
 };
@@ -61,13 +61,18 @@ export default function About() {
                 <div className="about-grid">
                     <motion.div
                         className="about-text"
-                        initial={{ opacity: 0, x: -30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, x: -30, filter: "blur(10px)" }}
+                        whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
                         <div className="about-highlight">
                             Crafting visuals that captivate, retain, and convert.
+                        </div>
+
+                        <div className="about-portrait-wrapper">
+                            <img src="/portrait.jpg" alt="Ifham Ishaq" className="about-portrait" loading="lazy" />
+                            <div className="about-portrait-overlay"></div>
                         </div>
 
                         <p>
@@ -104,8 +109,8 @@ export default function About() {
 
                     <motion.div
                         className="about-skills-grid"
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, x: 30, filter: "blur(10px)" }}
+                        whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.3 }}
                     >
@@ -114,8 +119,8 @@ export default function About() {
                             return (
                                 <motion.div
                                     key={skill.title}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
+                                    initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+                                    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.4, delay: 0.1 * i }}
                                 >

@@ -12,6 +12,7 @@
     position: relative;
     z-index: 2;
     max-width: 800px;
+    pointer-events: auto; /* Ensure content is clickable over 3D canvas */
 }
 
 .hero-label {

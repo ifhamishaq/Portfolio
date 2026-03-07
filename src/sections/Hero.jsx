@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import SplitText from '../components/Animations/SplitText';
 import DecryptedText from '../components/Animations/DecryptedText';
 import Magnet from '../components/Animations/Magnet';
+import Hero3DScene from '../components/Animations/Hero3DScene';
 import './Hero.css';
 
 export default function Hero() {
@@ -22,6 +23,9 @@ export default function Hero() {
 
     return (
         <section className="hero" ref={ref} id="home">
+            {/* 3D Background Canvas */}
+            <Hero3DScene />
+            
             <motion.div className="hero-content" style={{ opacity }}>
                 <motion.div style={{ y: titleY }}>
                     <div className="hero-label">
@@ -62,8 +66,8 @@ export default function Hero() {
             <div className="hero-stats">
                 <motion.div
                     className="hero-stat"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     transition={{ delay: 0.6 }}
                 >
                     <div className="hero-stat-number">3+</div>
@@ -71,8 +75,8 @@ export default function Hero() {
                 </motion.div>
                 <motion.div
                     className="hero-stat"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     transition={{ delay: 0.8 }}
                 >
                     <div className="hero-stat-number">20+</div>
@@ -80,8 +84,8 @@ export default function Hero() {
                 </motion.div>
                 <motion.div
                     className="hero-stat"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     transition={{ delay: 1.0 }}
                 >
                     <div className="hero-stat-number">40+</div>

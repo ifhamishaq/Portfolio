@@ -8,8 +8,9 @@ import SplitText from '../components/Animations/SplitText';
 import Magnet from '../components/Animations/Magnet';
 import './WorkShowcase.css';
 
-// Pick a mix of projects for the slideshow
-const SHOWCASE_ITEMS = PROJECTS.filter(p => p.image).slice(0, 5);
+// Pick top 4 featured projects for the editorial scroll.
+// Prioritize video/3D content for higher engagement, fallback to others.
+const SHOWCASE_ITEMS = PROJECTS.filter(p => p.driveId || p.gallery || p.image).slice(0, 4);
 
 export default function WorkShowcase() {
     const [current, setCurrent] = useState(0);
@@ -30,8 +31,8 @@ export default function WorkShowcase() {
             <div className="container">
                 <motion.div
                     className="work-showcase-header"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
@@ -47,14 +48,18 @@ export default function WorkShowcase() {
                             <motion.div
                                 key={project.id}
                                 className="showcase-slide"
-                                initial={{ opacity: 0, x: 60 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -60 }}
+                                initial={{ opacity: 0, x: 60, filter: "blur(10px)" }}
+                                animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                                exit={{ opacity: 0, x: -60, filter: "blur(10px)" }}
                                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                             >
                                 <div className="showcase-slide-media">
-                                    {project.image && (
-                                        <img src={project.image} alt={project.title} />
+                                    {project.image ? (
+                                        <img src={project.image} alt={project.title} loading="lazy" />
+                                    ) : project.gallery && project.gallery.length > 0 ? (
+                                        <img src={project.gallery[0].url} alt={project.title} loading="lazy" />
+                                    ) : (
+                                        <div style={{width: '100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center'}}>No Preview</div>
                                     )}
                                 </div>
                                 <div className="showcase-slide-info">
@@ -85,8 +90,8 @@ export default function WorkShowcase() {
 
                 <motion.div
                     className="showcase-cta"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+                    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                 >

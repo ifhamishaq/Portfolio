@@ -5,12 +5,39 @@
     z-index: 1;
 }
 
-.about-3d-model {
+/* Portrait Styling */
+.about-portrait-wrapper {
+    position: relative;
     width: 100%;
-    height: 300px;
-    margin: 32px 0;
+    max-width: 480px;
+    aspect-ratio: 4 / 5;
+    margin: 32px 0 40px;
     border: 1px solid var(--border);
     background: var(--bg-elevated);
+    border-radius: 4px; /* Slight rounding */
+    overflow: hidden;
+}
+
+.about-portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%; /* Focus on face */
+    filter: grayscale(20%) contrast(1.1); /* Editorial mood */
+    transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.about-portrait-wrapper:hover .about-portrait {
+    filter: grayscale(0%) contrast(1.1);
+    transform: scale(1.02);
+}
+
+/* Subtle corner vignette/glow to blend with dark background */
+.about-portrait-overlay {
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 60px rgba(8, 8, 8, 0.5);
+    pointer-events: none;
 }
 
 .about-grid {

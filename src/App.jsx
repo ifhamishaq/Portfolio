@@ -12,6 +12,7 @@ import Testimonials from './sections/Testimonials';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
 import Portfolio from './pages/Portfolio';
+import Admin from './pages/Admin';
 import Squares from './components/Animations/Squares';
 import BackToTop from './components/BackToTop';
 
@@ -66,6 +67,11 @@ export default function App() {
           <Route path="/portfolio" element={
             <PageTransitionWrapper>
               <Portfolio />
+            </PageTransitionWrapper>
+          } />
+          <Route path="/admin" element={
+            <PageTransitionWrapper>
+              <Admin />
             </PageTransitionWrapper>
           } />
         </Routes>
