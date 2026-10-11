@@ -1,36 +1,145 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IFHAM ISHAQ | Video Editor · 3D Artist · Graphic Designer</title>
-  <meta name="description"
-    content="Professional Video Editor and 3D Artist specializing in cinematic visuals and high-retention content." />
-  <meta name="keywords" content="Video Editing, 3D Art, Graphic Design, Motion Graphics, YouTube Editor, Ifham Ishaq" />
-  <meta name="author" content="Ifham Ishaq" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ifham Ishaq, YouTube thumbnail designer | RE-RENDER Studio</title>
+  <meta name="description" content="YouTube thumbnail designer in Srinagar, India. I design thumbnails for finance, business and educational channels, including Good Financial Cents (400K+ subscribers). Usual turnaround is 24 to 48 hours, with revisions.">
+  <meta name="author" content="Ifham Ishaq">
+  <meta name="theme-color" content="#FFD400">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="RE-RENDER Studio">
+  <meta property="og:title" content="Ifham Ishaq, YouTube thumbnail designer">
+  <meta property="og:description" content="Thumbnails for finance, business and educational YouTube channels. Usual turnaround is 24 to 48 hours, with revisions.">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ifham Ishaq, YouTube thumbnail designer">
+  <meta name="twitter:description" content="Thumbnails for finance, business and educational YouTube channels. Usual turnaround is 24 to 48 hours, with revisions.">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preload" href="fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
 </head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
 
-<body>
-  <!-- Hidden form for Netlify form detection -->
-  <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-    <input type="text" name="name" />
-    <input type="email" name="email" />
-    <select name="service">
-      <option value=""></option>
-    </select>
-    <input type="text" name="budget" />
-    <textarea name="message"></textarea>
-  </form>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
+  <header class="top wrap">
+    <a class="brand" href="#top">RE-RENDER Studio</a>
+    <a class="btn btn-small" href="mailto:ifham.wani89@gmail.com?subject=New%20thumbnail%20project&amp;body=Channel%3A%0AVideo%20title%3A%0ATopic%3A%0A">Start a project</a>
+  </header>
+
+  <main id="main">
+
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <h1 id="hero-title">Thumbnails for finance, business and education channels</h1>
+        <p>I'm Ifham Ishaq, a thumbnail designer in Srinagar, India. I design thumbnails for Good Financial Cents, a channel with 400K+ subscribers. Most orders come back in 24 to 48 hours, with revisions.</p>
+        <p class="hero-actions">
+          <a class="btn" href="mailto:ifham.wani89@gmail.com?subject=New%20thumbnail%20project&amp;body=Channel%3A%0AVideo%20title%3A%0ATopic%3A%0A">Start a project</a>
+          <a class="textlink" href="#work">See the work</a>
+        </p>
+      </div>
+
+      <div class="tn-wrap">
+        <div class="tn" role="img" aria-label="Sample thumbnail that reads: You get 3 seconds">
+          <span class="tn-line" aria-hidden="true">YOU GET</span>
+          <span class="tn-box" aria-hidden="true">
+            <span class="tn-box-text">3 SECONDS</span>
+            <span class="tn-ripple"></span>
+            <svg class="tn-cursor" viewBox="0 0 14 21" width="14" height="21" focusable="false">
+              <path d="M1.5 1.5v15.2l3.9-3.6 2.6 6 2.6-1.1-2.6-5.9h5.2z" fill="#fff" stroke="#0F1B33" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="tn-time" aria-hidden="true">0:03</span>
+          <span class="tn-bar" aria-hidden="true"><i></i></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="clients wrap" aria-labelledby="clients-title">
+      <h2 id="clients-title" class="sr-only">Clients</h2>
+      <p class="clients-line">I design for Good Financial Cents, a channel with 400K+ subscribers. Through Evy Media I've also designed for Medicare Joe, Coach Michael Burt and Jason Mickool.</p>
+    </section>
+
+    <section id="work" class="work" aria-labelledby="work-title">
+      <div class="work-bar">
+        <div class="wrap work-bar-inner">
+          <h2 id="work-title">Work</h2>
+          <div class="size" id="size-control">
+            <label class="sr-only" for="size">Thumbnail size</label>
+            <input id="size" type="range" min="120" max="720" step="1" value="360">
+            <output id="size-label" for="size">Home feed, 360 px wide</output>
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <p class="work-note" id="work-note">Drag the slider to see each thumbnail at the size viewers see it in their feed.</p>
+        <ul class="grid" id="grid"></ul>
+        <p class="work-empty" id="work-empty" hidden>Samples are being added. Email me for the current reel.</p>
+      </div>
+    </section>
+
+    <section id="testimonial" class="testimonial wrap" aria-labelledby="testimonial-title" hidden>
+      <h2 id="testimonial-title">Hear from Zack</h2>
+      <div class="testimonial-body" id="testimonial-body">
+        <figure class="video">
+          <video id="zack-video" controls playsinline preload="metadata"></video>
+          <figcaption id="zack-caption"></figcaption>
+        </figure>
+        <blockquote class="quote" id="zack-quote" hidden></blockquote>
+      </div>
+    </section>
+
+    <section id="process" class="process wrap" aria-labelledby="process-title">
+      <h2 id="process-title">How it works</h2>
+      <p class="process-intro">Usual turnaround is 24 to 48 hours, with revisions.</p>
+      <ol class="steps">
+        <li>
+          <h3>Send title and topic</h3>
+          <p>Tell me what the video is called and what it's about.</p>
+        </li>
+        <li>
+          <h3>I send 2 to 3 concepts</h3>
+          <p>You get a few different directions to compare.</p>
+        </li>
+        <li>
+          <h3>I polish the pick</h3>
+          <p>You choose one and I refine it, with revisions.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="contact" class="band" aria-labelledby="contact-title">
+      <div class="wrap band-inner">
+        <h2 id="contact-title">Send me your next title</h2>
+        <div class="band-side">
+          <a class="btn btn-ink" href="mailto:ifham.wani89@gmail.com?subject=New%20thumbnail%20project&amp;body=Channel%3A%0AVideo%20title%3A%0ATopic%3A%0A">Start a project</a>
+          <p class="band-email">or write to <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a></p>
+          <p class="clock">It's <time id="clock" datetime="">--:--</time> in Srinagar right now.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot wrap">
+    <p>RE-RENDER Studio is Ifham Ishaq, a YouTube thumbnail designer in Srinagar, India.</p>
+  </footer>
+
+  <dialog id="viewer" aria-label="Enlarged thumbnail">
+    <form method="dialog" class="viewer-inner">
+      <img id="viewer-img" alt="" width="1280" height="720">
+      <p id="viewer-cap" class="viewer-cap"></p>
+      <div class="viewer-actions">
+        <button type="button" class="btn btn-quiet" id="viewer-prev">Previous</button>
+        <button type="button" class="btn btn-quiet" id="viewer-next">Next</button>
+        <button class="btn" id="viewer-close" autofocus>Close</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
 </body>
-
 </html>

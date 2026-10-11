@@ -1,16 +1,59 @@
-# React + Vite
+# RE-RENDER Studio portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A static site: plain HTML, CSS and JavaScript. No build step, no dependencies.
 
-Currently, two official plugins are available:
+```
+index.html      page content
+style.css       all styling
+script.js       the lists you edit (WORKS, TESTIMONIAL) and the page behaviour
+fonts/          Schibsted Grotesk and Anton, self-hosted
+thumbs/         your 1280x720 JPGs
+testimonial/    zack.mp4 and optional zack.jpg
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Add thumbnails
 
-## React Compiler
+1. Export each thumbnail as a **1280x720 JPG**.
+2. Put it in `thumbs/`, for example `thumbs/14.jpg`.
+3. Open `script.js` and edit the `WORKS` list at the top. One line per thumbnail:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+   ```js
+   { file: "thumbs/14.jpg", client: "Good Financial Cents", title: "Your video title" },
+   ```
 
-## Expanding the ESLint configuration
+The first 9 lines are placeholders (`thumbs/01.jpg` to `thumbs/09.jpg`). Either replace
+the files with the same names, or change the lines. Add or delete lines freely.
+The grid, the size slider and the enlarge dialog update on their own.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Missing images.** `SHOW_PLACEHOLDERS` at the top of `script.js` is `true` for now, so
+every empty slot shows a labelled dashed frame. Once your real images are in, set it to
+`false`. After that, a missing image is hidden on the live site. The empty frame still
+appears on localhost, when opening the file directly, and on any URL ending in `?edit`
+(for example `https://yoursite.netlify.app/?edit`). If no image loads on the live site,
+the Work section shows a short "samples are being added" line instead of the grid.
+
+## Add Zack's video
+
+1. Save the video as `testimonial/zack.mp4`. Vertical and horizontal both work.
+2. Optional: add a poster image as `testimonial/zack.jpg`.
+3. Optional: edit `TESTIMONIAL` at the top of `script.js` (`name`, `role`, `quote`).
+   Leave `quote` as `""` to show only the video.
+
+The testimonial section stays hidden until `testimonial/zack.mp4` exists and loads.
+Use H.264 video with AAC audio so it plays in every browser.
+
+## Deploy on Netlify
+
+1. Go to <https://app.netlify.com/drop>.
+2. Drag this whole folder onto the page.
+3. Netlify gives you a live URL. Rename it under Site configuration, then Change site name.
+
+To update the site later, open the site's Deploys tab and drag the folder on again.
+
+## Before you go live
+
+- Add an Open Graph preview image: save a 1200x630 image as `og.jpg` and add
+  `<meta property="og:image" content="https://YOUR-SITE-URL/og.jpg">` and
+  `<meta property="og:url" content="https://YOUR-SITE-URL/">` to the `<head>` of
+  `index.html`. Social sites need the full URL.
+- Large videos load slowly. Keep `zack.mp4` under about 20 MB.
