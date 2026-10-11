@@ -29,7 +29,7 @@
     <a class="brand" href="#top">Ifham Ishaq</a>
     <nav class="top-nav" aria-label="Main">
       <a class="textlink top-link" href="portfolio.html">All work</a>
-      <a class="btn btn-small" href="mailto:ifham.wani89@gmail.com?subject=New%20thumbnail%20project&amp;body=Channel%3A%0AVideo%20title%3A%0ATopic%3A%0A">Start a project</a>
+      <a class="btn btn-small" href="#contact">Start a project</a>
     </nav>
   </header>
 
@@ -40,7 +40,7 @@
         <h1 id="hero-title">Graphic design for creators and agencies</h1>
         <p>YouTube thumbnails, carousels and social posts, designed to be noticed in a crowded feed. Most orders come back in 24 to 48 hours, with revisions.</p>
         <p class="hero-actions">
-          <a class="btn" href="mailto:ifham.wani89@gmail.com?subject=New%20thumbnail%20project&amp;body=Channel%3A%0AVideo%20title%3A%0ATopic%3A%0A">Start a project</a>
+          <a class="btn" href="#contact">Start a project</a>
           <a class="textlink" href="#work">See the work</a>
         </p>
       </div>
@@ -108,12 +108,37 @@
 
     <section id="contact" class="band" aria-labelledby="contact-title">
       <div class="wrap band-inner">
-        <h2 id="contact-title">Send me your next title</h2>
-        <div class="band-side">
-          <a class="btn btn-ink" href="mailto:ifham.wani89@gmail.com?subject=New%20thumbnail%20project&amp;body=Channel%3A%0AVideo%20title%3A%0ATopic%3A%0A">Start a project</a>
-          <p class="band-email">or write to <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a></p>
+        <div class="band-copy">
+          <h2 id="contact-title">Start a project</h2>
+          <p class="band-email">Or write to <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a></p>
           <p class="clock">It's <time id="clock" datetime="">--:--</time> in Srinagar right now.</p>
         </div>
+
+        <form class="form" id="contact-form" name="contact" method="POST" action="thanks.html"
+              data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="contact">
+          <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+          <label>Your name
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+          <label>Your email
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+          <label>What do you need?
+            <select name="service">
+              <option>YouTube thumbnails</option>
+              <option>Carousels</option>
+              <option>Social posts</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label>Tell me about it
+            <textarea name="message" rows="5" required></textarea>
+          </label>
+          <button class="btn btn-ink" type="submit">Send message</button>
+          <p class="form-status" id="form-status" role="status"></p>
+        </form>
       </div>
     </section>
 

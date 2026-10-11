@@ -62,6 +62,15 @@ Use H.264 video with AAC audio so it plays in every browser.
 
 To update the site later, open the site's Deploys tab and drag the folder on again.
 
+## Contact form
+
+The contact form on the home page is a Netlify Form named `contact`, with the fields
+name, email, service and message. Submissions appear under Forms in your Netlify
+dashboard, in the same `contact` form you already have. Netlify finds the form when you
+deploy, so deploy the site once and it starts collecting. It does not work when you open
+the file on your computer. The visitor sees a confirmation under the button, or
+`thanks.html` if JavaScript is off. If sending fails, the page tells them to email you.
+
 ## Before you go live
 
 - Add an Open Graph preview image: save a 1200x630 image as `og.jpg` and add

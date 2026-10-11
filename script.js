@@ -241,6 +241,34 @@ function startClock() {
   setInterval(tick, 10000);
 }
 
+/* Contact form (Netlify Forms) --------------------------------------- */
+
+function setupForm() {
+  const form = $("contact-form");
+  if (!form) return;
+  const status = $("form-status");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector("button[type=submit]");
+    btn.disabled = true;
+    status.textContent = "Sending...";
+    try {
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(new FormData(form)).toString(),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      status.textContent = "Thanks, I got your message. I'll reply to the email address you gave.";
+    } catch (err) {
+      status.textContent = "That didn't send. Please email ifham.wani89@gmail.com instead.";
+    }
+    btn.disabled = false;
+  });
+}
+
 buildWork();
 buildTestimonial();
 startClock();
+setupForm();
