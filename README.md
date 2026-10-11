@@ -76,8 +76,9 @@ channel or person's name and it gives you a link like `https://yoursite.netlify.
 plus a short message to send with it. When they open it, the hero says "JANE SMITH, YOU GET
 3 SECONDS", a welcome banner greets them by name, and the contact form quietly records who the
 link was made for (the `for` field in your Netlify form). Before any of that, a warm welcome plays: a
-pouch opens, a card with their name and a short message rises out, and a "See my work" button
-enters the site. There is a Skip button, Esc also skips it, and visitors who prefer reduced motion
+frosted-glass greeting card (over a blurred, darkened copy of the page) opens like a real card. The
+cover says "A note for" and their name, the inside shows your photo on the left and a short message
+on the right, and a "See my work" button enters the site. There is a Skip button, Esc also skips it, and visitors who prefer reduced motion
 get the card without the animation. Only letters, numbers and a few punctuation marks are kept from
 the name, and it is cut to 30 characters.
 

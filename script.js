@@ -701,26 +701,30 @@ function showWelcome(name) {
   el.setAttribute("aria-labelledby", "welcome-title");
   el.innerHTML = `
     <button type="button" class="welcome-skip">Skip</button>
-    <div class="welcome-stage">
-      <svg class="pouch pouch-back" viewBox="0 0 200 230" aria-hidden="true"><ellipse cx="100" cy="98" rx="58" ry="17" fill="#050912"/></svg>
-      <div class="welcome-card">
-        <h2 id="welcome-title"></h2>
-        <p>I'm Ifham, a graphic designer in Srinagar. I make YouTube thumbnails, carousels and social posts for creators and agencies. I put this page together so you can see my work.</p>
-        <button type="button" class="pill pill-red welcome-go">See my work</button>
+    <div class="gc-shift">
+      <div class="gc">
+        <div class="gc-right">
+          <h2 id="welcome-title"></h2>
+          <p>I'm Ifham, a graphic designer in Srinagar. I make YouTube thumbnails, carousels and social posts for creators and agencies. I put this page together so you can see my work.</p>
+          <button type="button" class="pill pill-white welcome-go">See my work</button>
+        </div>
+        <div class="gc-cover" aria-hidden="true">
+          <div class="gc-face gc-front">
+            <span class="gc-mark"><svg viewBox="0 0 24 24"><path d="M9 7.5v9l7.5-4.5z" fill="#fff"/></svg></span>
+            <small>A note for</small>
+            <b class="gc-name"></b>
+            <i class="gc-rule"></i>
+          </div>
+          <div class="gc-face gc-back">
+            <img class="gc-photo" src="images/ifham.jpg" alt="" width="92" height="92">
+            <b>Ifham Ishaq</b>
+            <span>Graphic designer in Srinagar, India</span>
+            <ul><li>YouTube thumbnails</li><li>Carousels</li><li>Social posts</li></ul>
+          </div>
+        </div>
       </div>
-      <svg class="pouch pouch-front" viewBox="0 0 200 230" aria-hidden="true">
-        <path class="flap fl" d="M46 99 C28 66 46 36 82 54 C73 68 73 86 82 102 Z" fill="#14264a"/>
-        <path class="flap fr" d="M154 99 C172 66 154 36 118 54 C127 68 127 86 118 102 Z" fill="#14264a"/>
-        <path d="M44 98 C14 142 16 202 58 218 Q100 230 142 218 C184 202 186 142 156 98 Q100 120 44 98 Z" fill="#0f1b33"/>
-        <path d="M62 152 C58 178 66 200 84 210" stroke="#1d2f55" stroke-width="6" fill="none" stroke-linecap="round"/>
-        <circle cx="100" cy="172" r="19" fill="#FFD400"/>
-        <text x="100" y="180" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="24" fill="#0f1b33">I</text>
-        <path class="cord" d="M50 102 Q100 126 150 102" fill="none" stroke="#FFD400" stroke-width="5" stroke-linecap="round"/>
-        <g class="tl"><path d="M97 118 L90 146" stroke="#FFD400" stroke-width="4" stroke-linecap="round"/><circle cx="90" cy="149" r="4.5" fill="#FFD400"/></g>
-        <g class="tr"><path d="M103 118 L110 146" stroke="#FFD400" stroke-width="4" stroke-linecap="round"/><circle cx="110" cy="149" r="4.5" fill="#FFD400"/></g>
-      </svg>
-      <i class="spark"></i><i class="spark"></i><i class="spark"></i><i class="spark"></i><i class="spark"></i><i class="spark"></i><i class="spark"></i>
     </div>`;
+  el.querySelector(".gc-name").textContent = name;
   el.querySelector("#welcome-title").textContent = `Hi ${name},`;
   document.body.append(el);
 
@@ -756,7 +760,7 @@ function showWelcome(name) {
   skip.addEventListener("click", close);
   skip.focus();
   if (reduced) go.focus();
-  else setTimeout(() => { if (!closed) go.focus(); }, 3000);
+  else setTimeout(() => { if (!closed) go.focus(); }, 2500);
 }
 
 function setupPersonal() {

@@ -606,69 +606,64 @@ dialog :focus-visible { outline-color: #3ea6ff; }
 .maker-row { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
 .maker-tip { margin-top: 20px; color: var(--fg2); }
 
-/* Welcome overlay for personalised links: a pouch opens and a message rises out of it */
+/* Welcome overlay for personalised links: a frosted-glass greeting card that opens */
 .welcome {
-  position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 16px;
-  background: var(--red); color: #fff; overflow: hidden;
+  --W: min(88vw, 340px); --H: min(78vh, 420px);
+  position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 16px; overflow: hidden;
+  background: rgba(8, 8, 10, .66); -webkit-backdrop-filter: blur(16px) saturate(1.1); backdrop-filter: blur(16px) saturate(1.1); color: #fff;
 }
+@media (min-width: 700px) { .welcome { --W: 340px; --H: 410px; } }
 .welcome.leaving { opacity: 0; transition: opacity .4s ease; }
 .welcome-skip {
-  position: absolute; top: 16px; right: 16px; min-height: 44px; padding: 0 16px; border: 0; border-radius: 22px;
-  background: rgba(0, 0, 0, .25); color: #fff; font: inherit; font-weight: 500; cursor: pointer;
+  position: absolute; top: 16px; right: 16px; min-height: 44px; padding: 0 18px; border-radius: 22px; cursor: pointer;
+  background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .3); color: #fff; font: inherit; font-weight: 500;
 }
 .welcome :focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-.welcome-stage { position: relative; width: min(88vw, 460px); height: min(84vh, 600px); }
-.pouch { position: absolute; left: 50%; bottom: 0; width: 220px; height: 253px; margin-left: -110px; pointer-events: none; }
-.pouch-back { z-index: 1; }
-.pouch-front { z-index: 3; }
-.welcome-card {
-  position: absolute; left: 50%; bottom: 280px; z-index: 2; width: min(100%, 420px); margin-left: calc(min(100%, 420px) / -2);
-  padding: 24px 22px 22px; border-radius: 16px; background: #fff; color: #0f0f0f; text-align: center; transform-origin: 50% 100%;
+
+.gc-shift { width: var(--W); height: var(--H); transform: translateX(calc(var(--W) / 2)); }
+.gc { position: relative; width: 100%; height: 100%; perspective: 1600px; }
+.gc-right, .gc-face {
+  position: absolute; inset: 0; border-radius: 14px; background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .3); box-shadow: 0 24px 70px rgba(0, 0, 0, .4);
 }
-.welcome-card h2 { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem); line-height: 1.15; font-weight: 700; letter-spacing: -.01em; overflow-wrap: anywhere; }
-.welcome-card p { margin-top: 10px; font-size: 16px; line-height: 1.5; color: #3a3a3a; }
-.welcome-card .pill { margin-top: 18px; height: 44px; padding: 0 24px; font-size: 15px; }
-.spark { position: absolute; z-index: 4; width: 10px; height: 10px; border-radius: 50%; background: var(--yellow); opacity: 0; left: 50%; bottom: 150px; }
-.spark:nth-of-type(odd) { background: #fff; }
-
-.pouch .flap { transform-box: view-box; }
-.pouch .fl { transform-origin: 80px 100px; }
-.pouch .fr { transform-origin: 120px 100px; }
-.pouch .tl, .pouch .tr { transform-box: view-box; }
-.pouch .tl { transform-origin: 96px 118px; }
-.pouch .tr { transform-origin: 104px 118px; }
-.pouch .cord { transform-box: view-box; transform-origin: 100px 108px; }
-
-/* Final state first (what reduced-motion visitors get): the message, no pouch */
-.welcome .pouch, .welcome .spark { display: none; }
-.welcome-card { bottom: 50%; transform: translateY(50%); }
+.gc-right { display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 28px 26px; }
+.gc-right h2 { font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2rem); line-height: 1.15; font-weight: 700; letter-spacing: -.01em; overflow-wrap: anywhere; }
+.gc-right p { font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, .88); }
+.gc-right .pill { align-self: flex-start; height: 44px; margin-top: 6px; padding: 0 24px; font-size: 15px; }
+.gc-cover { position: absolute; inset: 0; transform-origin: left center; transform-style: preserve-3d; transform: rotateY(-180deg); }
+.gc-face { display: grid; place-content: center; justify-items: center; gap: 10px; padding: 24px; text-align: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.gc-back { transform: rotateY(180deg); }
+.gc-mark { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--red); }
+.gc-mark svg { width: 30px; height: 30px; }
+.gc-front small { font-size: 15px; color: rgba(255, 255, 255, .8); }
+.gc-front b { max-width: 100%; font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.1rem); line-height: 1.15; font-weight: 700; overflow-wrap: anywhere; }
+.gc-rule { width: 40px; height: 2px; margin-top: 4px; background: var(--red); }
+.gc-photo { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px rgba(255, 255, 255, .85); }
+.gc-back b { font-size: 18px; font-weight: 700; }
+.gc-back span { color: rgba(255, 255, 255, .8); font-size: 14px; }
+.gc-back ul { display: grid; gap: 4px; margin-top: 8px; color: rgba(255, 255, 255, .9); font-size: 14px; }
+@media (max-width: 699px) {
+  .gc-shift { transform: none; }
+  .gc-cover { opacity: 0; }
+}
 
 @media (prefers-reduced-motion: no-preference) {
-  .welcome .pouch { display: block; animation: p-in .7s cubic-bezier(.3, 1.4, .5, 1) both, p-out .6s ease-in 3.0s both; }
-  .welcome .spark { display: block; }
-  .welcome-card { bottom: 240px; transform: none; animation: card-up 1.1s cubic-bezier(.2, .9, .3, 1) 1.5s both, card-settle .7s ease-in-out 3.0s both; }
-  .welcome-card .pill { animation: fade-in .5s ease 2.9s both; }
-  .pouch .fl { animation: flap-l .6s ease-out 1.0s both; }
-  .pouch .fr { animation: flap-r .6s ease-out 1.0s both; }
-  .pouch .cord { animation: cord-loose .6s ease-out .8s both; }
-  .pouch .tl { animation: tassel-l .7s ease-out .8s both; }
-  .pouch .tr { animation: tassel-r .7s ease-out .8s both; }
-  .spark { animation: spark 1.2s ease-out 1.4s both; }
-  .spark:nth-of-type(2) { --dx: -120px; --dy: -190px; animation-delay: 1.45s; }
-  .spark:nth-of-type(3) { --dx: 130px; --dy: -170px; animation-delay: 1.5s; }
-  .spark:nth-of-type(4) { --dx: -70px; --dy: -240px; animation-delay: 1.55s; }
-  .spark:nth-of-type(5) { --dx: 80px; --dy: -250px; animation-delay: 1.6s; }
-  .spark:nth-of-type(6) { --dx: -160px; --dy: -110px; animation-delay: 1.5s; }
-  .spark:nth-of-type(7) { --dx: 165px; --dy: -120px; animation-delay: 1.55s; }
+  .gc-shift { animation: gc-shift 1.2s cubic-bezier(.5, 0, .2, 1) 1.0s both; }
+  .gc { animation: gc-in .8s cubic-bezier(.2, .8, .3, 1) both; }
+  .gc-cover { animation: cover-open 1.2s cubic-bezier(.5, 0, .2, 1) 1.0s both; }
+  .gc-right { animation: fade-in .5s ease 1.2s both; }
+  .gc-right > * { animation: fade-up .6s ease both; }
+  .gc-right h2 { animation-delay: 1.7s; }
+  .gc-right p { animation-delay: 1.95s; }
+  .gc-right .pill { animation-delay: 2.25s; }
 }
-@keyframes p-in { from { opacity: 0; transform: translateY(50px) scale(.55); } to { opacity: 1; transform: none; } }
-@keyframes p-out { to { opacity: 0; transform: translateY(70px) scale(.9); } }
-@keyframes flap-l { from { transform: rotate(18deg); } to { transform: rotate(-12deg); } }
-@keyframes flap-r { from { transform: rotate(-18deg); } to { transform: rotate(12deg); } }
-@keyframes cord-loose { from { transform: scale(.82, 1); } to { transform: scale(1.12, 1.15) translateY(-3px); } }
-@keyframes tassel-l { from { transform: rotate(0); } 60% { transform: rotate(16deg); } to { transform: rotate(8deg); } }
-@keyframes tassel-r { from { transform: rotate(0); } 60% { transform: rotate(-16deg); } to { transform: rotate(-8deg); } }
-@keyframes card-up { from { opacity: 0; transform: translateY(150px) scale(.4); } 12% { opacity: 1; } to { opacity: 1; transform: none; } }
-@keyframes card-settle { from { transform: none; } to { transform: translateY(95px); } }
+@media (prefers-reduced-motion: no-preference) and (max-width: 699px) {
+  .gc-shift { animation: none; }
+  .gc-cover { animation: cover-open-m 1.2s cubic-bezier(.5, 0, .2, 1) 1.0s both; }
+}
+@keyframes gc-shift { from { transform: none; } to { transform: translateX(calc(var(--W) / 2)); } }
+@keyframes gc-in { from { opacity: 0; transform: translateY(24px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes cover-open { from { transform: rotateY(0); } to { transform: rotateY(-180deg); } }
+@keyframes cover-open-m { from { transform: rotateY(0); opacity: 1; } 70% { opacity: 1; } to { transform: rotateY(-180deg); opacity: 0; } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes spark { 0% { opacity: 0; transform: translate(-50%, 0) scale(.4); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(calc(-50% + var(--dx, 0px)), var(--dy, -200px)) scale(1); } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
