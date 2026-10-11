@@ -390,7 +390,6 @@ function setupHero() {
   mini.hidden = true;
   mini.innerHTML = '<div class="tn-wrap"></div><div class="mini-row"><a class="pill pill-red" href="#comments">Start a project</a><button type="button" class="pill pill-quiet" id="mini-close">Close</button></div>';
   const miniTn = tn.cloneNode(true);
-  miniTn.classList.add("typed");
   miniTn.setAttribute("inert", "");
   miniTn.setAttribute("aria-hidden", "true");
   miniTn.querySelectorAll("[id]").forEach((el) => el.removeAttribute("id"));
@@ -406,17 +405,55 @@ function setupHero() {
   window.__miniShow = (on) => { mini.hidden = !on || miniClosed; };
   function syncMini() { miniTn.dataset.style = tn.dataset.style || ""; }
 
-  const replay = () => {
+  // Phase 1: one of your real thumbnails for 3 seconds while the bar fills.
+  // Phase 2: it hides and "YOU GET 3 SECONDS" appears, with the cursor click.
+  const shot = $("tn-shot");
+  const timeEl = $("tn-time");
+  let timers = [];
+  let run = 0;
+  const clearTimers = () => { timers.forEach((t) => { clearTimeout(t); clearInterval(t); }); timers = []; };
+  const setTime = (s) => { timeEl.textContent = `0:0${s} / 0:03`; };
+
+  async function findShot() {
+    const pool = [...WORKS].sort(() => Math.random() - 0.5).slice(0, 6);
+    for (const w of pool) { if (await probe(w.file)) return w.file; }
+    return "";
+  }
+
+  async function play() {
+    const mine = ++run;
+    clearTimers();
+    tn.classList.remove("shot", "bar-run", "cursor-run");
     pick();
-    if (reduced) return;
-    const parts = tn.querySelectorAll(".tn-bar i, .tn-cursor, .tn-ripple, .tn-box");
-    parts.forEach((el) => (el.style.animation = "none"));
+    setTime(3);
+    if (reduced) return; // reduced motion: show the end state, the design card
+    tn.classList.add("shot"); // hide the card while we look for a thumbnail
+    const file = await findShot();
+    if (mine !== run) return;
+    if (!file) {
+      // No thumbnail available: play the card on its own, bar fills while the cursor clicks
+      tn.classList.remove("shot");
+      void tn.offsetWidth;
+      tn.classList.add("bar-run", "cursor-run");
+      return;
+    }
+    shot.src = file;
     void tn.offsetWidth;
-    parts.forEach((el) => (el.style.animation = ""));
-  };
-  window.__replayHero = replay;
-  $("replay").addEventListener("click", replay);
-  pick();
+    tn.classList.add("bar-run");
+    let s = 0;
+    setTime(0);
+    timers.push(setInterval(() => { s++; if (s <= 3) setTime(s); }, 1000));
+    timers.push(setTimeout(() => {
+      tn.classList.remove("shot", "bar-run");
+      void tn.offsetWidth;
+      tn.classList.add("cursor-run");
+      setTime(3);
+    }, 3000));
+  }
+  window.__replayHero = play;
+  $("replay").addEventListener("click", play);
+  miniTn.classList.remove("shot");
+  play();
 }
 
 /* Header, theme, channel row, ad, chapters, shortcuts ----------------- */
@@ -569,6 +606,10 @@ function setupAvailability() {
 function setupPricing() {
   const box = $("tiers");
   if (!box) return;
+  const pkg = $("package");
+  if (pkg) {
+    pkg.replaceChildren(...["Not sure yet", ...PRICING.map((t) => t.pick)].map((label) => new Option(label, label)));
+  }
   PRICING.forEach((t) => {
     const li = document.createElement("li");
     li.className = "tier";
@@ -585,10 +626,7 @@ function setupPricing() {
       if (!form) return;
       const sel = form.querySelector("[name=service]");
       if ([...sel.options].some((o) => o.value === t.service)) sel.value = t.service;
-      const msg = form.querySelector("[name=message]");
-      const line = `Package: ${t.pick}\n`;
-      const rest = msg.value.replace(/^Package: .*\n?/, "");
-      if (!msg.value.trim() || /^Package: /.test(msg.value)) msg.value = line + rest;
+      $("package").value = t.pick;
     });
     box.append(li);
   });

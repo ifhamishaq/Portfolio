@@ -76,10 +76,14 @@ At the top of `script.js`:
 - `PRICING` has one line per pricing card (name, price, unit, an optional detail line). The
   Choose button pre-fills the contact form with that package. Prices are $20 (starting price),
   $30, $50 and $10 per image for carousels and posts. Add a `detail` line to say what each
-  tier includes.
+  tier includes. The contact form's Package list is built from the `pick` text of each card.
 - `AVAILABILITY` is the pulsing red badge near Subscribe and above the contact form. Keep the
   text true and update it when your availability changes (for example "Taking new projects").
   Set `show: false` to hide it.
+
+The hero player first shows one of your thumbnails for 3 seconds (picked at random from `WORKS`,
+while the red bar fills), then hides it and shows "YOU GET 3 SECONDS". If no thumbnail loads, it
+plays the "YOU GET 3 SECONDS" card on its own. The play button replays it.
 
 The "CC" button on the hero player (or the `c` key) turns on a few fun captions.
 

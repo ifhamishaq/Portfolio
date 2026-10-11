@@ -22,6 +22,7 @@
   <link rel="preload" href="fonts/roboto.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
+  <noscript><style>.tn.shot .tn-shot { display: none; } .tn.shot .tn-text { visibility: visible; }</style></noscript>
 </head>
 <body id="top" data-page="home">
   <a class="skip" href="#main">Skip to content</a>
@@ -69,7 +70,8 @@
 
           <section class="player" data-section style="--o:1" aria-label="Sample thumbnail">
             <div class="tn-wrap">
-              <div class="tn">
+              <div class="tn shot">
+                <img class="tn-shot" id="tn-shot" alt="" aria-hidden="true" width="1280" height="720">
                 <span class="tn-text" role="img" aria-label="Sample thumbnail that reads: You get 3 seconds">
                   <span class="tn-line" id="tn-line">YOU GET</span>
                   <span class="tn-box">
@@ -85,7 +87,7 @@
                 <span class="tn-ctrl">
                   <button type="button" class="tn-play" id="replay" aria-label="Replay the animation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z" fill="currentColor"/></svg>
-                  <span class="tn-time" aria-hidden="true">0:03 / 0:03</span>
+                  <span class="tn-time" id="tn-time" aria-hidden="true">0:03 / 0:03</span>
                   <span class="tn-gap"></span>
                   <button type="button" class="tn-cc-btn" id="cc-btn" aria-pressed="false" aria-label="Captions"><span aria-hidden="true">CC</span></button>
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3.3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1l.4 2.6h4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" fill="currentColor"/></svg>
@@ -220,14 +222,25 @@
                     <input type="email" name="email" autocomplete="email" required>
                   </label>
                 </div>
-                <label>What do you need?
-                  <select name="service">
-                    <option>YouTube thumbnails</option>
-                    <option>Carousels</option>
-                    <option>Social posts</option>
-                    <option>Something else</option>
-                  </select>
-                </label>
+                <div class="form-grid">
+                  <label>What do you need?
+                    <select name="service">
+                      <option>YouTube thumbnails</option>
+                      <option>Carousels</option>
+                      <option>Social posts</option>
+                      <option>Something else</option>
+                    </select>
+                  </label>
+                  <label>Package
+                    <select name="package" id="package">
+                      <option>Not sure yet</option>
+                      <option>Starter thumbnail, $20</option>
+                      <option>Plus thumbnail, $30</option>
+                      <option>Pro thumbnail, $50</option>
+                      <option>Carousels and posts, $10 per image</option>
+                    </select>
+                  </label>
+                </div>
                 <label>Tell me about it
                   <textarea name="message" rows="4" required></textarea>
                 </label>
