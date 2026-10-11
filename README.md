@@ -1,4 +1,4 @@
-# RE-RENDER Studio portfolio
+# Ifham Ishaq portfolio
 
 A static site: plain HTML, CSS and JavaScript. No build step, no dependencies.
 
