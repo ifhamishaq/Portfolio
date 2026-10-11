@@ -1,36 +1,322 @@
 <!doctype html>
-<html lang="en">
-
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IFHAM ISHAQ | Video Editor · 3D Artist · Graphic Designer</title>
-  <meta name="description"
-    content="Professional Video Editor and 3D Artist specializing in cinematic visuals and high-retention content." />
-  <meta name="keywords" content="Video Editing, 3D Art, Graphic Design, Motion Graphics, YouTube Editor, Ifham Ishaq" />
-  <meta name="author" content="Ifham Ishaq" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ifham Ishaq, graphic designer</title>
+  <meta name="description" content="Graphic designer in Srinagar, India. I make YouTube thumbnails, carousels and social posts for creators and agencies, including finance, business and educational channels. Usual turnaround is 24 to 48 hours, with revisions.">
+  <meta name="author" content="Ifham Ishaq">
+  <meta name="theme-color" content="#0f0f0f">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ifham Ishaq">
+  <meta property="og:title" content="Ifham Ishaq, graphic designer">
+  <meta property="og:description" content="YouTube thumbnails, carousels and social posts for creators and agencies. Usual turnaround is 24 to 48 hours, with revisions.">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ifham Ishaq, graphic designer">
+  <meta name="twitter:description" content="YouTube thumbnails, carousels and social posts for creators and agencies. Usual turnaround is 24 to 48 hours, with revisions.">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"dark"}catch(e){}</script>
+  <link rel="preload" href="fonts/roboto.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <noscript><style>.tn.shot .tn-shot { display: none; } .tn.shot .tn-text { visibility: visible; }</style></noscript>
 </head>
+<body id="top" data-page="home">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"><i id="progress-bar"></i></div>
 
-<body>
-  <!-- Hidden form for Netlify form detection -->
-  <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-    <input type="text" name="name" />
-    <input type="email" name="email" />
-    <select name="service">
-      <option value=""></option>
-    </select>
-    <input type="text" name="budget" />
-    <textarea name="message"></textarea>
-  </form>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
+  <header class="yt-top">
+    <div class="yt-left">
+      <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Collapse the side menu" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </button>
+      <a class="logo" href="index.html" aria-label="Ifham Ishaq, home">
+        <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 7.5v9l7.5-4.5z" fill="#fff"/></svg></span>
+        <span class="logo-name">Ifham Ishaq</span>
+      </a>
+    </div>
+
+    <form class="search" id="search" role="search" action="portfolio.html">
+      <input type="search" name="q" id="q" placeholder="Search my work" aria-label="Search my work" autocomplete="off">
+      <button type="submit" class="search-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </form>
+
+    <div class="yt-right">
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch to light theme">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
+      </button>
+      <a class="pill pill-inv top-cta" href="#comments">Start a project</a>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="guide" aria-label="Main">
+      <a href="index.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 10.5V21h6v-6h6v6h6V10.5z" fill="currentColor"/></svg><span>Home</span></a>
+      <a href="portfolio.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H4zM8 19h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10.5 8v5l4-2.5z" fill="currentColor"/></svg><span>All work</span></a>
+      <a href="#about"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>About</span></a>
+      <a href="#pricing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>Pricing</span></a>
+      <a href="#process"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg><span>How it works</span></a>
+      <a href="#comments"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Contact</span></a>
+    </nav>
+
+    <main id="main">
+      <div class="watch">
+        <div class="primary">
+
+          <section class="player" data-section style="--o:1" aria-label="Sample thumbnail">
+            <div class="tn-wrap">
+              <div class="tn shot">
+                <img class="tn-shot" id="tn-shot" alt="" aria-hidden="true" width="1280" height="720">
+                <span class="tn-text" role="img" aria-label="Sample thumbnail that reads: You get 3 seconds">
+                  <span class="tn-line" id="tn-line">YOU GET</span>
+                  <span class="tn-box">
+                    <span class="tn-box-text" id="tn-box-text">3 SECONDS</span>
+                    <span class="tn-ripple"></span>
+                    <svg class="tn-cursor" viewBox="0 0 14 21" width="14" height="21" focusable="false">
+                      <path d="M1.5 1.5v15.2l3.9-3.6 2.6 6 2.6-1.1-2.6-5.9h5.2z" fill="#fff" stroke="#0F1B33" stroke-width="1.4" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </span>
+                <span class="tn-cc" id="tn-cc" aria-hidden="true"></span>
+                <span class="tn-bar" aria-hidden="true"><i></i></span>
+                <span class="tn-ctrl">
+                  <button type="button" class="tn-play" id="replay" aria-label="Replay the animation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z" fill="currentColor"/></svg>
+                  <span class="tn-time" id="tn-time" aria-hidden="true">0:03 / 0:03</span>
+                  <span class="tn-gap"></span>
+                  <button type="button" class="tn-cc-btn" id="cc-btn" aria-pressed="false" aria-label="Captions"><span aria-hidden="true">CC</span></button>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3.3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1l.4 2.6h4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" fill="currentColor"/></svg>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7zm-2-4h2V7h3V5H5zm12 7h-3v2h5v-5h-2zM14 5v2h3v3h2V5z" fill="currentColor"/></svg>
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <h1 class="title" style="--o:2">Graphic design for creators and agencies</h1>
+
+          <div class="channel-row" style="--o:3">
+            <img class="avatar" src="images/ifham.jpg" alt="Ifham Ishaq" width="40" height="40">
+            <div class="channel-id">
+              <p class="channel-name">Ifham Ishaq</p>
+              <p class="channel-sub">Graphic designer in Srinagar, India</p>
+              <a class="live" href="#comments" data-live><i class="live-dot" aria-hidden="true"></i><span data-live-text>Taking new projects</span></a>
+            </div>
+            <button type="button" class="pill pill-red" id="subscribe" aria-pressed="false">Subscribe</button>
+            <a class="pill pill-soft" href="#pricing">Pricing</a>
+            <div class="actions">
+              <button type="button" class="pill pill-soft" id="like" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21h4V9H2zM23 10a2 2 0 0 0-2-2h-6.3l1-4.6v-.3c0-.4-.2-.8-.4-1.1L14.2 1 7.6 7.6C7.2 8 7 8.5 7 9v10a2 2 0 0 0 2 2h9c.8 0 1.5-.5 1.8-1.2l3-7c.1-.2.2-.5.2-.8z" fill="currentColor"/></svg>
+                Like
+              </button>
+              <button type="button" class="pill pill-soft" id="share">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.1c-.8 0-1.5.3-2 .8l-7.1-4.2c.1-.2.1-.5.1-.7s0-.5-.1-.7L16 7.2c.5.5 1.2.8 2 .8 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3c0 .2 0 .5.1.7L8 9.8C7.5 9.3 6.8 9 6 9c-1.7 0-3 1.3-3 3s1.3 3 3 3c.8 0 1.5-.3 2-.8l7.1 4.2c-.1.2-.1.4-.1.6 0 1.6 1.3 2.9 2.9 2.9s2.9-1.3 2.9-2.9-1.3-2.9-2.8-2.9z" fill="currentColor"/></svg>
+                Share
+              </button>
+            </div>
+          </div>
+          <p class="sub-note" id="sub-note" role="status" style="--o:3"></p>
+
+          <section class="desc" id="about" data-section style="--o:4" aria-label="About">
+            <p class="desc-lead">I’m Ifham, a graphic designer. I make YouTube thumbnails, carousels and social posts that stop the scroll for creators and agencies.</p>
+            <p>Finance, business and educational channels are a good fit. Usual turnaround is 24 to 48 hours, with revisions.</p>
+            <ul class="desc-more" id="desc-more" hidden>
+              <li>You send a title and topic, I send 2 to 3 concepts, and I polish the pick.</li>
+              <li>Email: <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a> <button type="button" class="copy" id="copy-email">Copy email</button><span class="copy-note" id="copy-note" role="status"></span></li>
+              <li>Local time in Srinagar: <time id="clock" datetime="">--:--</time></li>
+            </ul>
+            <button type="button" class="copy desc-toggle" id="desc-toggle" aria-expanded="false" aria-controls="desc-more">Show more</button>
+          </section>
+
+          <section class="selected" id="selected" data-section style="--o:5" aria-labelledby="selected-title">
+            <div class="selected-head">
+              <h2 id="selected-title">Selected work</h2>
+              <a class="pill pill-soft" id="view-all-top" href="portfolio.html">View all works</a>
+            </div>
+            <ul class="grid grid-selected" id="featured-grid"></ul>
+          </section>
+
+          <section class="pricing" id="pricing" data-section style="--o:7" aria-labelledby="pricing-title">
+            <h2 id="pricing-title">Pricing</h2>
+            <p class="process-intro">Pick a package. Usual turnaround is 24 to 48 hours, with revisions.</p>
+            <ul class="tiers" id="tiers"></ul>
+          </section>
+
+          <section class="process" id="process" data-section style="--o:8" aria-labelledby="process-title">
+            <h2 id="process-title">Chapters</h2>
+            <p class="process-intro">Usual turnaround is 24 to 48 hours, with revisions.</p>
+            <ol class="steps">
+              <li>
+                <div class="scene s1" data-video="process/step-1.mp4" aria-hidden="true">
+                  <div class="row r1"><small>Video title</small><span class="type ta">How I paid off my debt</span></div>
+                  <div class="row r2"><small>Topic</small><span class="type tb">Personal finance</span></div>
+                  <span class="s-btn s1-btn">Send</span>
+                  <span class="s1-ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Sent</span>
+                  <svg class="s-cursor s1-cursor" viewBox="0 0 14 21" focusable="false"><path d="M1.5 1.5v15.2l3.9-3.6 2.6 6 2.6-1.1-2.6-5.9h5.2z" fill="#fff" stroke="#0F1B33" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="step-copy">
+                  <h3>Send title and topic</h3>
+                  <p>Tell me what the video is called and what it's about.</p>
+                </div>
+              </li>
+              <li>
+                <div class="scene s2" data-video="process/step-2.mp4" aria-hidden="true">
+                  <span class="c c1">IDEA 1</span>
+                  <span class="c c2">IDEA 2</span>
+                  <span class="c c3">IDEA 3</span>
+                  <span class="s2-cap">2 to 3 concepts to compare</span>
+                </div>
+                <div class="step-copy">
+                  <h3>I send 2 to 3 concepts</h3>
+                  <p>You get a few different directions to compare.</p>
+                </div>
+              </li>
+              <li>
+                <div class="scene s3" data-video="process/step-3.mp4" aria-hidden="true">
+                  <span class="ghost g1">IDEA 1</span>
+                  <span class="ghost g3">IDEA 3</span>
+                  <span class="pick">
+                    <span class="pick-a">IDEA 2</span>
+                    <span class="pick-b"><b>FINAL</b></span>
+                  </span>
+                  <span class="s3-bar"><i></i></span>
+                  <span class="s3-label"><span class="l1">Polishing</span><span class="l2">Done</span></span>
+                </div>
+                <div class="step-copy">
+                  <h3>I polish the pick</h3>
+                  <p>You choose one and I refine it, with revisions.</p>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          <section id="testimonials" class="testimonials" data-section style="--o:9" aria-labelledby="testimonials-title" hidden>
+            <h2 id="testimonials-title">Testimonials</h2>
+            <p class="process-intro">Hear it from the people I've worked with.</p>
+            <ul class="tgrid" id="tgrid"></ul>
+          </section>
+
+          <section id="comments" class="comments" data-section style="--o:10" aria-labelledby="comments-title">
+            <div class="cta-card">
+              <div class="cta-head">
+                <img class="cta-photo" src="images/ifham.jpg" alt="Ifham Ishaq" width="96" height="96">
+                <div>
+                  <h2 id="comments-title">Start a project</h2>
+                  <p class="comments-sub">Tell me what you need. I reply by email.</p>
+                  <p class="live live-on-red" data-live><i class="live-dot" aria-hidden="true"></i><span data-live-text>Taking new projects</span></p>
+                </div>
+              </div>
+              <form class="form" id="contact-form" name="contact" method="POST" action="thanks.html"
+                    data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="contact">
+                <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+                <div class="form-grid">
+                  <label>Your name
+                    <input type="text" name="name" autocomplete="name" required>
+                  </label>
+                  <label>Your email
+                    <input type="email" name="email" autocomplete="email" required>
+                  </label>
+                </div>
+                <div class="form-grid">
+                  <label>What do you need?
+                    <select name="service">
+                      <option>YouTube thumbnails</option>
+                      <option>Carousels</option>
+                      <option>Social posts</option>
+                      <option>Something else</option>
+                    </select>
+                  </label>
+                  <label>Package
+                    <select name="package" id="package">
+                      <option>Not sure yet</option>
+                      <option>Starter thumbnail, $20</option>
+                      <option>Plus thumbnail, $30</option>
+                      <option>Pro thumbnail, $50</option>
+                      <option>Carousels and posts, $10 per image</option>
+                    </select>
+                  </label>
+                </div>
+                <label>Tell me about it
+                  <textarea name="message" rows="4" required></textarea>
+                </label>
+                <button class="pill pill-white" type="submit">Send message</button>
+                <p class="form-status" id="form-status" role="status"></p>
+              </form>
+            </div>
+          </section>
+        </div>
+
+        <aside class="upnext" style="--o:6" aria-labelledby="upnext-title">
+          <h2 id="upnext-title">Up next</h2>
+          <div class="ad" id="ad" aria-label="Advertisement, by me">
+            <div class="ad-box">
+              <div class="ad-tile" aria-hidden="true"><span>YOUR THUMBNAIL HERE</span></div>
+              <div class="ad-copy">
+                <p class="ad-title">Your next thumbnail could be here</p>
+                <p class="ad-badge"><b>Ad</b> by me</p>
+                <div class="ad-actions">
+                  <a class="pill pill-red" href="#comments">Start a project</a>
+                  <button type="button" class="ad-skip" id="ad-skip" disabled>Skip ad in 5</button>
+                </div>
+              </div>
+              <span class="ad-bar" aria-hidden="true"><i id="ad-bar"></i></span>
+            </div>
+            <p class="ad-done" id="ad-done" hidden>Ad skipped. I'm still here when you're ready to <a href="#comments">start a project</a>.</p>
+          </div>
+          <ul class="grid" id="grid"></ul>
+          <p class="work-empty" id="work-empty" hidden>Samples are being added. Email me for the current reel.</p>
+          <a class="pill pill-soft wide" id="view-all" href="portfolio.html">View all works</a>
+        </aside>
+      </div>
+
+      <footer class="foot">
+        <p>Ifham Ishaq, graphic designer in Srinagar, India.</p>
+        <p class="keys-hint">Press <kbd>?</kbd> for keyboard shortcuts.</p>
+      </footer>
+    </main>
+  </div>
+
+  <nav class="tabbar" aria-label="Main">
+    <a href="index.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 10.5V21h6v-6h6v6h6V10.5z" fill="currentColor"/></svg><span>Home</span></a>
+    <a href="portfolio.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H4zM8 19h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10.5 8v5l4-2.5z" fill="currentColor"/></svg><span>Work</span></a>
+    <a href="#pricing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>Pricing</span></a>
+    <a href="#comments"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Contact</span></a>
+  </nav>
+
+  <dialog id="viewer" aria-label="Enlarged thumbnail">
+    <form method="dialog" class="viewer-inner">
+      <img id="viewer-img" alt="" width="1280" height="720">
+      <p id="viewer-cap" class="viewer-cap"></p>
+      <p id="viewer-count" class="viewer-count"></p>
+      <div class="viewer-actions">
+        <button type="button" class="pill pill-quiet" id="viewer-prev">Previous</button>
+        <button type="button" class="pill pill-quiet" id="viewer-next">Next</button>
+        <button class="pill pill-red" id="viewer-close" autofocus>Close</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="keys" aria-label="Keyboard shortcuts">
+    <form method="dialog" class="viewer-inner keys-inner">
+      <h2>Keyboard shortcuts</h2>
+      <dl class="keys-list">
+        <div><dt><kbd>/</kbd></dt><dd>Search my work</dd></div>
+        <div class="home-only"><dt><kbd>k</kbd></dt><dd>Replay the player</dd></div>
+        <div><dt><kbd>j</kbd> <kbd>l</kbd></dt><dd>Previous or next section</dd></div>
+        <div><dt><kbd>w</kbd></dt><dd>See all work</dd></div>
+        <div class="home-only"><dt><kbd>c</kbd></dt><dd>Turn captions on or off</dd></div>
+        <div><dt><kbd>t</kbd></dt><dd>Switch theme</dd></div>
+        <div><dt><kbd>?</kbd></dt><dd>Show this list</dd></div>
+      </dl>
+      <button class="pill pill-red" autofocus>Close</button>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
 </body>
-
 </html>

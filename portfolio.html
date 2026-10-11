@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>All work | Ifham Ishaq, graphic designer</title>
+  <meta name="description" content="YouTube thumbnails designed by Ifham Ishaq for creators and agencies, including finance, business and educational channels.">
+  <meta name="author" content="Ifham Ishaq">
+  <meta name="theme-color" content="#0f0f0f">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ifham Ishaq">
+  <meta property="og:title" content="All work | Ifham Ishaq, graphic designer">
+  <meta property="og:description" content="YouTube thumbnails, carousels and social posts for creators and agencies. Usual turnaround is 24 to 48 hours, with revisions.">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="All work | Ifham Ishaq, graphic designer">
+  <meta name="twitter:description" content="YouTube thumbnails, carousels and social posts for creators and agencies. Usual turnaround is 24 to 48 hours, with revisions.">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"dark"}catch(e){}</script>
+  <link rel="preload" href="fonts/roboto.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top" data-page="all">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"><i id="progress-bar"></i></div>
+
+  <header class="yt-top">
+    <div class="yt-left">
+      <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Collapse the side menu" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </button>
+      <a class="logo" href="index.html" aria-label="Ifham Ishaq, home">
+        <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 7.5v9l7.5-4.5z" fill="#fff"/></svg></span>
+        <span class="logo-name">Ifham Ishaq</span>
+      </a>
+    </div>
+
+    <form class="search" id="search" role="search" action="portfolio.html">
+      <input type="search" name="q" id="q" placeholder="Search my work" aria-label="Search my work" autocomplete="off">
+      <button type="submit" class="search-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </form>
+
+    <div class="yt-right">
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch to light theme">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
+      </button>
+      <a class="pill pill-inv top-cta" href="index.html#comments">Start a project</a>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="guide" aria-label="Main">
+      <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 10.5V21h6v-6h6v6h6V10.5z" fill="currentColor"/></svg><span>Home</span></a>
+      <a href="portfolio.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H4zM8 19h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10.5 8v5l4-2.5z" fill="currentColor"/></svg><span>All work</span></a>
+      <a href="index.html#about"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>About</span></a>
+      <a href="index.html#pricing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>Pricing</span></a>
+      <a href="index.html#process"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg><span>How it works</span></a>
+      <a href="index.html#comments"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Contact</span></a>
+    </nav>
+
+    <main id="main">
+      <section class="page-head" data-section aria-labelledby="all-title">
+        <h1 id="all-title">All work</h1>
+        <p>My thumbnail work. Click one to enlarge it.</p>
+      </section>
+
+      <div class="chips" id="filters" role="group" aria-label="Filter by topic" hidden></div>
+
+      <section data-section aria-label="Thumbnails">
+        <ul class="grid" id="grid"></ul>
+        <p class="work-empty" id="work-empty" hidden>Samples are being added. Email me for the current reel.</p>
+        <p class="work-empty" id="no-match" hidden>Nothing matches that search. Try a different word.</p>
+        <p class="more-cta"><a class="pill pill-red" href="index.html#comments">Start a project</a></p>
+      </section>
+
+      <footer class="foot">
+        <p>Ifham Ishaq, graphic designer in Srinagar, India. Local time: <time id="clock" datetime="">--:--</time></p>
+        <p class="keys-hint">Press <kbd>?</kbd> for keyboard shortcuts.</p>
+      </footer>
+    </main>
+  </div>
+
+  <nav class="tabbar" aria-label="Main">
+    <a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 10.5V21h6v-6h6v6h6V10.5z" fill="currentColor"/></svg><span>Home</span></a>
+    <a href="portfolio.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H4zM8 19h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10.5 8v5l4-2.5z" fill="currentColor"/></svg><span>Work</span></a>
+    <a href="index.html#pricing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>Pricing</span></a>
+    <a href="index.html#comments"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Contact</span></a>
+  </nav>
+
+  <dialog id="viewer" aria-label="Enlarged thumbnail">
+    <form method="dialog" class="viewer-inner">
+      <img id="viewer-img" alt="" width="1280" height="720">
+      <p id="viewer-cap" class="viewer-cap"></p>
+      <p id="viewer-count" class="viewer-count"></p>
+      <div class="viewer-actions">
+        <button type="button" class="pill pill-quiet" id="viewer-prev">Previous</button>
+        <button type="button" class="pill pill-quiet" id="viewer-next">Next</button>
+        <button class="pill pill-red" id="viewer-close" autofocus>Close</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="keys" aria-label="Keyboard shortcuts">
+    <form method="dialog" class="viewer-inner keys-inner">
+      <h2>Keyboard shortcuts</h2>
+      <dl class="keys-list">
+        <div><dt><kbd>/</kbd></dt><dd>Search my work</dd></div>
+        <div class="home-only" hidden><dt><kbd>k</kbd></dt><dd>Replay the player</dd></div>
+        <div><dt><kbd>j</kbd> <kbd>l</kbd></dt><dd>Previous or next section</dd></div>
+        <div><dt><kbd>w</kbd></dt><dd>See all work</dd></div>
+        <div class="home-only" hidden><dt><kbd>c</kbd></dt><dd>Turn captions on or off</dd></div>
+        <div><dt><kbd>t</kbd></dt><dd>Switch theme</dd></div>
+        <div><dt><kbd>?</kbd></dt><dd>Show this list</dd></div>
+      </dl>
+      <button class="pill pill-red" autofocus>Close</button>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
