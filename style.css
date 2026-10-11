@@ -605,3 +605,65 @@ dialog :focus-visible { outline-color: #3ea6ff; }
 }
 .maker-row { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
 .maker-tip { margin-top: 20px; color: var(--fg2); }
+
+/* Welcome overlay for personalised links: a frosted-glass greeting card that opens */
+.welcome {
+  --W: min(88vw, 340px); --H: min(78vh, 420px);
+  position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 16px; overflow: hidden;
+  background: rgba(8, 8, 10, .66); -webkit-backdrop-filter: blur(16px) saturate(1.1); backdrop-filter: blur(16px) saturate(1.1); color: #fff;
+}
+@media (min-width: 700px) { .welcome { --W: 340px; --H: 410px; } }
+.welcome.leaving { opacity: 0; transition: opacity .4s ease; }
+.welcome-skip {
+  position: absolute; top: 16px; right: 16px; min-height: 44px; padding: 0 18px; border-radius: 22px; cursor: pointer;
+  background: rgba(255, 255, 255, .12); border: 1px solid rgba(255, 255, 255, .3); color: #fff; font: inherit; font-weight: 500;
+}
+.welcome :focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+.gc-shift { width: var(--W); height: var(--H); transform: translateX(calc(var(--W) / 2)); }
+.gc { position: relative; width: 100%; height: 100%; perspective: 1600px; }
+.gc-right, .gc-face {
+  position: absolute; inset: 0; border-radius: 14px; background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .3); box-shadow: 0 24px 70px rgba(0, 0, 0, .4);
+}
+.gc-right { display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 28px 26px; }
+.gc-right h2 { font-size: clamp(1.6rem, 1.3rem + 1.2vw, 2rem); line-height: 1.15; font-weight: 700; letter-spacing: -.01em; overflow-wrap: anywhere; }
+.gc-right p { font-size: 16px; line-height: 1.55; color: rgba(255, 255, 255, .88); }
+.gc-right .pill { align-self: flex-start; height: 44px; margin-top: 6px; padding: 0 24px; font-size: 15px; }
+.gc-cover { position: absolute; inset: 0; transform-origin: left center; transform-style: preserve-3d; transform: rotateY(-180deg); }
+.gc-face { display: grid; place-content: center; justify-items: center; gap: 10px; padding: 24px; text-align: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.gc-back { transform: rotateY(180deg); }
+.gc-mark { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--red); }
+.gc-mark svg { width: 30px; height: 30px; }
+.gc-front small { font-size: 15px; color: rgba(255, 255, 255, .8); }
+.gc-front b { max-width: 100%; font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.1rem); line-height: 1.15; font-weight: 700; overflow-wrap: anywhere; }
+.gc-rule { width: 40px; height: 2px; margin-top: 4px; background: var(--red); }
+.gc-photo { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px rgba(255, 255, 255, .85); }
+.gc-back b { font-size: 18px; font-weight: 700; }
+.gc-back span { color: rgba(255, 255, 255, .8); font-size: 14px; }
+.gc-back ul { display: grid; gap: 4px; margin-top: 8px; color: rgba(255, 255, 255, .9); font-size: 14px; }
+@media (max-width: 699px) {
+  .gc-shift { transform: none; }
+  .gc-cover { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gc-shift { animation: gc-shift 1.2s cubic-bezier(.5, 0, .2, 1) 1.0s both; }
+  .gc { animation: gc-in .8s cubic-bezier(.2, .8, .3, 1) both; }
+  .gc-cover { animation: cover-open 1.2s cubic-bezier(.5, 0, .2, 1) 1.0s both; }
+  .gc-right { animation: fade-in .5s ease 1.2s both; }
+  .gc-right > * { animation: fade-up .6s ease both; }
+  .gc-right h2 { animation-delay: 1.7s; }
+  .gc-right p { animation-delay: 1.95s; }
+  .gc-right .pill { animation-delay: 2.25s; }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 699px) {
+  .gc-shift { animation: none; }
+  .gc-cover { animation: cover-open-m 1.2s cubic-bezier(.5, 0, .2, 1) 1.0s both; }
+}
+@keyframes gc-shift { from { transform: none; } to { transform: translateX(calc(var(--W) / 2)); } }
+@keyframes gc-in { from { opacity: 0; transform: translateY(24px) scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes cover-open { from { transform: rotateY(0); } to { transform: rotateY(-180deg); } }
+@keyframes cover-open-m { from { transform: rotateY(0); opacity: 1; } 70% { opacity: 1; } to { transform: rotateY(-180deg); opacity: 0; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

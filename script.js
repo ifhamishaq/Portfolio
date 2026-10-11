@@ -685,6 +685,84 @@ function setupTopVideo() {
   });
 }
 
+/* Welcome overlay for personalised links ------------------------------ */
+
+function showWelcome(name) {
+  const quiet = [document.querySelector(".yt-top"), document.querySelector(".shell"), document.querySelector(".tabbar")].filter(Boolean);
+  quiet.forEach((el) => el.setAttribute("inert", ""));
+  const prevOverflow = document.documentElement.style.overflow;
+  document.documentElement.style.overflow = "hidden";
+
+  const el = document.createElement("div");
+  el.className = "welcome";
+  el.id = "welcome";
+  el.setAttribute("role", "dialog");
+  el.setAttribute("aria-modal", "true");
+  el.setAttribute("aria-labelledby", "welcome-title");
+  el.innerHTML = `
+    <button type="button" class="welcome-skip">Skip</button>
+    <div class="gc-shift">
+      <div class="gc">
+        <div class="gc-right">
+          <h2 id="welcome-title"></h2>
+          <p>I'm Ifham, a graphic designer in Srinagar. I make YouTube thumbnails, carousels and social posts for creators and agencies. I put this page together so you can see my work.</p>
+          <button type="button" class="pill pill-white welcome-go">See my work</button>
+        </div>
+        <div class="gc-cover" aria-hidden="true">
+          <div class="gc-face gc-front">
+            <span class="gc-mark"><svg viewBox="0 0 24 24"><path d="M9 7.5v9l7.5-4.5z" fill="#fff"/></svg></span>
+            <small>A note for</small>
+            <b class="gc-name"></b>
+            <i class="gc-rule"></i>
+          </div>
+          <div class="gc-face gc-back">
+            <img class="gc-photo" src="images/ifham.jpg" alt="" width="92" height="92">
+            <b>Ifham Ishaq</b>
+            <span>Graphic designer in Srinagar, India</span>
+            <ul><li>YouTube thumbnails</li><li>Carousels</li><li>Social posts</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  el.querySelector(".gc-name").textContent = name;
+  el.querySelector("#welcome-title").textContent = `Hi ${name},`;
+  document.body.append(el);
+
+  const go = el.querySelector(".welcome-go");
+  const skip = el.querySelector(".welcome-skip");
+  let closed = false;
+  const close = () => {
+    if (closed) return;
+    closed = true;
+    document.removeEventListener("keydown", onKey);
+    el.classList.add("leaving");
+    setTimeout(() => {
+      el.remove();
+      quiet.forEach((q) => q.removeAttribute("inert"));
+      document.documentElement.style.overflow = prevOverflow;
+      scrollTo(0, 0);
+      const h = document.querySelector(".title");
+      if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+      if (window.__replayHero) window.__replayHero(); // start the hero fresh for them
+    }, reduced ? 0 : 400);
+  };
+  const onKey = (e) => {
+    if (e.key === "Escape") close();
+    if (e.key === "Tab") { // keep focus inside the welcome
+      const items = [skip, go];
+      const i = items.indexOf(document.activeElement);
+      e.preventDefault();
+      items[(i + (e.shiftKey ? -1 : 1) + items.length) % items.length].focus();
+    }
+  };
+  document.addEventListener("keydown", onKey);
+  go.addEventListener("click", close);
+  skip.addEventListener("click", close);
+  skip.focus();
+  if (reduced) go.focus();
+  else setTimeout(() => { if (!closed) go.focus(); }, 2500);
+}
+
 function setupPersonal() {
   const raw = new URLSearchParams(location.search).get("for");
   if (!raw) return;
@@ -702,6 +780,7 @@ function setupPersonal() {
   const msg = document.querySelector("#contact-form [name=message]");
   if (msg && !msg.value) msg.value = `Hi Ifham, this is ${name}. `;
   if (window.__setHeroText) window.__setHeroText(`${name.toUpperCase()},`, "YOU GET 3 SECONDS");
+  if (page === "home") showWelcome(name);
 }
 
 function setupAvailability() {
