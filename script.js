@@ -268,7 +268,64 @@ function setupForm() {
   });
 }
 
+/* Hero: type your own title ------------------------------------------ */
+
+function setupTry() {
+  const input = $("try-title");
+  if (!input) return;
+  const tn = document.querySelector(".tn");
+  const text = tn.querySelector(".tn-text");
+  const line = $("tn-line");
+  const box = $("tn-box-text");
+  const cta = $("try-cta");
+  const DEFAULT = { a: "YOU GET", b: "3 SECONDS" };
+  const defaultLabel = tn.getAttribute("aria-label");
+
+  function split(title) {
+    const words = title.trim().split(/\s+/).filter(Boolean);
+    if (!words.length) return DEFAULT;
+    if (words.length === 1) return { a: "", b: words[0] };
+    let best = 1, bestScore = Infinity;
+    for (let i = 1; i < words.length; i++) {
+      const a = words.slice(0, i).join(" ").length;
+      const b = words.slice(i).join(" ").length;
+      const score = Math.max(a, b) + (a > b ? 0.5 : 0); // keep the yellow line the longer one
+      if (score < bestScore) { bestScore = score; best = i; }
+    }
+    return { a: words.slice(0, best).join(" "), b: words.slice(best).join(" ") };
+  }
+
+  function fit() {
+    let fs = 17;
+    text.style.setProperty("--fs", fs);
+    const limit = tn.clientWidth * 0.86;
+    while (fs > 4 && Math.max(line.scrollWidth, box.parentElement.offsetWidth) > limit) {
+      fs -= 0.5;
+      text.style.setProperty("--fs", fs);
+    }
+  }
+
+  input.addEventListener("input", () => {
+    const title = input.value.trim();
+    tn.classList.add("typed");
+    const t = split(input.value);
+    line.textContent = t.a;
+    line.hidden = !t.a;
+    box.textContent = t.b;
+    tn.setAttribute("aria-label", title ? `Thumbnail that reads: ${t.a} ${t.b}`.replace("  ", " ") : defaultLabel);
+    fit();
+    cta.hidden = !title;
+  });
+
+  cta.addEventListener("click", () => {
+    const msg = document.querySelector("#contact-form [name=message]");
+    const title = input.value.trim();
+    if (msg && title && !msg.value.trim()) msg.value = `Video title: ${title}\n`;
+  });
+}
+
 buildWork();
 buildTestimonial();
 startClock();
 setupForm();
+setupTry();
