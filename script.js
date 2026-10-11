@@ -13,6 +13,7 @@
 // The home page "Selected work" shows lines marked featured: true, or the first SELECTED_COUNT if none are.
 // "Up next" then lists the following UPNEXT_COUNT lines.
 const WORKS = [
+  { file: "thumbs/27.jpg", client: "", niche: "Medicare", top: true, title: "Why is everyone switching plans?" },
   { file: "thumbs/17.jpg", client: "", niche: "Business", top: true, title: "The science of scaling" },
   { file: "thumbs/23.jpg", client: "", niche: "Business", top: true, title: "What pros know that amateurs don't" },
   { file: "thumbs/24.jpg", client: "", niche: "Business", top: true, title: "Just do it" },
@@ -64,6 +65,15 @@ const PRICING = [
   { name: "Pro thumbnail", price: "$50", unit: "per thumbnail", detail: "", pick: "Pro thumbnail, $50", service: "YouTube thumbnails" },
   { name: "Carousels and posts", price: "$10", unit: "per image", detail: "", pick: "Carousels and posts, $10 per image", service: "Carousels" },
 ];
+
+// Your top video, shown with a play-in-place player. views is typed by hand, so update it now and then.
+// The title is the video's real title. Set TOP_VIDEO to null to hide the section.
+const TOP_VIDEO = {
+  id: "pZkDTMyrr6o",
+  title: "I Switched 47 Clients From Plan G to Plan N This Year - Here's What I Learned",
+  views: "124K views",
+  thumb: "thumbs/27.jpg",
+};
 
 // Video testimonials. One entry per video: put the MP4 in testimonial/ and match the file name.
 // poster is an optional still image. name, role and quote are all optional.
@@ -408,6 +418,28 @@ function setupHero() {
   window.__miniShow = (on) => { mini.hidden = !on || miniClosed; };
   function syncMini() { miniTn.dataset.style = tn.dataset.style || ""; }
 
+  // Personalised links (?for=Name) change the card's words and shrink them to fit.
+  const text = tn.querySelector(".tn-text");
+  const lineEl = $("tn-line"), boxEl = $("tn-box-text");
+  function fit() {
+    let fs = 17;
+    text.style.setProperty("--fs", fs);
+    const limit = tn.clientWidth * 0.86;
+    while (fs > 4 && Math.max(lineEl.scrollWidth, boxEl.parentElement.offsetWidth) > limit) {
+      fs -= 0.5;
+      text.style.setProperty("--fs", fs);
+    }
+    miniTn.querySelector(".tn-text").style.setProperty("--fs", fs);
+  }
+  window.__setHeroText = (a, b) => {
+    lineEl.textContent = a;
+    boxEl.textContent = b;
+    miniTn.querySelector(".tn-line").textContent = a;
+    miniTn.querySelector(".tn-box-text").textContent = b;
+    text.setAttribute("aria-label", `Sample thumbnail that reads: ${a} ${b}`);
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(fit);
+  };
+
   // Phase 1: one of your real thumbnails for 3 seconds while the bar fills.
   // Phase 2: it hides and "YOU GET 3 SECONDS" appears, with the cursor click.
   const shot = $("tn-shot");
@@ -619,6 +651,59 @@ function setupScenes() {
   });
 }
 
+function setupTopVideo() {
+  const sec = $("topvideo");
+  if (!sec || !TOP_VIDEO) return;
+  probe(TOP_VIDEO.thumb).then((ok) => {
+    if (!ok) return;
+    const url = `https://youtu.be/${TOP_VIDEO.id}`;
+    $("tv-title").textContent = TOP_VIDEO.title;
+    $("tv-views").textContent = TOP_VIDEO.views ? `${TOP_VIDEO.views} on YouTube` : "";
+    $("tv-views").hidden = !TOP_VIDEO.views;
+    $("tv-link").href = url;
+    const media = $("tv-media");
+    const img = document.createElement("img");
+    img.src = TOP_VIDEO.thumb;
+    img.alt = `Thumbnail of the video: ${TOP_VIDEO.title}`;
+    img.width = 1280;
+    img.height = 720;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "tv-play";
+    btn.setAttribute("aria-label", "Play the video here");
+    btn.innerHTML = '<span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>';
+    btn.addEventListener("click", () => {
+      const f = document.createElement("iframe");
+      f.src = `https://www.youtube-nocookie.com/embed/${TOP_VIDEO.id}?autoplay=1&rel=0`;
+      f.title = TOP_VIDEO.title;
+      f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      f.allowFullscreen = true;
+      media.replaceChildren(f);
+    });
+    media.append(img, btn);
+    sec.hidden = false;
+  });
+}
+
+function setupPersonal() {
+  const raw = new URLSearchParams(location.search).get("for");
+  if (!raw) return;
+  const name = raw.replace(/[^\p{L}\p{N} &.'’-]/gu, "").replace(/\s+/g, " ").slice(0, 30).trim();
+  if (!name) return;
+  document.title = `Ifham Ishaq, graphic designer for ${name}`;
+  const hello = $("hello");
+  if (hello) {
+    $("hello-text").textContent = `Hi ${name}, I'm Ifham. I design thumbnails, carousels and social posts for creators and agencies.`;
+    hello.hidden = false;
+    $("hello-x").addEventListener("click", () => { hello.hidden = true; });
+  }
+  const f = $("for-field");
+  if (f) f.value = name;
+  const msg = document.querySelector("#contact-form [name=message]");
+  if (msg && !msg.value) msg.value = `Hi Ifham, this is ${name}. `;
+  if (window.__setHeroText) window.__setHeroText(`${name.toUpperCase()},`, "YOU GET 3 SECONDS");
+}
+
 function setupAvailability() {
   document.querySelectorAll("[data-live]").forEach((el) => {
     if (!AVAILABILITY.show || !AVAILABILITY.text) { el.hidden = true; return; }
@@ -763,6 +848,8 @@ startClock();
 setupForm();
 setupHero();
 setupScenes();
+setupPersonal();
+setupTopVideo();
 setupAvailability();
 setupPricing();
 setupCaptions();
