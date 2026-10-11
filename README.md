@@ -32,9 +32,8 @@ placeholders (`thumbs/01.jpg` to `thumbs/09.jpg`): replace the files, or change 
   those lines instead, for example
   `{ file: "thumbs/14.jpg", client: "...", title: "...", featured: true },`.
   Change how many show by default with `FEATURED_COUNT`.
-- **Full portfolio (`portfolio.html`):** every line of `WORKS`, with a device slider
-  (large preview, desktop home feed, suggested videos, phone feed) and a filter by
-  client. The filter buttons appear on their own once you have two or more client names.
+- **Full portfolio (`portfolio.html`):** every line of `WORKS`, with a filter by client.
+  The filter buttons appear on their own once you have two or more client names.
 
 Spell a client name the same way on every line, because the filter groups by exact name.
 

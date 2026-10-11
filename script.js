@@ -60,16 +60,6 @@ function probe(src) {
 const grid = $("grid");
 const viewer = $("viewer");
 
-// Sizes viewers actually see a thumbnail at. Wide devices first.
-const SIZES = [
-  { name: "Large preview", w: 560 },
-  { name: "Desktop home feed", w: 360 },
-  { name: "Suggested videos", w: 168 },
-  { name: "Phone feed", w: 120 },
-];
-let stops = [];
-let chosen = 1; // index into SIZES the visitor picked
-
 function makeCard(work, eager, settle) {
   const li = document.createElement("li");
   li.className = "card";
@@ -141,7 +131,7 @@ function buildWork() {
 function showEmptyState() {
   grid.hidden = true;
   $("work-empty").hidden = false;
-  ["size-control", "filters", "work-note", "view-all"].forEach((id) => {
+  ["filters", "work-note", "view-all"].forEach((id) => {
     const el = $(id);
     if (el) el.hidden = true;
   });
@@ -170,51 +160,6 @@ function buildFilters(items) {
   };
   box.append(make("All", ""), ...clients.map((c) => make(c, c)));
   box.hidden = false;
-}
-
-/* Device-specific size slider (portfolio page) ----------------------- */
-
-const slider = $("size");
-const sizeLabel = $("size-label");
-
-function computeStops() {
-  const box = grid.parentElement;
-  const pad = parseFloat(getComputedStyle(box).paddingLeft) + parseFloat(getComputedStyle(box).paddingRight);
-  const room = Math.floor(box.clientWidth - pad);
-  stops = [];
-  SIZES.forEach((s, idx) => {
-    const w = Math.min(s.w, room);
-    if (stops.some((x) => x.w === w)) return;
-    stops.push({ idx, w, name: s.w > room ? "Full width" : s.name });
-  });
-  let best = 0;
-  stops.forEach((st, i) => {
-    if (Math.abs(st.idx - chosen) < Math.abs(stops[best].idx - chosen)) best = i;
-  });
-  slider.min = "0";
-  slider.max = String(stops.length - 1);
-  slider.value = String(best);
-}
-
-function applySize() {
-  const st = stops[Number(slider.value)];
-  chosen = st.idx;
-  const text = `${st.name}, ${st.w} px wide`;
-  grid.style.setProperty("--w", st.w + "px");
-  grid.classList.toggle("is-small", st.w < 200);
-  sizeLabel.textContent = text;
-  slider.setAttribute("aria-valuetext", text);
-}
-
-if (slider) {
-  slider.addEventListener("input", applySize);
-  let resizeTimer;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => { computeStops(); applySize(); }, 100);
-  });
-  computeStops();
-  applySize();
 }
 
 /* Enlarge dialog ----------------------------------------------------- */
