@@ -70,6 +70,7 @@
             <input id="try-title" type="text" maxlength="50" placeholder="Type it here">
             <a class="btn btn-small" id="try-cta" href="#contact" hidden>Design this one for me</a>
           </div>
+          <p class="try-note" id="try-note" role="status"></p>
           <div class="styles" role="group" aria-label="Thumbnail style">
             <span>Style</span>
             <button type="button" class="swatch" data-style="classic" aria-label="Navy with yellow box" aria-pressed="true"></button>
@@ -84,6 +85,27 @@
     <section class="clients wrap" aria-labelledby="clients-title">
       <h2 id="clients-title" class="sr-only">About</h2>
       <p class="clients-line">I’m Ifham, a graphic designer. I make YouTube thumbnails, carousels and social posts that stop the scroll for creators and agencies.</p>
+    </section>
+
+    <section class="channel wrap" aria-label="About Ifham">
+      <div class="channel-row">
+        <span class="avatar" aria-hidden="true">I</span>
+        <div class="channel-id">
+          <p class="channel-name">Ifham Ishaq</p>
+          <p class="channel-sub">Graphic designer in Srinagar, India</p>
+        </div>
+        <button type="button" class="subscribe" id="subscribe" aria-pressed="false">Subscribe</button>
+      </div>
+      <p class="sub-note" id="sub-note" role="status"></p>
+      <div class="desc" id="desc">
+        <p>YouTube thumbnails, carousels and social posts for creators and agencies, including finance, business and educational channels.</p>
+        <ul class="desc-more" id="desc-more" hidden>
+          <li>Usual turnaround is 24 to 48 hours, with revisions.</li>
+          <li>You send a title and topic, I send 2 to 3 concepts, and I polish the pick.</li>
+          <li>Email: <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a></li>
+        </ul>
+        <button type="button" class="copy" id="desc-toggle" aria-expanded="false" aria-controls="desc-more">Show more</button>
+      </div>
     </section>
 
     <section id="work" class="work wrap" aria-labelledby="work-title">
@@ -106,6 +128,20 @@
         <blockquote class="quote" id="zack-quote" hidden></blockquote>
       </div>
     </section>
+
+    <aside class="ad wrap" id="ad" aria-label="Advertisement, by me">
+      <div class="ad-box">
+        <div class="ad-tile" aria-hidden="true"><span>YOUR THUMBNAIL HERE</span></div>
+        <div class="ad-copy">
+          <p class="ad-badge"><b>Ad</b> 1 of 1, by me</p>
+          <p class="ad-title">Your next thumbnail could be here</p>
+          <a class="btn btn-small" href="#contact">Start a project</a>
+        </div>
+        <button type="button" class="ad-skip" id="ad-skip" disabled>Skip ad in 5</button>
+        <span class="ad-bar" aria-hidden="true"><i id="ad-bar"></i></span>
+      </div>
+      <p class="ad-done" id="ad-done" hidden>Ad skipped. I'm still here when you're ready to <a href="#contact">start a project</a>.</p>
+    </aside>
 
     <section id="process" class="process wrap" aria-labelledby="process-title">
       <h2 id="process-title">How it works</h2>
@@ -162,10 +198,22 @@
       </div>
     </section>
 
+    <section class="end" aria-labelledby="end-title">
+      <div class="wrap end-inner">
+        <h2 id="end-title">Watch next</h2>
+        <div class="end-row">
+          <a class="end-tile end-yellow" href="portfolio.html"><span>All work</span></a>
+          <a class="end-tile end-light" href="#contact"><span>Start a project</span></a>
+          <button type="button" class="end-replay" id="end-replay">Replay</button>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="foot wrap">
     <p>Ifham Ishaq, graphic designer in Srinagar, India.</p>
+    <p class="keys-hint">Press <kbd>?</kbd> for keyboard shortcuts.</p>
   </footer>
 
   <a class="btn sticky-cta" id="sticky-cta" href="#contact" hidden>Start a project</a>
@@ -180,6 +228,20 @@
         <button type="button" class="btn btn-quiet" id="viewer-next">Next</button>
         <button class="btn" id="viewer-close" autofocus>Close</button>
       </div>
+    </form>
+  </dialog>
+
+  <dialog id="keys" aria-label="Keyboard shortcuts">
+    <form method="dialog" class="viewer-inner keys-inner">
+      <h2>Keyboard shortcuts</h2>
+      <dl class="keys-list">
+        <div class="home-only"><dt><kbd>/</kbd></dt><dd>Type your own video title</dd></div>
+        <div class="home-only"><dt><kbd>k</kbd></dt><dd>Replay the hero</dd></div>
+        <div><dt><kbd>j</kbd> <kbd>l</kbd></dt><dd>Previous or next section</dd></div>
+        <div><dt><kbd>w</kbd></dt><dd>See all work</dd></div>
+        <div><dt><kbd>?</kbd></dt><dd>Show this list</dd></div>
+      </dl>
+      <button class="btn" autofocus>Close</button>
     </form>
   </dialog>
 

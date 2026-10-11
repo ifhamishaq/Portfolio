@@ -295,8 +295,36 @@ function setupTry() {
       document.querySelectorAll(".swatch").forEach((x) => x.setAttribute("aria-pressed", String(x === sw)));
       tn.dataset.style = sw.dataset.style;
       tn.classList.add("typed");
+      syncMini();
     });
   });
+
+  const mini = document.createElement("div");
+  mini.className = "mini";
+  mini.id = "mini";
+  mini.hidden = true;
+  mini.innerHTML = '<div class="tn-wrap"></div><div class="mini-row"><a class="btn btn-small" href="#contact">Start a project</a><button type="button" class="btn btn-small btn-quiet" id="mini-close">Close</button></div>';
+  const miniTn = tn.cloneNode(true);
+  miniTn.classList.add("typed");
+  miniTn.removeAttribute("role");
+  miniTn.setAttribute("aria-hidden", "true");
+  miniTn.querySelectorAll("[id]").forEach((el) => el.removeAttribute("id"));
+  mini.querySelector(".tn-wrap").append(miniTn);
+  document.body.append(mini);
+  let miniClosed = false;
+  try { miniClosed = sessionStorage.getItem("miniClosed") === "1"; } catch (e) {}
+  $("mini-close").addEventListener("click", () => {
+    miniClosed = true;
+    mini.hidden = true;
+    try { sessionStorage.setItem("miniClosed", "1"); } catch (e) {}
+  });
+  function syncMini() {
+    miniTn.dataset.style = tn.dataset.style || "";
+    const a = miniTn.querySelector(".tn-line"), b = miniTn.querySelector(".tn-box-text");
+    a.textContent = line.textContent; a.hidden = line.hidden; b.textContent = box.textContent;
+    miniTn.querySelector(".tn-text").style.setProperty("--fs", text.style.getPropertyValue("--fs") || 17);
+  }
+  window.__miniShow = (on) => { mini.hidden = !on || miniClosed; };
 
   const replay = $("replay");
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -345,6 +373,10 @@ function setupTry() {
     tn.setAttribute("aria-label", title ? `Thumbnail that reads: ${t.a} ${t.b}`.replace("  ", " ") : defaultLabel);
     fit();
     cta.hidden = !title;
+    $("try-note").textContent = /shocking|insane|you won'?t believe|gone wrong|exposed|nobody tells you/i.test(title)
+      ? "That title is doing a lot of work. I can help the thumbnail do some of it."
+      : "";
+    syncMini();
   });
 
   cta.addEventListener("click", () => {
@@ -387,10 +419,119 @@ function setupExtras() {
   const hero = document.querySelector(".hero, .page-head");
   if (cta && contact && "IntersectionObserver" in window) {
     let pastHero = false, atContact = false;
-    const show = () => (cta.hidden = !pastHero || atContact);
+    const show = () => { cta.hidden = !pastHero || atContact; if (window.__miniShow) window.__miniShow(pastHero && !atContact); };
     new IntersectionObserver(([en]) => { pastHero = !en.isIntersecting; show(); }).observe(hero);
     new IntersectionObserver(([en]) => { atContact = en.isIntersecting; show(); }).observe(contact);
   }
+}
+
+/* YouTube-style extras ------------------------------------------------ */
+
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const scrollBehavior = reduced ? "auto" : "smooth";
+
+function setupChannel() {
+  const sub = $("subscribe");
+  if (!sub) return;
+  let taps = 0;
+  const lines = [
+    "Subscribed. There's no newsletter, though. The best way to follow my work is to hire me.",
+    "Unsubscribed. I'm fine. Really.",
+    "Subscribed again. You clearly like clicking things. That's a good sign for a thumbnail.",
+  ];
+  sub.addEventListener("click", () => {
+    const on = sub.getAttribute("aria-pressed") !== "true";
+    sub.setAttribute("aria-pressed", String(on));
+    sub.textContent = on ? "Subscribed" : "Subscribe";
+    $("sub-note").textContent = lines[Math.min(taps++, lines.length - 1)];
+  });
+  const toggle = $("desc-toggle");
+  toggle.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") !== "true";
+    toggle.setAttribute("aria-expanded", String(open));
+    $("desc-more").hidden = !open;
+    toggle.textContent = open ? "Show less" : "Show more";
+  });
+}
+
+function setupAd() {
+  const ad = $("ad");
+  if (!ad) return;
+  const skip = $("ad-skip");
+  let started = false;
+  new IntersectionObserver((entries, obs) => {
+    if (!entries[0].isIntersecting || started) return;
+    started = true;
+    obs.disconnect();
+    $("ad-bar").classList.add("run");
+    let left = 5;
+    const timer = setInterval(() => {
+      left--;
+      if (left > 0) { skip.textContent = `Skip ad in ${left}`; return; }
+      clearInterval(timer);
+      skip.textContent = "Skip ad";
+      skip.disabled = false;
+    }, 1000);
+  }, { threshold: 0.7 }).observe(ad);
+  skip.addEventListener("click", () => {
+    ad.querySelector(".ad-box").hidden = true;
+    $("ad-done").hidden = false;
+  });
+}
+
+function setupChapters() {
+  const steps = [...document.querySelectorAll(".steps li")];
+  const box = document.querySelector(".steps");
+  if (!steps.length || reduced) return; // reduced motion keeps every chapter filled
+  steps.forEach((li) => li.style.setProperty("--fill", 0));
+  const update = () => {
+    const r = box.getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, (innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.25)));
+    steps.forEach((li, i) => li.style.setProperty("--fill", Math.min(1, Math.max(0, p * steps.length - i))));
+  };
+  addEventListener("scroll", update, { passive: true });
+  addEventListener("resize", update);
+  update();
+}
+
+function setupEndScreen() {
+  const btn = $("end-replay");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    scrollTo({ top: 0, behavior: scrollBehavior });
+    const replay = $("replay");
+    if (replay && !replay.hidden) setTimeout(() => replay.click(), reduced ? 0 : 500);
+  });
+}
+
+function setupShortcuts() {
+  const keys = $("keys");
+  const sections = () => [...document.querySelectorAll("main > section, main > aside")].filter((el) => !el.hidden && el.offsetParent !== null);
+  document.addEventListener("keydown", (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const t = e.target;
+    if (t.matches("input, textarea, select") || t.isContentEditable) return;
+    if (document.querySelector("dialog[open]") && e.key !== "?") return;
+    if (e.key === "?") { keys.open ? keys.close() : keys.showModal(); return; }
+    if (e.key === "w") { location.href = page === "home" ? "portfolio.html" : "portfolio.html"; return; }
+    if (e.key === "/" && page === "home") { e.preventDefault(); $("try-title").focus(); scrollTo({ top: 0, behavior: scrollBehavior }); return; }
+    if (e.key === "k" && page === "home" && $("replay") && !$("replay").hidden) { scrollTo({ top: 0, behavior: scrollBehavior }); $("replay").click(); return; }
+    if (e.key === "j" || e.key === "l") {
+      const list = sections();
+      const here = list.filter((el) => el.getBoundingClientRect().top <= 8).length - 1;
+      const next = e.key === "l" ? Math.min(list.length - 1, here + 1) : here >= 0 && list[here].getBoundingClientRect().top < -8 ? here : Math.max(0, here - 1);
+      list[next].scrollIntoView({ behavior: scrollBehavior, block: "start" });
+    }
+  });
+  keys.addEventListener("click", (e) => { if (e.target === keys) keys.close(); });
+}
+
+function setupTabTitle() {
+  const original = document.title;
+  document.addEventListener("visibilitychange", () => {
+    document.title = document.hidden ? "Still buffering. Come back." : original;
+  });
+  console.log("%cLooking for a thumbnail designer?", "font-weight:bold;font-size:14px", "\nifham.wani89@gmail.com");
 }
 
 buildWork();
@@ -399,3 +540,9 @@ startClock();
 setupForm();
 setupTry();
 setupExtras();
+setupChannel();
+setupAd();
+setupChapters();
+setupEndScreen();
+setupShortcuts();
+setupTabTitle();
