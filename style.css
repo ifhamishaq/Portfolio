@@ -298,6 +298,52 @@ main { flex: 1; min-width: 0; padding: 0 16px 72px; }
 .chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
 .more-cta { margin-top: 40px; }
 
+/* Live availability badge */
+.live { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 12px; font-weight: 700; color: var(--fg); text-decoration: none; }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 0 rgba(230, 33, 23, .6); }
+.live-on-red { color: #fff; font-size: 13px; margin-top: 8px; }
+.live-on-red .live-dot { background: #fff; box-shadow: 0 0 0 0 rgba(255, 255, 255, .6); }
+@media (prefers-reduced-motion: no-preference) {
+  .live-dot { animation: live-pulse 1.8s ease-out infinite; }
+}
+@keyframes live-pulse { 70% { box-shadow: 0 0 0 7px rgba(230, 33, 23, 0); } 100% { box-shadow: 0 0 0 0 rgba(230, 33, 23, 0); } }
+@media (prefers-reduced-motion: no-preference) {
+  .live-on-red .live-dot { animation-name: live-pulse-w; }
+}
+@keyframes live-pulse-w { 70% { box-shadow: 0 0 0 7px rgba(255, 255, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
+
+/* Pricing tiers, styled like channel membership cards */
+.pricing { margin-top: 40px; }
+.pricing h2 { font-size: 20px; font-weight: 700; }
+.tiers { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 16px; margin-top: 16px; }
+.tier {
+  position: relative; display: grid; align-content: start; gap: 6px; padding: 20px 16px 16px;
+  border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+}
+.tier::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--red); }
+.tier-name { font-size: 16px; font-weight: 500; }
+.tier-price { display: flex; align-items: baseline; gap: 6px; }
+.tier-price b { font-size: 34px; line-height: 1.1; font-weight: 700; letter-spacing: -.02em; }
+.tier-price span { color: var(--fg2); font-size: 14px; }
+.tier-detail { color: var(--fg2); font-size: 14px; }
+.tier .pill { margin-top: 10px; justify-self: start; }
+
+/* Captions on the player */
+.tn-cc-btn {
+  display: grid; place-items: center; height: 5cqw; padding: 0 1.1cqw; margin: 0; border: 0; background: transparent; color: inherit; cursor: pointer;
+  border-bottom: .5cqw solid transparent;
+}
+.tn-cc-btn span { padding: 0 .6cqw; border: .3cqw solid currentColor; border-radius: .6cqw; font-size: max(8px, 2.1cqw); font-weight: 700; line-height: 1.4; }
+.tn-cc-btn[aria-pressed="true"] { border-bottom-color: var(--red); }
+.tn-cc-btn:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
+.tn-cc {
+  position: absolute; left: 50%; bottom: 11cqw; transform: translateX(-50%); max-width: 84%; padding: .6cqw 1.6cqw;
+  background: rgba(8, 8, 8, .78); color: #fff; font-family: "Roboto", system-ui, sans-serif; text-transform: none;
+  font-size: max(11px, 3cqw); line-height: 1.35; text-align: center; border-radius: .8cqw; white-space: nowrap;
+}
+.tn-cc:empty { display: none; }
+.mini .tn-cc, .mini .tn-cc-btn { display: none; }
+
 /* Chapters (how it works) */
 .process, .comments { margin-top: 32px; }
 .process h2, .comments h2 { font-size: 20px; font-weight: 700; }

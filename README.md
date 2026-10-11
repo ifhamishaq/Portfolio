@@ -69,6 +69,20 @@ If it is missing, the animation stays. Keep each video under about 5 MB.
 The hero player picks a new colour style at random each time it plays. Visitors can click its
 play button to replay it.
 
+## Pricing and availability
+
+At the top of `script.js`:
+
+- `PRICING` has one line per pricing card (name, price, unit, an optional detail line). The
+  Choose button pre-fills the contact form with that package. Prices are $20 (starting price),
+  $30, $50 and $10 per image for carousels and posts. Add a `detail` line to say what each
+  tier includes.
+- `AVAILABILITY` is the pulsing red badge near Subscribe and above the contact form. Keep the
+  text true and update it when your availability changes (for example "Taking new projects").
+  Set `show: false` to hide it.
+
+The "CC" button on the hero player (or the `c` key) turns on a few fun captions.
+
 ## Add testimonial videos
 
 The Testimonials section holds a grid of video cards. Each card is one line in the

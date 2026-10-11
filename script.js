@@ -46,6 +46,22 @@ const UPNEXT_COUNT = 8; // the "Up next" list beside it
 // localhost, file:// and any URL ending in ?edit.
 const SHOW_PLACEHOLDERS = false;
 
+// The pulsing LIVE-style badge near the Subscribe button and the contact form.
+// Keep it TRUE: change the text whenever your availability changes, for example
+// "Taking new projects", "Booking for next week" or "Fully booked until Friday".
+// Set show to false to hide it.
+const AVAILABILITY = { show: true, text: "Taking new projects" };
+
+// Pricing cards. One line per card. detail is optional (leave "" to hide it).
+// pick is what gets pre-filled in the contact form when someone clicks Choose.
+// service must match one of the contact form's options.
+const PRICING = [
+  { name: "Starter thumbnail", price: "$20", unit: "starting price", detail: "", pick: "Starter thumbnail, $20", service: "YouTube thumbnails" },
+  { name: "Plus thumbnail", price: "$30", unit: "per thumbnail", detail: "", pick: "Plus thumbnail, $30", service: "YouTube thumbnails" },
+  { name: "Pro thumbnail", price: "$50", unit: "per thumbnail", detail: "", pick: "Pro thumbnail, $50", service: "YouTube thumbnails" },
+  { name: "Carousels and posts", price: "$10", unit: "per image", detail: "", pick: "Carousels and posts, $10 per image", service: "Carousels" },
+];
+
 // Video testimonials. One entry per video: put the MP4 in testimonial/ and match the file name.
 // poster is an optional still image. name, role and quote are all optional.
 // A slot stays hidden on the live site until its video file exists. Preview empty slots
@@ -543,6 +559,57 @@ function setupScenes() {
   });
 }
 
+function setupAvailability() {
+  document.querySelectorAll("[data-live]").forEach((el) => {
+    if (!AVAILABILITY.show || !AVAILABILITY.text) { el.hidden = true; return; }
+    el.querySelector("[data-live-text]").textContent = AVAILABILITY.text;
+  });
+}
+
+function setupPricing() {
+  const box = $("tiers");
+  if (!box) return;
+  PRICING.forEach((t) => {
+    const li = document.createElement("li");
+    li.className = "tier";
+    li.innerHTML = '<h3 class="tier-name"></h3><p class="tier-price"><b></b><span></span></p><p class="tier-detail"></p><a class="pill pill-red" href="#comments">Choose this</a>';
+    li.querySelector(".tier-name").textContent = t.name;
+    li.querySelector("b").textContent = t.price;
+    li.querySelector(".tier-price span").textContent = t.unit;
+    const d = li.querySelector(".tier-detail");
+    d.textContent = t.detail || "";
+    d.hidden = !t.detail;
+    li.querySelector(".pill").setAttribute("aria-label", `Choose ${t.name}, ${t.price} ${t.unit}`);
+    li.querySelector(".pill").addEventListener("click", () => {
+      const form = $("contact-form");
+      if (!form) return;
+      const sel = form.querySelector("[name=service]");
+      if ([...sel.options].some((o) => o.value === t.service)) sel.value = t.service;
+      const msg = form.querySelector("[name=message]");
+      const line = `Package: ${t.pick}\n`;
+      const rest = msg.value.replace(/^Package: .*\n?/, "");
+      if (!msg.value.trim() || /^Package: /.test(msg.value)) msg.value = line + rest;
+    });
+    box.append(li);
+  });
+}
+
+function setupCaptions() {
+  const btn = $("cc-btn");
+  if (!btn) return;
+  const cc = $("tn-cc");
+  const lines = ["[upbeat music]", "[keyboard clicking]", "You get 3 seconds.", "[cursor clicks the yellow box]", "Make them count."];
+  let timer = null, i = 0;
+  const show = () => { cc.textContent = lines[i % lines.length]; i++; };
+  const set = (on) => {
+    btn.setAttribute("aria-pressed", String(on));
+    clearInterval(timer);
+    if (on) { i = 0; show(); timer = setInterval(show, 2200); } else { cc.textContent = ""; }
+  };
+  btn.addEventListener("click", () => set(btn.getAttribute("aria-pressed") !== "true"));
+  window.__toggleCaptions = () => set(btn.getAttribute("aria-pressed") !== "true");
+}
+
 function setupChapters() {
   const steps = [...document.querySelectorAll(".steps li")];
   const box = document.querySelector(".steps");
@@ -607,6 +674,7 @@ function setupShortcuts() {
     if (e.key === "w") { location.href = "portfolio.html"; return; }
     if (e.key === "t" && window.__toggleTheme) { window.__toggleTheme(); return; }
     if (e.key === "/") { e.preventDefault(); $("q").focus(); return; }
+    if (e.key === "c" && page === "home" && window.__toggleCaptions) { window.__toggleCaptions(); return; }
     if (e.key === "k" && page === "home" && window.__replayHero) { scrollTo({ top: 0, behavior: scrollBehavior }); window.__replayHero(); return; }
     if (e.key === "j" || e.key === "l") {
       const list2 = sections();
@@ -634,6 +702,9 @@ startClock();
 setupForm();
 setupHero();
 setupScenes();
+setupAvailability();
+setupPricing();
+setupCaptions();
 setupExtras();
 setupChannel();
 setupAd();

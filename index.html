@@ -58,6 +58,7 @@
       <a href="index.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 10.5V21h6v-6h6v6h6V10.5z" fill="currentColor"/></svg><span>Home</span></a>
       <a href="portfolio.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H4zM8 19h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10.5 8v5l4-2.5z" fill="currentColor"/></svg><span>All work</span></a>
       <a href="#about"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>About</span></a>
+      <a href="#pricing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>Pricing</span></a>
       <a href="#process"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg><span>How it works</span></a>
       <a href="#comments"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Contact</span></a>
     </nav>
@@ -79,12 +80,14 @@
                     </svg>
                   </span>
                 </span>
+                <span class="tn-cc" id="tn-cc" aria-hidden="true"></span>
                 <span class="tn-bar" aria-hidden="true"><i></i></span>
                 <span class="tn-ctrl">
                   <button type="button" class="tn-play" id="replay" aria-label="Replay the animation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z" fill="currentColor"/></svg>
                   <span class="tn-time" aria-hidden="true">0:03 / 0:03</span>
                   <span class="tn-gap"></span>
+                  <button type="button" class="tn-cc-btn" id="cc-btn" aria-pressed="false" aria-label="Captions"><span aria-hidden="true">CC</span></button>
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3.3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1l.4 2.6h4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" fill="currentColor"/></svg>
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7zm-2-4h2V7h3V5H5zm12 7h-3v2h5v-5h-2zM14 5v2h3v3h2V5z" fill="currentColor"/></svg>
                 </span>
@@ -99,8 +102,10 @@
             <div class="channel-id">
               <p class="channel-name">Ifham Ishaq</p>
               <p class="channel-sub">Graphic designer in Srinagar, India</p>
+              <a class="live" href="#comments" data-live><i class="live-dot" aria-hidden="true"></i><span data-live-text>Taking new projects</span></a>
             </div>
             <button type="button" class="pill pill-red" id="subscribe" aria-pressed="false">Subscribe</button>
+            <a class="pill pill-soft" href="#pricing">Pricing</a>
             <div class="actions">
               <button type="button" class="pill pill-soft" id="like" aria-pressed="false">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21h4V9H2zM23 10a2 2 0 0 0-2-2h-6.3l1-4.6v-.3c0-.4-.2-.8-.4-1.1L14.2 1 7.6 7.6C7.2 8 7 8.5 7 9v10a2 2 0 0 0 2 2h9c.8 0 1.5-.5 1.8-1.2l3-7c.1-.2.2-.5.2-.8z" fill="currentColor"/></svg>
@@ -133,7 +138,13 @@
             <ul class="grid grid-selected" id="featured-grid"></ul>
           </section>
 
-          <section class="process" id="process" data-section style="--o:7" aria-labelledby="process-title">
+          <section class="pricing" id="pricing" data-section style="--o:7" aria-labelledby="pricing-title">
+            <h2 id="pricing-title">Pricing</h2>
+            <p class="process-intro">Pick a package. Usual turnaround is 24 to 48 hours, with revisions.</p>
+            <ul class="tiers" id="tiers"></ul>
+          </section>
+
+          <section class="process" id="process" data-section style="--o:8" aria-labelledby="process-title">
             <h2 id="process-title">Chapters</h2>
             <p class="process-intro">Usual turnaround is 24 to 48 hours, with revisions.</p>
             <ol class="steps">
@@ -181,19 +192,20 @@
             </ol>
           </section>
 
-          <section id="testimonials" class="testimonials" data-section style="--o:8" aria-labelledby="testimonials-title" hidden>
+          <section id="testimonials" class="testimonials" data-section style="--o:9" aria-labelledby="testimonials-title" hidden>
             <h2 id="testimonials-title">Testimonials</h2>
             <p class="process-intro">Hear it from the people I've worked with.</p>
             <ul class="tgrid" id="tgrid"></ul>
           </section>
 
-          <section id="comments" class="comments" data-section style="--o:9" aria-labelledby="comments-title">
+          <section id="comments" class="comments" data-section style="--o:10" aria-labelledby="comments-title">
             <div class="cta-card">
               <div class="cta-head">
                 <img class="cta-photo" src="images/ifham.jpg" alt="Ifham Ishaq" width="96" height="96">
                 <div>
                   <h2 id="comments-title">Start a project</h2>
                   <p class="comments-sub">Tell me what you need. I reply by email.</p>
+                  <p class="live live-on-red" data-live><i class="live-dot" aria-hidden="true"></i><span data-live-text>Taking new projects</span></p>
                 </div>
               </div>
               <form class="form" id="contact-form" name="contact" method="POST" action="thanks.html"
@@ -259,7 +271,7 @@
   <nav class="tabbar" aria-label="Main">
     <a href="index.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 10.5V21h6v-6h6v6h6V10.5z" fill="currentColor"/></svg><span>Home</span></a>
     <a href="portfolio.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H4zM8 19h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10.5 8v5l4-2.5z" fill="currentColor"/></svg><span>Work</span></a>
-    <a href="#process"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg><span>Process</span></a>
+    <a href="#pricing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="8.5" r="1.5"/></svg><span>Pricing</span></a>
     <a href="#comments"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Contact</span></a>
   </nav>
 
@@ -284,6 +296,7 @@
         <div class="home-only"><dt><kbd>k</kbd></dt><dd>Replay the player</dd></div>
         <div><dt><kbd>j</kbd> <kbd>l</kbd></dt><dd>Previous or next section</dd></div>
         <div><dt><kbd>w</kbd></dt><dd>See all work</dd></div>
+        <div class="home-only"><dt><kbd>c</kbd></dt><dd>Turn captions on or off</dd></div>
         <div><dt><kbd>t</kbd></dt><dd>Switch theme</dd></div>
         <div><dt><kbd>?</kbd></dt><dd>Show this list</dd></div>
       </dl>
