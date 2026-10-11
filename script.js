@@ -173,6 +173,7 @@ function showAt(i) {
   $("viewer-img").src = w.file;
   $("viewer-img").alt = `${w.client} thumbnail: ${w.title}`;
   $("viewer-cap").textContent = `${w.client}: ${w.title}`;
+  $("viewer-count").textContent = `${current + 1} of ${list.length}`;
 }
 
 function openViewer(btn) {
@@ -190,6 +191,14 @@ $("viewer-prev").addEventListener("click", () => showAt(current - 1));
 $("viewer-next").addEventListener("click", () => showAt(current + 1));
 viewer.addEventListener("click", (e) => {
   if (e.target === viewer) viewer.close(); // click on the backdrop
+});
+let swipeX = null;
+viewer.addEventListener("pointerdown", (e) => { swipeX = e.clientX; });
+viewer.addEventListener("pointerup", (e) => {
+  if (swipeX === null || list.length < 2) return;
+  const dx = e.clientX - swipeX;
+  swipeX = null;
+  if (Math.abs(dx) > 50) showAt(current + (dx < 0 ? 1 : -1));
 });
 viewer.addEventListener("keydown", (e) => {
   if (list.length < 2) return;
@@ -281,6 +290,27 @@ function setupTry() {
   const DEFAULT = { a: "YOU GET", b: "3 SECONDS" };
   const defaultLabel = tn.getAttribute("aria-label");
 
+  document.querySelectorAll(".swatch").forEach((sw) => {
+    sw.addEventListener("click", () => {
+      document.querySelectorAll(".swatch").forEach((x) => x.setAttribute("aria-pressed", String(x === sw)));
+      tn.dataset.style = sw.dataset.style;
+      tn.classList.add("typed");
+    });
+  });
+
+  const replay = $("replay");
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    replay.hidden = true;
+  } else {
+    replay.addEventListener("click", () => {
+      tn.classList.remove("typed");
+      const parts = tn.querySelectorAll(".tn-bar i, .tn-cursor, .tn-ripple, .tn-box");
+      parts.forEach((el) => (el.style.animation = "none"));
+      void tn.offsetWidth;
+      parts.forEach((el) => (el.style.animation = ""));
+    });
+  }
+
   function split(title) {
     const words = title.trim().split(/\s+/).filter(Boolean);
     if (!words.length) return DEFAULT;
@@ -324,8 +354,48 @@ function setupTry() {
   });
 }
 
+/* Progress bar, copy email, sticky call to action ---------------------- */
+
+function setupExtras() {
+  const bar = $("progress-bar");
+  let ticking = false;
+  const update = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+    ticking = false;
+  };
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener("resize", update);
+  update();
+
+  const copy = $("copy-email");
+  if (copy) {
+    copy.addEventListener("click", async () => {
+      const note = $("copy-note");
+      try {
+        await navigator.clipboard.writeText("ifham.wani89@gmail.com");
+        note.textContent = "Copied";
+      } catch (e) {
+        note.textContent = "Select and copy the address above";
+      }
+      setTimeout(() => (note.textContent = ""), 2500);
+    });
+  }
+
+  const cta = $("sticky-cta");
+  const contact = $("contact");
+  const hero = document.querySelector(".hero, .page-head");
+  if (cta && contact && "IntersectionObserver" in window) {
+    let pastHero = false, atContact = false;
+    const show = () => (cta.hidden = !pastHero || atContact);
+    new IntersectionObserver(([en]) => { pastHero = !en.isIntersecting; show(); }).observe(hero);
+    new IntersectionObserver(([en]) => { atContact = en.isIntersecting; show(); }).observe(contact);
+  }
+}
+
 buildWork();
 buildTestimonial();
 startClock();
 setupForm();
 setupTry();
+setupExtras();

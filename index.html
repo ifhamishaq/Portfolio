@@ -24,6 +24,7 @@
 </head>
 <body id="top" data-page="home">
   <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"><i id="progress-bar"></i></div>
 
   <header class="top wrap">
     <a class="brand" href="#top">Ifham Ishaq</a>
@@ -61,10 +62,20 @@
           <span class="tn-bar" aria-hidden="true"><i></i></span>
         </div>
         <form class="try" id="try" autocomplete="off">
-          <label for="try-title">Try your own video title</label>
+          <div class="try-head">
+            <label for="try-title">Try your own video title</label>
+            <button type="button" class="copy" id="replay">Replay</button>
+          </div>
           <div class="try-row">
             <input id="try-title" type="text" maxlength="50" placeholder="Type it here">
             <a class="btn btn-small" id="try-cta" href="#contact" hidden>Design this one for me</a>
+          </div>
+          <div class="styles" role="group" aria-label="Thumbnail style">
+            <span>Style</span>
+            <button type="button" class="swatch" data-style="classic" aria-label="Navy with yellow box" aria-pressed="true"></button>
+            <button type="button" class="swatch" data-style="gold" aria-label="Yellow with navy box" aria-pressed="false"></button>
+            <button type="button" class="swatch" data-style="clean" aria-label="Light with yellow box" aria-pressed="false"></button>
+            <button type="button" class="swatch" data-style="black" aria-label="Black with red box" aria-pressed="false"></button>
           </div>
         </form>
       </div>
@@ -119,7 +130,7 @@
       <div class="wrap band-inner">
         <div class="band-copy">
           <h2 id="contact-title">Start a project</h2>
-          <p class="band-email">Or write to <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a></p>
+          <p class="band-email">Or write to <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a> <button type="button" class="copy" id="copy-email">Copy email</button><span class="copy-note" id="copy-note" role="status"></span></p>
           <p class="clock">It's <time id="clock" datetime="">--:--</time> in Srinagar right now.</p>
         </div>
 
@@ -157,10 +168,13 @@
     <p>Ifham Ishaq, graphic designer in Srinagar, India.</p>
   </footer>
 
+  <a class="btn sticky-cta" id="sticky-cta" href="#contact" hidden>Start a project</a>
+
   <dialog id="viewer" aria-label="Enlarged thumbnail">
     <form method="dialog" class="viewer-inner">
       <img id="viewer-img" alt="" width="1280" height="720">
       <p id="viewer-cap" class="viewer-cap"></p>
+      <p id="viewer-count" class="viewer-count"></p>
       <div class="viewer-actions">
         <button type="button" class="btn btn-quiet" id="viewer-prev">Previous</button>
         <button type="button" class="btn btn-quiet" id="viewer-next">Next</button>

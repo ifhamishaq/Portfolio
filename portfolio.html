@@ -24,6 +24,7 @@
 </head>
 <body id="top" data-page="all">
   <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"><i id="progress-bar"></i></div>
 
   <header class="top wrap">
     <a class="brand" href="index.html">Ifham Ishaq</a>
@@ -51,7 +52,7 @@
       <div class="wrap band-inner">
         <div class="band-copy">
           <h2 id="contact-title">Start a project</h2>
-          <p class="band-email">Or write to <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a></p>
+          <p class="band-email">Or write to <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a> <button type="button" class="copy" id="copy-email">Copy email</button><span class="copy-note" id="copy-note" role="status"></span></p>
           <p class="clock">It's <time id="clock" datetime="">--:--</time> in Srinagar right now.</p>
         </div>
         <div class="band-side">
@@ -66,10 +67,13 @@
     <p>Ifham Ishaq, graphic designer in Srinagar, India.</p>
   </footer>
 
+  <a class="btn sticky-cta" id="sticky-cta" href="#contact" hidden>Start a project</a>
+
   <dialog id="viewer" aria-label="Enlarged thumbnail">
     <form method="dialog" class="viewer-inner">
       <img id="viewer-img" alt="" width="1280" height="720">
       <p id="viewer-cap" class="viewer-cap"></p>
+      <p id="viewer-count" class="viewer-count"></p>
       <div class="viewer-actions">
         <button type="button" class="btn btn-quiet" id="viewer-prev">Previous</button>
         <button type="button" class="btn btn-quiet" id="viewer-next">Next</button>
