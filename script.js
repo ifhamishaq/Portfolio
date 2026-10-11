@@ -46,13 +46,15 @@ const UPNEXT_COUNT = 8; // the "Up next" list beside it
 // localhost, file:// and any URL ending in ?edit.
 const SHOW_PLACEHOLDERS = false;
 
-// Zack's video lives at testimonial/zack.mp4. The section stays hidden until that file exists.
-// Leave quote empty ("") to show the video without a quote.
-const TESTIMONIAL = {
-  name: "Zack",
-  role: "",
-  quote: "",
-};
+// Video testimonials. One entry per video: put the MP4 in testimonial/ and match the file name.
+// poster is an optional still image. name, role and quote are all optional.
+// A slot stays hidden on the live site until its video file exists. Preview empty slots
+// by opening the page with ?edit at the end of the address.
+const TESTIMONIALS = [
+  { video: "testimonial/zack.mp4", poster: "testimonial/zack.jpg", name: "Zack", role: "", quote: "" },
+  { video: "testimonial/client-2.mp4", poster: "testimonial/client-2.jpg", name: "", role: "", quote: "" },
+  { video: "testimonial/client-3.mp4", poster: "testimonial/client-3.jpg", name: "", role: "", quote: "" },
+];
 
 /* ------------------------------------------------------------------
    Nothing below needs editing
@@ -259,32 +261,53 @@ viewer.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") showAt(current + 1);
 });
 
-/* Testimonial -------------------------------------------------------- */
+/* Testimonials ------------------------------------------------------- */
 
-function buildTestimonial() {
-  const video = $("zack-video");
-  if (!video) return;
-  video.addEventListener(
-    "loadedmetadata",
-    () => {
-      const who = [TESTIMONIAL.name, TESTIMONIAL.role].filter(Boolean).join(", ");
-      $("testimonial-title").textContent = TESTIMONIAL.name ? `Hear from ${TESTIMONIAL.name}` : "Hear from a client";
-      $("zack-caption").textContent = who;
-      video.setAttribute("aria-label", who ? `Video from ${who}` : "Video testimonial");
-      if (TESTIMONIAL.quote && TESTIMONIAL.quote.trim()) {
-        const q = $("zack-quote");
-        q.textContent = TESTIMONIAL.quote.trim();
-        q.hidden = false;
-        $("testimonial-body").classList.add("has-quote");
-      }
-      $("testimonial").hidden = false;
-    },
-    { once: true }
-  );
-  probe("testimonial/zack.jpg").then((ok) => {
-    if (ok) video.poster = "testimonial/zack.jpg";
+function buildTestimonials() {
+  const box = $("tgrid");
+  if (!box) return;
+  const reveal = () => { $("testimonials").hidden = false; };
+
+  TESTIMONIALS.forEach((t) => {
+    const li = document.createElement("li");
+    li.hidden = true;
+    const frameWrap = document.createElement("div");
+    frameWrap.className = "tvideo";
+    const video = document.createElement("video");
+    video.controls = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    const label = t.name ? `Video testimonial from ${t.name}` : "Video testimonial";
+    video.setAttribute("aria-label", label);
+    frameWrap.append(video);
+    li.append(frameWrap);
+
+    if (t.name || t.role || t.quote) {
+      const meta = document.createElement("div");
+      meta.className = "tmeta";
+      if (t.name) { const n = document.createElement("p"); n.className = "tname"; n.textContent = t.name; meta.append(n); }
+      if (t.role) { const r = document.createElement("p"); r.className = "trole"; r.textContent = t.role; meta.append(r); }
+      if (t.quote && t.quote.trim()) { const q = document.createElement("p"); q.className = "tquote"; q.textContent = t.quote.trim(); meta.append(q); }
+      li.append(meta);
+    }
+    box.append(li);
+
+    video.addEventListener("loadedmetadata", () => { li.hidden = false; reveal(); }, { once: true });
+    video.addEventListener("error", () => {
+      if (!showEmpty) { li.remove(); return; }
+      frameWrap.replaceChildren();
+      const frame = document.createElement("div");
+      frame.className = "frame";
+      frame.innerHTML = "<b></b><span>Empty slot. Add an MP4 video.</span>";
+      frame.firstChild.textContent = t.video;
+      frameWrap.append(frame);
+      li.hidden = false;
+      reveal();
+    }, { once: true });
+
+    if (t.poster) probe(t.poster).then((ok) => { if (ok) video.poster = t.poster; });
+    video.src = t.video;
   });
-  video.src = "testimonial/zack.mp4";
 }
 
 /* Srinagar clock ----------------------------------------------------- */
@@ -606,7 +629,7 @@ function setupTabTitle() {
 
 setupTheme();
 buildWork();
-buildTestimonial();
+buildTestimonials();
 startClock();
 setupForm();
 setupHero();

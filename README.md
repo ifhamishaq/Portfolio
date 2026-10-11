@@ -9,7 +9,7 @@ style.css       all styling
 script.js       the lists you edit (WORKS, TESTIMONIAL) and the page behaviour
 fonts/          Roboto and Anton, self-hosted
 thumbs/         your 1280x720 JPGs
-testimonial/    zack.mp4 and optional zack.jpg
+testimonial/    your testimonial videos (MP4) and optional poster images
 ```
 
 ## Add thumbnails
@@ -69,15 +69,26 @@ If it is missing, the animation stays. Keep each video under about 5 MB.
 The hero player picks a new colour style at random each time it plays. Visitors can click its
 play button to replay it.
 
-## Add Zack's video
+## Add testimonial videos
 
-1. Save the video as `testimonial/zack.mp4`. Vertical and horizontal both work.
-2. Optional: add a poster image as `testimonial/zack.jpg`.
-3. Optional: edit `TESTIMONIAL` at the top of `script.js` (`name`, `role`, `quote`).
-   Leave `quote` as `""` to show only the video.
+The Testimonials section holds a grid of video cards. Each card is one line in the
+`TESTIMONIALS` list at the top of `script.js`:
 
-The testimonial section stays hidden until `testimonial/zack.mp4` exists and loads.
-Use H.264 video with AAC audio so it plays in every browser.
+```js
+{ video: "testimonial/zack.mp4", poster: "testimonial/zack.jpg", name: "Zack", role: "", quote: "" },
+```
+
+1. Save the video in `testimonial/` (MP4, H.264 video with AAC audio plays everywhere).
+   Vertical and horizontal videos both work: each sits in a 16:9 frame without cropping.
+2. Optional: add a poster image (a still from the video) with the same name and `.jpg`.
+3. Optional: fill in `name`, `role` and `quote`. Leave any of them as `""` to hide it.
+4. Add more lines for more videos. Three slots come ready: `zack.mp4`, `client-2.mp4`
+   and `client-3.mp4`.
+
+A slot stays hidden on the live site until its video file exists, and the whole section
+stays hidden until at least one video does. To preview the empty slots, add `?edit` to
+the page address (for example `https://yoursite.netlify.app/?edit`) or open the site on
+your computer. Keep each video under about 20 MB.
 
 ## Deploy on Netlify
 
