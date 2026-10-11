@@ -68,8 +68,8 @@
 
           <section class="player" data-section style="--o:1" aria-label="Sample thumbnail">
             <div class="tn-wrap">
-              <div class="tn" role="img" aria-label="Sample thumbnail that reads: You get 3 seconds">
-                <span class="tn-text" aria-hidden="true">
+              <div class="tn">
+                <span class="tn-text" role="img" aria-label="Sample thumbnail that reads: You get 3 seconds">
                   <span class="tn-line" id="tn-line">YOU GET</span>
                   <span class="tn-box">
                     <span class="tn-box-text" id="tn-box-text">3 SECONDS</span>
@@ -80,37 +80,17 @@
                   </span>
                 </span>
                 <span class="tn-bar" aria-hidden="true"><i></i></span>
-                <span class="tn-ctrl" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z" fill="currentColor"/></svg>
-                  <span class="tn-time">0:03 / 0:03</span>
+                <span class="tn-ctrl">
+                  <button type="button" class="tn-play" id="replay" aria-label="Replay the animation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z" fill="currentColor"/></svg>
+                  <span class="tn-time" aria-hidden="true">0:03 / 0:03</span>
                   <span class="tn-gap"></span>
-                  <svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3.3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1l.4 2.6h4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" fill="currentColor"/></svg>
-                  <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7zm-2-4h2V7h3V5H5zm12 7h-3v2h5v-5h-2zM14 5v2h3v3h2V5z" fill="currentColor"/></svg>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3.3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1l.4 2.6h4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" fill="currentColor"/></svg>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14H5v5h5v-2H7zm-2-4h2V7h3V5H5zm12 7h-3v2h5v-5h-2zM14 5v2h3v3h2V5z" fill="currentColor"/></svg>
                 </span>
               </div>
             </div>
           </section>
-
-          <form class="try" id="try" style="--o:4" autocomplete="off">
-            <div class="try-head">
-              <label for="try-title">Try your own video title</label>
-              <button type="button" class="copy" id="replay">Replay</button>
-            </div>
-            <div class="try-row">
-              <input id="try-title" type="text" maxlength="50" placeholder="Type it here">
-              <a class="pill pill-red" id="try-cta" href="#comments" hidden>Design this one for me</a>
-            </div>
-            <p class="try-note" id="try-note" role="status"></p>
-            <div class="styles" role="group" aria-label="Thumbnail style">
-              <span>Style</span>
-              <button type="button" class="swatch" data-style="classic" aria-label="Navy with yellow box" aria-pressed="true"></button>
-              <button type="button" class="swatch" data-style="red" aria-label="Red with white box" aria-pressed="false"></button>
-              <button type="button" class="swatch" data-style="gold" aria-label="Yellow with navy box" aria-pressed="false"></button>
-              <button type="button" class="swatch" data-style="clean" aria-label="Light with yellow box" aria-pressed="false"></button>
-              <button type="button" class="swatch" data-style="black" aria-label="Black with red box" aria-pressed="false"></button>
-            </div>
-          </form>
 
           <h1 class="title" style="--o:2">Graphic design for creators and agencies</h1>
 
@@ -134,7 +114,7 @@
           </div>
           <p class="sub-note" id="sub-note" role="status" style="--o:3"></p>
 
-          <section class="desc" id="about" data-section style="--o:5" aria-label="About">
+          <section class="desc" id="about" data-section style="--o:4" aria-label="About">
             <p class="desc-lead">I’m Ifham, a graphic designer. I make YouTube thumbnails, carousels and social posts that stop the scroll for creators and agencies.</p>
             <p>Finance, business and educational channels are a good fit. Usual turnaround is 24 to 48 hours, with revisions.</p>
             <ul class="desc-more" id="desc-more" hidden>
@@ -145,21 +125,58 @@
             <button type="button" class="copy desc-toggle" id="desc-toggle" aria-expanded="false" aria-controls="desc-more">Show more</button>
           </section>
 
+          <section class="selected" id="selected" data-section style="--o:5" aria-labelledby="selected-title">
+            <div class="selected-head">
+              <h2 id="selected-title">Selected work</h2>
+              <a class="pill pill-soft" id="view-all-top" href="portfolio.html">View all works</a>
+            </div>
+            <ul class="grid grid-selected" id="featured-grid"></ul>
+          </section>
+
           <section class="process" id="process" data-section style="--o:7" aria-labelledby="process-title">
             <h2 id="process-title">Chapters</h2>
             <p class="process-intro">Usual turnaround is 24 to 48 hours, with revisions.</p>
             <ol class="steps">
               <li>
-                <h3>Send title and topic</h3>
-                <p>Tell me what the video is called and what it's about.</p>
+                <div class="scene s1" data-video="process/step-1.mp4" aria-hidden="true">
+                  <div class="row r1"><small>Video title</small><span class="type ta">How I paid off my debt</span></div>
+                  <div class="row r2"><small>Topic</small><span class="type tb">Personal finance</span></div>
+                  <span class="s-btn s1-btn">Send</span>
+                  <span class="s1-ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Sent</span>
+                  <svg class="s-cursor s1-cursor" viewBox="0 0 14 21" focusable="false"><path d="M1.5 1.5v15.2l3.9-3.6 2.6 6 2.6-1.1-2.6-5.9h5.2z" fill="#fff" stroke="#0F1B33" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="step-copy">
+                  <h3>Send title and topic</h3>
+                  <p>Tell me what the video is called and what it's about.</p>
+                </div>
               </li>
               <li>
-                <h3>I send 2 to 3 concepts</h3>
-                <p>You get a few different directions to compare.</p>
+                <div class="scene s2" data-video="process/step-2.mp4" aria-hidden="true">
+                  <span class="c c1">IDEA 1</span>
+                  <span class="c c2">IDEA 2</span>
+                  <span class="c c3">IDEA 3</span>
+                  <span class="s2-cap">2 to 3 concepts to compare</span>
+                </div>
+                <div class="step-copy">
+                  <h3>I send 2 to 3 concepts</h3>
+                  <p>You get a few different directions to compare.</p>
+                </div>
               </li>
               <li>
-                <h3>I polish the pick</h3>
-                <p>You choose one and I refine it, with revisions.</p>
+                <div class="scene s3" data-video="process/step-3.mp4" aria-hidden="true">
+                  <span class="ghost g1">IDEA 1</span>
+                  <span class="ghost g3">IDEA 3</span>
+                  <span class="pick">
+                    <span class="pick-a">IDEA 2</span>
+                    <span class="pick-b"><b>FINAL</b></span>
+                  </span>
+                  <span class="s3-bar"><i></i></span>
+                  <span class="s3-label"><span class="l1">Polishing</span><span class="l2">Done</span></span>
+                </div>
+                <div class="step-copy">
+                  <h3>I polish the pick</h3>
+                  <p>You choose one and I refine it, with revisions.</p>
+                </div>
               </li>
             </ol>
           </section>
@@ -176,8 +193,19 @@
           </section>
 
           <section id="comments" class="comments" data-section style="--o:9" aria-labelledby="comments-title">
-            <h2 id="comments-title">Start a project</h2>
-            <p class="comments-sub">Tell me what you need. I reply by email.</p>
+            <div class="comments-head">
+              <div class="scene s4" data-video="process/step-4.mp4" aria-hidden="true">
+                <span class="s4-box"><span class="s4-av"></span><span class="type tc">Hi Ifham, I need thumbnails</span></span>
+                <span class="s-btn s4-btn">Send message</span>
+                <svg class="s4-mail" viewBox="0 0 24 24"><path d="M3 6h18v12H3z M3 7l9 7 9-7" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
+                <span class="s4-ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Message sent</span>
+                <svg class="s-cursor s4-cursor" viewBox="0 0 14 21" focusable="false"><path d="M1.5 1.5v15.2l3.9-3.6 2.6 6 2.6-1.1-2.6-5.9h5.2z" fill="#fff" stroke="#0F1B33" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <h2 id="comments-title">Start a project</h2>
+                <p class="comments-sub">Tell me what you need. I reply by email.</p>
+              </div>
+            </div>
             <form class="form" id="contact-form" name="contact" method="POST" action="thanks.html"
                   data-netlify="true" netlify-honeypot="bot-field">
               <input type="hidden" name="form-name" value="contact">

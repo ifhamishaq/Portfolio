@@ -30,8 +30,9 @@ any title, reorder lines, or delete lines freely.
 
 **Two places show your work:**
 
-- **Home page (`index.html`):** a YouTube-style watch page. The thumbnails sit in the "Up next"
-  list with a "View all works" button. It shows the first 8 lines of `WORKS`. To choose which ones, add `featured: true` to
+- **Home page (`index.html`):** a YouTube-style watch page. A "Selected work" block shows the first
+  6 lines of `WORKS` (or the ones marked `featured: true`), and the "Up next" list shows the next 8.
+  Both link to "View all works". The old first-8 rule of `WORKS`. To choose which ones, add `featured: true` to
   those lines instead, for example
   `{ file: "thumbs/14.jpg", client: "...", title: "...", featured: true },`.
   Change how many show by default with `FEATURED_COUNT`.
@@ -46,6 +47,22 @@ to show a labelled dashed frame. The empty frame still
 appears on localhost, when opening the file directly, and on any URL ending in `?edit`
 (for example `https://yoursite.netlify.app/portfolio.html?edit`). If no image loads on the
 live site, the work sections show a short "samples are being added" line instead.
+
+## Replace a step animation with your own video
+
+The four "how it works" and "Start a project" panels are built-in animations. To swap one for
+your own video, save it as 16:9 MP4 (muted is fine) in `process/`:
+
+- `process/step-1.mp4` for "Send title and topic"
+- `process/step-2.mp4` for "I send 2 to 3 concepts"
+- `process/step-3.mp4` for "I polish the pick"
+- `process/step-4.mp4` for "Start a project"
+
+If the file exists it plays (muted, looping, only while on screen) in place of the animation.
+If it is missing, the animation stays. Keep each video under about 5 MB.
+
+The hero player picks a new colour style at random each time it plays. Visitors can click its
+play button to replay it.
 
 ## Add Zack's video
 

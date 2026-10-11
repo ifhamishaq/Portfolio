@@ -7,7 +7,8 @@
 // niche is the topic chip on the portfolio page (Medicare, Finance, Business...).
 // Leave it "" for none. The chips appear when two or more topics are used.
 // The full portfolio page (portfolio.html) shows every line. Add as many as you need.
-// The home page shows the ones marked featured: true, or the first FEATURED_COUNT if none are.
+// The home page "Selected work" shows lines marked featured: true, or the first SELECTED_COUNT if none are.
+// "Up next" then lists the following UPNEXT_COUNT lines.
 const WORKS = [
   { file: "thumbs/01.jpg", client: "", niche: "Business", title: "The full breakdown" },
   { file: "thumbs/02.jpg", client: "", niche: "Business", title: "Inside the mind of a monster" },
@@ -37,7 +38,8 @@ const WORKS = [
   { file: "thumbs/26.jpg", client: "", niche: "Finance", title: "Make money on social media" },
 ];
 
-const FEATURED_COUNT = 8;
+const SELECTED_COUNT = 6; // the "Selected work" block on the home page
+const UPNEXT_COUNT = 8; // the "Up next" list beside it
 
 // true: missing images show a labelled empty frame for everyone (use while setting up).
 // false: missing images are hidden on the live site. Empty frames still show on
@@ -133,14 +135,19 @@ function makeCard(work, eager, settle) {
 
 function buildWork() {
   if (!grid) return;
-  let items = WORKS;
+  let groups;
   if (page === "home") {
     const flagged = WORKS.filter((w) => w.featured);
-    items = flagged.length ? flagged : WORKS.slice(0, FEATURED_COUNT);
+    const selected = flagged.length ? flagged : WORKS.slice(0, SELECTED_COUNT);
+    const rest = WORKS.filter((w) => !selected.includes(w)).slice(0, UPNEXT_COUNT);
+    groups = [[$("featured-grid"), selected], [grid, rest]];
+  } else {
+    groups = [[grid, WORKS]];
   }
 
-  const eagerCount = page === "all" ? 12 : items.length;
-  let pending = Math.min(eagerCount, items.length);
+  const all = groups.reduce((n, [, list]) => n + list.length, 0);
+  const eagerCount = page === "all" ? 12 : all;
+  let pending = Math.min(eagerCount, all);
   let loaded = 0;
   const settle = (ok) => {
     if (ok) loaded++;
@@ -148,14 +155,19 @@ function buildWork() {
     showEmptyState();
   };
 
-  items.forEach((w, i) => grid.append(makeCard(w, i < eagerCount, i < eagerCount ? settle : null)));
-  if (page === "all") setupBrowse(items);
+  let n = 0;
+  groups.forEach(([ul, list]) => list.forEach((w) => {
+    const eager = n < eagerCount;
+    ul.append(makeCard(w, eager, eager ? settle : null));
+    n++;
+  }));
+  if (page === "all") setupBrowse(WORKS);
 }
 
 function showEmptyState() {
   grid.hidden = true;
   $("work-empty").hidden = false;
-  ["filters", "view-all"].forEach((id) => { const el = $(id); if (el) el.hidden = true; });
+  ["filters", "view-all", "selected"].forEach((id) => { const el = $(id); if (el) el.hidden = true; });
 }
 
 /* Search and topic chips (portfolio page) ------------------------------ */
@@ -218,7 +230,7 @@ function showAt(i) {
 }
 
 function openViewer(btn) {
-  list = [...grid.querySelectorAll(".card:not([hidden]) .card-btn")];
+  list = [...document.querySelectorAll("main .grid .card:not([hidden]) .card-btn")];
   const i = list.indexOf(btn);
   if (i < 0) return;
   showAt(i);
@@ -319,18 +331,19 @@ function setupForm() {
   });
 }
 
-/* Hero: type your own title, pick a style, mini player ----------------- */
+/* Hero player: random style on every play, replay button, mini player ---- */
 
-function setupTry() {
-  const input = $("try-title");
-  if (!input) return;
+function setupHero() {
   const tn = document.querySelector(".tn");
-  const text = tn.querySelector(".tn-text");
-  const line = $("tn-line");
-  const box = $("tn-box-text");
-  const cta = $("try-cta");
-  const DEFAULT = { a: "YOU GET", b: "3 SECONDS" };
-  const defaultLabel = tn.getAttribute("aria-label");
+  if (!tn) return;
+  const STYLES = ["classic", "red", "gold", "clean", "black"];
+  let last = "";
+  const pick = () => {
+    const options = STYLES.filter((s) => s !== last);
+    last = options[Math.floor(Math.random() * options.length)];
+    tn.dataset.style = last;
+    syncMini();
+  };
 
   const mini = document.createElement("div");
   mini.className = "mini";
@@ -339,7 +352,7 @@ function setupTry() {
   mini.innerHTML = '<div class="tn-wrap"></div><div class="mini-row"><a class="pill pill-red" href="#comments">Start a project</a><button type="button" class="pill pill-quiet" id="mini-close">Close</button></div>';
   const miniTn = tn.cloneNode(true);
   miniTn.classList.add("typed");
-  miniTn.removeAttribute("role");
+  miniTn.setAttribute("inert", "");
   miniTn.setAttribute("aria-hidden", "true");
   miniTn.querySelectorAll("[id]").forEach((el) => el.removeAttribute("id"));
   mini.querySelector(".tn-wrap").append(miniTn);
@@ -352,80 +365,19 @@ function setupTry() {
     try { sessionStorage.setItem("miniClosed", "1"); } catch (e) {}
   });
   window.__miniShow = (on) => { mini.hidden = !on || miniClosed; };
-  function syncMini() {
-    miniTn.dataset.style = tn.dataset.style || "";
-    const a = miniTn.querySelector(".tn-line"), b = miniTn.querySelector(".tn-box-text");
-    a.textContent = line.textContent; a.hidden = line.hidden; b.textContent = box.textContent;
-    miniTn.querySelector(".tn-text").style.setProperty("--fs", text.style.getPropertyValue("--fs") || 17);
-  }
+  function syncMini() { miniTn.dataset.style = tn.dataset.style || ""; }
 
-  document.querySelectorAll(".swatch").forEach((sw) => {
-    sw.addEventListener("click", () => {
-      document.querySelectorAll(".swatch").forEach((x) => x.setAttribute("aria-pressed", String(x === sw)));
-      tn.dataset.style = sw.dataset.style;
-      tn.classList.add("typed");
-      syncMini();
-    });
-  });
-
-  const replay = $("replay");
-  if (reduced) {
-    replay.hidden = true;
-  } else {
-    replay.addEventListener("click", () => {
-      tn.classList.remove("typed");
-      const parts = tn.querySelectorAll(".tn-bar i, .tn-cursor, .tn-ripple, .tn-box");
-      parts.forEach((el) => (el.style.animation = "none"));
-      void tn.offsetWidth;
-      parts.forEach((el) => (el.style.animation = ""));
-    });
-  }
-
-  function split(title) {
-    const words = title.trim().split(/\s+/).filter(Boolean);
-    if (!words.length) return DEFAULT;
-    if (words.length === 1) return { a: "", b: words[0] };
-    let best = 1, bestScore = Infinity;
-    for (let i = 1; i < words.length; i++) {
-      const a = words.slice(0, i).join(" ").length;
-      const b = words.slice(i).join(" ").length;
-      const score = Math.max(a, b) + (a > b ? 0.5 : 0); // keep the boxed line the longer one
-      if (score < bestScore) { bestScore = score; best = i; }
-    }
-    return { a: words.slice(0, best).join(" "), b: words.slice(best).join(" ") };
-  }
-
-  function fit() {
-    let fs = 17;
-    text.style.setProperty("--fs", fs);
-    const limit = tn.clientWidth * 0.86;
-    while (fs > 4 && Math.max(line.scrollWidth, box.parentElement.offsetWidth) > limit) {
-      fs -= 0.5;
-      text.style.setProperty("--fs", fs);
-    }
-  }
-
-  input.addEventListener("input", () => {
-    const title = input.value.trim();
-    tn.classList.add("typed");
-    const t = split(input.value);
-    line.textContent = t.a;
-    line.hidden = !t.a;
-    box.textContent = t.b;
-    tn.setAttribute("aria-label", title ? `Thumbnail that reads: ${t.a} ${t.b}`.replace("  ", " ") : defaultLabel);
-    fit();
-    cta.hidden = !title;
-    $("try-note").textContent = /shocking|insane|you won'?t believe|gone wrong|exposed|nobody tells you/i.test(title)
-      ? "That title is doing a lot of work. I can help the thumbnail do some of it."
-      : "";
-    syncMini();
-  });
-
-  cta.addEventListener("click", () => {
-    const msg = document.querySelector("#contact-form [name=message]");
-    const title = input.value.trim();
-    if (msg && title && !msg.value.trim()) msg.value = `Video title: ${title}\n`;
-  });
+  const replay = () => {
+    pick();
+    if (reduced) return;
+    const parts = tn.querySelectorAll(".tn-bar i, .tn-cursor, .tn-ripple, .tn-box");
+    parts.forEach((el) => (el.style.animation = "none"));
+    void tn.offsetWidth;
+    parts.forEach((el) => (el.style.animation = ""));
+  };
+  window.__replayHero = replay;
+  $("replay").addEventListener("click", replay);
+  pick();
 }
 
 /* Header, theme, channel row, ad, chapters, shortcuts ----------------- */
@@ -534,6 +486,40 @@ function setupAd() {
   });
 }
 
+function setupScenes() {
+  const scenes = [...document.querySelectorAll(".scene")];
+  if (!scenes.length) return;
+  const io = "IntersectionObserver" in window
+    ? new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          const sc = en.target;
+          sc.classList.toggle("in-view", en.isIntersecting);
+          const v = sc.querySelector("video");
+          if (v && sc.classList.contains("has-video") && !reduced) {
+            if (en.isIntersecting) v.play().catch(() => {}); else v.pause();
+          }
+        });
+      }, { threshold: 0.35 })
+    : null;
+  scenes.forEach((sc) => {
+    if (io) io.observe(sc); else sc.classList.add("in-view");
+    // Optional: replace the animation with your own video file.
+    const src = sc.dataset.video;
+    if (!src) return;
+    const v = document.createElement("video");
+    v.muted = true; v.loop = true; v.playsInline = true; v.preload = "metadata";
+    if (reduced) v.controls = true;
+    v.addEventListener("loadedmetadata", () => {
+      sc.append(v);
+      sc.classList.add("has-video");
+      sc.removeAttribute("aria-hidden");
+      v.setAttribute("aria-label", "Animation for this step");
+      if (!reduced && sc.classList.contains("in-view")) v.play().catch(() => {});
+    }, { once: true });
+    v.src = src;
+  });
+}
+
 function setupChapters() {
   const steps = [...document.querySelectorAll(".steps li")];
   const box = document.querySelector(".steps");
@@ -598,7 +584,7 @@ function setupShortcuts() {
     if (e.key === "w") { location.href = "portfolio.html"; return; }
     if (e.key === "t" && window.__toggleTheme) { window.__toggleTheme(); return; }
     if (e.key === "/") { e.preventDefault(); $("q").focus(); return; }
-    if (e.key === "k" && page === "home" && $("replay") && !$("replay").hidden) { scrollTo({ top: 0, behavior: scrollBehavior }); $("replay").click(); return; }
+    if (e.key === "k" && page === "home" && window.__replayHero) { scrollTo({ top: 0, behavior: scrollBehavior }); window.__replayHero(); return; }
     if (e.key === "j" || e.key === "l") {
       const list2 = sections();
       if (!list2.length) return;
@@ -623,7 +609,8 @@ buildWork();
 buildTestimonial();
 startClock();
 setupForm();
-setupTry();
+setupHero();
+setupScenes();
 setupExtras();
 setupChannel();
 setupAd();
