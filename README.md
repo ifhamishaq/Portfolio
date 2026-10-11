@@ -75,8 +75,11 @@ Open `link.html` (it is not linked from the site, and search engines are told to
 channel or person's name and it gives you a link like `https://yoursite.netlify.app/?for=Jane%20Smith`
 plus a short message to send with it. When they open it, the hero says "JANE SMITH, YOU GET
 3 SECONDS", a welcome banner greets them by name, and the contact form quietly records who the
-link was made for (the `for` field in your Netlify form). Only letters, numbers and a few
-punctuation marks are kept from the name, and it is cut to 30 characters.
+link was made for (the `for` field in your Netlify form). Before any of that, a warm welcome plays: a
+pouch opens, a card with their name and a short message rises out, and a "See my work" button
+enters the site. There is a Skip button, Esc also skips it, and visitors who prefer reduced motion
+get the card without the animation. Only letters, numbers and a few punctuation marks are kept from
+the name, and it is cut to 30 characters.
 
 ## Top video
 

@@ -685,6 +685,80 @@ function setupTopVideo() {
   });
 }
 
+/* Welcome overlay for personalised links ------------------------------ */
+
+function showWelcome(name) {
+  const quiet = [document.querySelector(".yt-top"), document.querySelector(".shell"), document.querySelector(".tabbar")].filter(Boolean);
+  quiet.forEach((el) => el.setAttribute("inert", ""));
+  const prevOverflow = document.documentElement.style.overflow;
+  document.documentElement.style.overflow = "hidden";
+
+  const el = document.createElement("div");
+  el.className = "welcome";
+  el.id = "welcome";
+  el.setAttribute("role", "dialog");
+  el.setAttribute("aria-modal", "true");
+  el.setAttribute("aria-labelledby", "welcome-title");
+  el.innerHTML = `
+    <button type="button" class="welcome-skip">Skip</button>
+    <div class="welcome-stage">
+      <svg class="pouch pouch-back" viewBox="0 0 200 230" aria-hidden="true"><ellipse cx="100" cy="98" rx="58" ry="17" fill="#050912"/></svg>
+      <div class="welcome-card">
+        <h2 id="welcome-title"></h2>
+        <p>I'm Ifham, a graphic designer in Srinagar. I make YouTube thumbnails, carousels and social posts for creators and agencies. I put this page together so you can see my work.</p>
+        <button type="button" class="pill pill-red welcome-go">See my work</button>
+      </div>
+      <svg class="pouch pouch-front" viewBox="0 0 200 230" aria-hidden="true">
+        <path class="flap fl" d="M46 99 C28 66 46 36 82 54 C73 68 73 86 82 102 Z" fill="#14264a"/>
+        <path class="flap fr" d="M154 99 C172 66 154 36 118 54 C127 68 127 86 118 102 Z" fill="#14264a"/>
+        <path d="M44 98 C14 142 16 202 58 218 Q100 230 142 218 C184 202 186 142 156 98 Q100 120 44 98 Z" fill="#0f1b33"/>
+        <path d="M62 152 C58 178 66 200 84 210" stroke="#1d2f55" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <circle cx="100" cy="172" r="19" fill="#FFD400"/>
+        <text x="100" y="180" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="24" fill="#0f1b33">I</text>
+        <path class="cord" d="M50 102 Q100 126 150 102" fill="none" stroke="#FFD400" stroke-width="5" stroke-linecap="round"/>
+        <g class="tl"><path d="M97 118 L90 146" stroke="#FFD400" stroke-width="4" stroke-linecap="round"/><circle cx="90" cy="149" r="4.5" fill="#FFD400"/></g>
+        <g class="tr"><path d="M103 118 L110 146" stroke="#FFD400" stroke-width="4" stroke-linecap="round"/><circle cx="110" cy="149" r="4.5" fill="#FFD400"/></g>
+      </svg>
+      <i class="spark"></i><i class="spark"></i><i class="spark"></i><i class="spark"></i><i class="spark"></i><i class="spark"></i><i class="spark"></i>
+    </div>`;
+  el.querySelector("#welcome-title").textContent = `Hi ${name},`;
+  document.body.append(el);
+
+  const go = el.querySelector(".welcome-go");
+  const skip = el.querySelector(".welcome-skip");
+  let closed = false;
+  const close = () => {
+    if (closed) return;
+    closed = true;
+    document.removeEventListener("keydown", onKey);
+    el.classList.add("leaving");
+    setTimeout(() => {
+      el.remove();
+      quiet.forEach((q) => q.removeAttribute("inert"));
+      document.documentElement.style.overflow = prevOverflow;
+      scrollTo(0, 0);
+      const h = document.querySelector(".title");
+      if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+      if (window.__replayHero) window.__replayHero(); // start the hero fresh for them
+    }, reduced ? 0 : 400);
+  };
+  const onKey = (e) => {
+    if (e.key === "Escape") close();
+    if (e.key === "Tab") { // keep focus inside the welcome
+      const items = [skip, go];
+      const i = items.indexOf(document.activeElement);
+      e.preventDefault();
+      items[(i + (e.shiftKey ? -1 : 1) + items.length) % items.length].focus();
+    }
+  };
+  document.addEventListener("keydown", onKey);
+  go.addEventListener("click", close);
+  skip.addEventListener("click", close);
+  skip.focus();
+  if (reduced) go.focus();
+  else setTimeout(() => { if (!closed) go.focus(); }, 3000);
+}
+
 function setupPersonal() {
   const raw = new URLSearchParams(location.search).get("for");
   if (!raw) return;
@@ -702,6 +776,7 @@ function setupPersonal() {
   const msg = document.querySelector("#contact-form [name=message]");
   if (msg && !msg.value) msg.value = `Hi Ifham, this is ${name}. `;
   if (window.__setHeroText) window.__setHeroText(`${name.toUpperCase()},`, "YOU GET 3 SECONDS");
+  if (page === "home") showWelcome(name);
 }
 
 function setupAvailability() {
