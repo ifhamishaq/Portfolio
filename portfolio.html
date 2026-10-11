@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>All work | Ifham Ishaq, YouTube thumbnail designer</title>
+  <meta name="description" content="Every YouTube thumbnail I have designed for finance, business and educational channels, including Good Financial Cents. View them at desktop and phone feed sizes.">
+  <meta name="author" content="Ifham Ishaq">
+  <meta name="theme-color" content="#FFD400">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="RE-RENDER Studio">
+  <meta property="og:title" content="All work | Ifham Ishaq, YouTube thumbnail designer">
+  <meta property="og:description" content="Thumbnails for finance, business and educational YouTube channels. Usual turnaround is 24 to 48 hours, with revisions.">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="All work | Ifham Ishaq, YouTube thumbnail designer">
+  <meta name="twitter:description" content="Thumbnails for finance, business and educational YouTube channels. Usual turnaround is 24 to 48 hours, with revisions.">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preload" href="fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top" data-page="all">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top wrap">
+    <a class="brand" href="index.html">RE-RENDER Studio</a>
+    <nav class="top-nav" aria-label="Main">
+      <a class="textlink top-link" href="index.html">Home</a>
+      <a class="btn btn-small" href="mailto:ifham.wani89@gmail.com?subject=New%20thumbnail%20project&amp;body=Channel%3A%0AVideo%20title%3A%0ATopic%3A%0A">Start a project</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="page-head wrap" aria-labelledby="all-title">
+      <h1 id="all-title">All work</h1>
+      <p>Viewers judge a thumbnail at tiny size. Pick a device below to see every thumbnail the way it appears there.</p>
+    </section>
+
+    <section class="work" aria-label="Thumbnails">
+      <div class="work-bar">
+        <div class="wrap work-bar-inner">
+          <div class="size" id="size-control">
+            <label for="size">Preview size</label>
+            <input id="size" type="range" min="0" max="3" step="1" value="1">
+            <output id="size-label" for="size">Desktop home feed, 360 px wide</output>
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="filters" id="filters" role="group" aria-label="Filter by client" hidden></div>
+        <ul class="grid" id="grid"></ul>
+        <p class="work-empty" id="work-empty" hidden>Samples are being added. Email me for the current reel.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="band" aria-labelledby="contact-title">
+      <div class="wrap band-inner">
+        <h2 id="contact-title">Send me your next title</h2>
+        <div class="band-side">
+          <a class="btn btn-ink" href="mailto:ifham.wani89@gmail.com?subject=New%20thumbnail%20project&amp;body=Channel%3A%0AVideo%20title%3A%0ATopic%3A%0A">Start a project</a>
+          <p class="band-email">or write to <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a></p>
+          <p class="clock">It's <time id="clock" datetime="">--:--</time> in Srinagar right now.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot wrap">
+    <p>RE-RENDER Studio is Ifham Ishaq, a YouTube thumbnail designer in Srinagar, India.</p>
+  </footer>
+
+  <dialog id="viewer" aria-label="Enlarged thumbnail">
+    <form method="dialog" class="viewer-inner">
+      <img id="viewer-img" alt="" width="1280" height="720">
+      <p id="viewer-cap" class="viewer-cap"></p>
+      <div class="viewer-actions">
+        <button type="button" class="btn btn-quiet" id="viewer-prev">Previous</button>
+        <button type="button" class="btn btn-quiet" id="viewer-next">Next</button>
+        <button class="btn" id="viewer-close" autofocus>Close</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>

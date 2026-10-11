@@ -3,6 +3,8 @@
    ------------------------------------------------------------------ */
 
 // One line per thumbnail. Put the 1280x720 JPG in thumbs/ and match the file name.
+// The full portfolio page (portfolio.html) shows every line. Add as many as you need.
+// The home page shows the ones marked featured: true, or the first FEATURED_COUNT if none are.
 const WORKS = [
   { file: "thumbs/01.jpg", client: "Client name", title: "Thumbnail title 1" },
   { file: "thumbs/02.jpg", client: "Client name", title: "Thumbnail title 2" },
@@ -14,6 +16,8 @@ const WORKS = [
   { file: "thumbs/08.jpg", client: "Client name", title: "Thumbnail title 8" },
   { file: "thumbs/09.jpg", client: "Client name", title: "Thumbnail title 9" },
 ];
+
+const FEATURED_COUNT = 6;
 
 // true: missing images show a labelled empty frame for everyone (use while setting up).
 // false: missing images are hidden on the live site. Empty frames still show on
@@ -33,6 +37,7 @@ const TESTIMONIAL = {
    ------------------------------------------------------------------ */
 
 const $ = (id) => document.getElementById(id);
+const page = document.body.dataset.page;
 
 const host = location.hostname;
 const isLocal =
@@ -53,115 +58,184 @@ function probe(src) {
 /* Work grid ---------------------------------------------------------- */
 
 const grid = $("grid");
-const slider = $("size");
-const sizeLabel = $("size-label");
 const viewer = $("viewer");
-const viewable = []; // works whose image loaded, in order
 
-function sizeName(w, max) {
-  if (w >= max * 0.97) return "Full size";
-  if (w >= 300) return "Home feed";
-  if (w >= 150) return "Suggested video";
-  return "Phone feed";
-}
+// Sizes viewers actually see a thumbnail at. Wide devices first.
+const SIZES = [
+  { name: "Large preview", w: 560 },
+  { name: "Desktop home feed", w: 360 },
+  { name: "Suggested videos", w: 168 },
+  { name: "Phone feed", w: 120 },
+];
+let stops = [];
+let chosen = 1; // index into SIZES the visitor picked
 
-function applySize() {
-  const w = Number(slider.value);
-  const text = `${sizeName(w, Number(slider.max))}, ${w} px wide`;
-  grid.style.setProperty("--w", w + "px");
-  grid.classList.toggle("is-small", w < 200);
-  sizeLabel.textContent = text;
-  slider.setAttribute("aria-valuetext", text);
-}
-
-function fitSlider(keepRatio) {
-  const room = grid.parentElement.clientWidth;
-  const oldMax = Number(slider.max);
-  const ratio = keepRatio ? (Number(slider.value) - Number(slider.min)) / (oldMax - Number(slider.min)) : null;
-  const max = Math.max(160, Math.min(720, room));
-  slider.min = String(Math.min(120, max - 40));
-  slider.max = String(max);
-  slider.value = String(
-    ratio === null
-      ? Math.min(360, max) >= max - 40 ? max : Math.min(360, max)
-      : Math.round(Number(slider.min) + ratio * (max - Number(slider.min)))
-  );
-  applySize();
-}
-
-function makeCard(work, index) {
+function makeCard(work, eager, settle) {
   const li = document.createElement("li");
   li.className = "card";
+  li.dataset.client = work.client;
+
   const cap = document.createElement("span");
   cap.className = "cap";
   cap.innerHTML = "<b></b><span></span>";
   cap.firstChild.textContent = work.client;
   cap.lastChild.textContent = work.title;
 
-  if (work.ok) {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "card-btn";
-    btn.setAttribute("aria-label", `Enlarge: ${work.client}, ${work.title}`);
-    const img = document.createElement("img");
-    img.className = "thumb";
-    img.src = work.file;
-    img.alt = `${work.client} thumbnail: ${work.title}`;
-    img.width = 1280;
-    img.height = 720;
-    img.loading = "lazy";
-    img.decoding = "async";
-    btn.append(img, cap);
-    btn.addEventListener("click", () => openViewer(viewable.indexOf(work)));
-    li.append(btn);
-  } else {
-    const frame = document.createElement("div");
-    frame.className = "frame";
-    frame.innerHTML = "<b></b><span>Empty slot. Add a 1280x720 JPG.</span>";
-    frame.firstChild.textContent = work.file;
-    li.append(frame, cap);
-  }
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "card-btn";
+  btn.setAttribute("aria-label", `Enlarge: ${work.client}, ${work.title}`);
+  btn.work = work;
+
+  const img = document.createElement("img");
+  img.className = "thumb";
+  img.alt = `${work.client} thumbnail: ${work.title}`;
+  img.width = 1280;
+  img.height = 720;
+  img.decoding = "async";
+  img.loading = eager ? "eager" : "lazy";
+  img.addEventListener("load", () => settle && settle(true), { once: true });
+  img.addEventListener("error", () => {
+    if (showEmpty) {
+      const frame = document.createElement("div");
+      frame.className = "frame";
+      frame.innerHTML = "<b></b><span>Empty slot. Add a 1280x720 JPG.</span>";
+      frame.firstChild.textContent = work.file;
+      btn.replaceWith(frame);
+      li.append(cap);
+    } else {
+      li.remove();
+    }
+    settle && settle(false);
+  }, { once: true });
+  img.src = work.file;
+
+  btn.append(img, cap);
+  btn.addEventListener("click", () => openViewer(btn));
+  li.append(btn);
   return li;
 }
 
-async function buildWork() {
-  const found = await Promise.all(WORKS.map((w) => probe(w.file)));
-  const items = WORKS.map((w, i) => ({ ...w, ok: found[i] })).filter((w) => w.ok || showEmpty);
-  items.forEach((w) => w.ok && viewable.push(w));
-
-  if (!items.length) {
-    $("size-control").hidden = true;
-    $("work-note").hidden = true;
-    grid.hidden = true;
-    $("work-empty").hidden = false;
-    return;
+function buildWork() {
+  let items = WORKS;
+  if (page === "home") {
+    const flagged = WORKS.filter((w) => w.featured);
+    items = flagged.length ? flagged : WORKS.slice(0, FEATURED_COUNT);
   }
-  items.forEach((w, i) => grid.append(makeCard(w, i)));
+
+  const eagerCount = page === "all" ? 12 : items.length;
+  let pending = Math.min(eagerCount, items.length);
+  let loaded = 0;
+  const settle = (ok) => {
+    if (ok) loaded++;
+    if (--pending > 0 || loaded > 0 || showEmpty) return;
+    showEmptyState();
+  };
+
+  items.forEach((w, i) => {
+    grid.append(makeCard(w, i < eagerCount, i < eagerCount ? settle : null));
+  });
+  if (page === "all") buildFilters(items);
 }
 
-slider.addEventListener("input", applySize);
-let resizeTimer;
-window.addEventListener("resize", () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => fitSlider(true), 100);
-});
+function showEmptyState() {
+  grid.hidden = true;
+  $("work-empty").hidden = false;
+  ["size-control", "filters", "work-note", "view-all"].forEach((id) => {
+    const el = $(id);
+    if (el) el.hidden = true;
+  });
+}
+
+/* Filter by client (portfolio page) ---------------------------------- */
+
+function buildFilters(items) {
+  const box = $("filters");
+  const clients = [...new Set(items.map((w) => w.client))];
+  if (clients.length < 2) return;
+  const make = (label, value) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "filter";
+    b.textContent = label;
+    b.dataset.value = value;
+    b.setAttribute("aria-pressed", value === "" ? "true" : "false");
+    b.addEventListener("click", () => {
+      box.querySelectorAll(".filter").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      grid.querySelectorAll(".card").forEach((li) => {
+        li.hidden = value !== "" && li.dataset.client !== value;
+      });
+    });
+    return b;
+  };
+  box.append(make("All", ""), ...clients.map((c) => make(c, c)));
+  box.hidden = false;
+}
+
+/* Device-specific size slider (portfolio page) ----------------------- */
+
+const slider = $("size");
+const sizeLabel = $("size-label");
+
+function computeStops() {
+  const box = grid.parentElement;
+  const pad = parseFloat(getComputedStyle(box).paddingLeft) + parseFloat(getComputedStyle(box).paddingRight);
+  const room = Math.floor(box.clientWidth - pad);
+  stops = [];
+  SIZES.forEach((s, idx) => {
+    const w = Math.min(s.w, room);
+    if (stops.some((x) => x.w === w)) return;
+    stops.push({ idx, w, name: s.w > room ? "Full width" : s.name });
+  });
+  let best = 0;
+  stops.forEach((st, i) => {
+    if (Math.abs(st.idx - chosen) < Math.abs(stops[best].idx - chosen)) best = i;
+  });
+  slider.min = "0";
+  slider.max = String(stops.length - 1);
+  slider.value = String(best);
+}
+
+function applySize() {
+  const st = stops[Number(slider.value)];
+  chosen = st.idx;
+  const text = `${st.name}, ${st.w} px wide`;
+  grid.style.setProperty("--w", st.w + "px");
+  grid.classList.toggle("is-small", st.w < 200);
+  sizeLabel.textContent = text;
+  slider.setAttribute("aria-valuetext", text);
+}
+
+if (slider) {
+  slider.addEventListener("input", applySize);
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { computeStops(); applySize(); }, 100);
+  });
+  computeStops();
+  applySize();
+}
 
 /* Enlarge dialog ----------------------------------------------------- */
 
+let list = [];
 let current = 0;
 
 function showAt(i) {
-  current = (i + viewable.length) % viewable.length;
-  const w = viewable[current];
+  current = (i + list.length) % list.length;
+  const w = list[current].work;
   $("viewer-img").src = w.file;
   $("viewer-img").alt = `${w.client} thumbnail: ${w.title}`;
   $("viewer-cap").textContent = `${w.client}: ${w.title}`;
 }
 
-function openViewer(i) {
+function openViewer(btn) {
+  list = [...grid.querySelectorAll(".card:not([hidden]) .card-btn")];
+  const i = list.indexOf(btn);
   if (i < 0) return;
   showAt(i);
-  const multi = viewable.length > 1;
+  const multi = list.length > 1;
   $("viewer-prev").hidden = !multi;
   $("viewer-next").hidden = !multi;
   viewer.showModal();
@@ -173,7 +247,7 @@ viewer.addEventListener("click", (e) => {
   if (e.target === viewer) viewer.close(); // click on the backdrop
 });
 viewer.addEventListener("keydown", (e) => {
-  if (viewable.length < 2) return;
+  if (list.length < 2) return;
   if (e.key === "ArrowLeft") showAt(current - 1);
   if (e.key === "ArrowRight") showAt(current + 1);
 });
@@ -182,6 +256,7 @@ viewer.addEventListener("keydown", (e) => {
 
 function buildTestimonial() {
   const video = $("zack-video");
+  if (!video) return;
   video.addEventListener(
     "loadedmetadata",
     () => {
@@ -221,7 +296,6 @@ function startClock() {
   setInterval(tick, 10000);
 }
 
-fitSlider(false);
 buildWork();
 buildTestimonial();
 startClock();

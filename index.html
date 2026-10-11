@@ -22,12 +22,15 @@
   <link rel="preload" href="fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
-<body id="top">
+<body id="top" data-page="home">
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="top wrap">
     <a class="brand" href="#top">RE-RENDER Studio</a>
-    <a class="btn btn-small" href="mailto:ifham.wani89@gmail.com?subject=New%20thumbnail%20project&amp;body=Channel%3A%0AVideo%20title%3A%0ATopic%3A%0A">Start a project</a>
+    <nav class="top-nav" aria-label="Main">
+      <a class="textlink top-link" href="portfolio.html">All work</a>
+      <a class="btn btn-small" href="mailto:ifham.wani89@gmail.com?subject=New%20thumbnail%20project&amp;body=Channel%3A%0AVideo%20title%3A%0ATopic%3A%0A">Start a project</a>
+    </nav>
   </header>
 
   <main id="main">
@@ -63,22 +66,14 @@
       <p class="clients-line">I design for Good Financial Cents, a channel with 400K+ subscribers. Through Evy Media I've also designed for Medicare Joe, Coach Michael Burt and Jason Mickool.</p>
     </section>
 
-    <section id="work" class="work" aria-labelledby="work-title">
-      <div class="work-bar">
-        <div class="wrap work-bar-inner">
-          <h2 id="work-title">Work</h2>
-          <div class="size" id="size-control">
-            <label class="sr-only" for="size">Thumbnail size</label>
-            <input id="size" type="range" min="120" max="720" step="1" value="360">
-            <output id="size-label" for="size">Home feed, 360 px wide</output>
-          </div>
-        </div>
+    <section id="work" class="work wrap" aria-labelledby="work-title">
+      <div class="work-head">
+        <h2 id="work-title">Work</h2>
+        <a class="btn" id="view-all" href="portfolio.html">View all works</a>
       </div>
-      <div class="wrap">
-        <p class="work-note" id="work-note">Drag the slider to see each thumbnail at the size viewers see it in their feed.</p>
-        <ul class="grid" id="grid"></ul>
-        <p class="work-empty" id="work-empty" hidden>Samples are being added. Email me for the current reel.</p>
-      </div>
+      <p class="work-note" id="work-note">A selection of my thumbnails. The full portfolio lets you view every one at desktop and phone feed sizes.</p>
+      <ul class="grid grid-fluid" id="grid"></ul>
+      <p class="work-empty" id="work-empty" hidden>Samples are being added. Email me for the current reel.</p>
     </section>
 
     <section id="testimonial" class="testimonial wrap" aria-labelledby="testimonial-title" hidden>

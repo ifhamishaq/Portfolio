@@ -3,7 +3,8 @@
 A static site: plain HTML, CSS and JavaScript. No build step, no dependencies.
 
 ```
-index.html      page content
+index.html      home page
+portfolio.html  full portfolio page (all thumbnails)
 style.css       all styling
 script.js       the lists you edit (WORKS, TESTIMONIAL) and the page behaviour
 fonts/          Schibsted Grotesk and Anton, self-hosted
@@ -21,16 +22,28 @@ testimonial/    zack.mp4 and optional zack.jpg
    { file: "thumbs/14.jpg", client: "Good Financial Cents", title: "Your video title" },
    ```
 
-The first 9 lines are placeholders (`thumbs/01.jpg` to `thumbs/09.jpg`). Either replace
-the files with the same names, or change the lines. Add or delete lines freely.
-The grid, the size slider and the enlarge dialog update on their own.
+Add as many lines as you have thumbnails. The 9 lines that come with the site are
+placeholders (`thumbs/01.jpg` to `thumbs/09.jpg`): replace the files, or change the lines.
+
+**Two places show your work:**
+
+- **Home page (`index.html`):** a short selection with a "View all works" button.
+  It shows the first 6 lines of `WORKS`. To choose which ones, add `featured: true` to
+  those lines instead, for example
+  `{ file: "thumbs/14.jpg", client: "...", title: "...", featured: true },`.
+  Change how many show by default with `FEATURED_COUNT`.
+- **Full portfolio (`portfolio.html`):** every line of `WORKS`, with a device slider
+  (large preview, desktop home feed, suggested videos, phone feed) and a filter by
+  client. The filter buttons appear on their own once you have two or more client names.
+
+Spell a client name the same way on every line, because the filter groups by exact name.
 
 **Missing images.** `SHOW_PLACEHOLDERS` at the top of `script.js` is `true` for now, so
 every empty slot shows a labelled dashed frame. Once your real images are in, set it to
 `false`. After that, a missing image is hidden on the live site. The empty frame still
 appears on localhost, when opening the file directly, and on any URL ending in `?edit`
-(for example `https://yoursite.netlify.app/?edit`). If no image loads on the live site,
-the Work section shows a short "samples are being added" line instead of the grid.
+(for example `https://yoursite.netlify.app/portfolio.html?edit`). If no image loads on the
+live site, the work sections show a short "samples are being added" line instead.
 
 ## Add Zack's video
 
