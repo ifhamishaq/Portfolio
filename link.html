@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta name="robots" content="noindex">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outreach link maker</title>
+  <meta name="description" content="Private tool for making personalised links.">
+  <meta name="author" content="Ifham Ishaq">
+  <meta name="theme-color" content="#0f0f0f">
+
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"dark"}catch(e){}</script>
+  <link rel="preload" href="fonts/roboto.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+  <header class="yt-top">
+    <div class="yt-left">
+      <a class="logo" href="index.html" aria-label="Ifham Ishaq, home">
+        <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 7.5v9l7.5-4.5z" fill="#fff"/></svg></span>
+        <span class="logo-name">Ifham Ishaq</span>
+      </a>
+    </div>
+  </header>
+  <main id="main" class="thanks maker">
+    <h1>Outreach link maker</h1>
+    <p>Type a channel or person's name. You get a link where the hero says their name, plus a welcome banner and a form that remembers who it was for.</p>
+    <label class="maker-label" for="who">Channel or person's name</label>
+    <input class="maker-input" id="who" type="text" maxlength="30" placeholder="For example: Jane Smith" autocomplete="off">
+    <label class="maker-label" for="out">Your link</label>
+    <input class="maker-input" id="out" type="text" readonly>
+    <p class="maker-row"><button type="button" class="pill pill-red" id="copy-link">Copy link</button><span id="copy-status" role="status"></span></p>
+    <label class="maker-label" for="dm">Message to send with it (edit it before you use it)</label>
+    <textarea class="maker-input" id="dm" rows="6"></textarea>
+    <p class="maker-row"><button type="button" class="pill pill-soft" id="copy-dm">Copy message</button></p>
+    <p class="maker-tip">Tip: only send it to people you have a real reason to write to, and say what you are offering. The page itself never claims they are your client.</p>
+  </main>
+  <script>
+    (function () {
+      var who = document.getElementById("who"), out = document.getElementById("out"), dm = document.getElementById("dm");
+      var base = new URL("index.html", location.href).href;
+      function clean(v) { return v.replace(/[^\p{L}\p{N} &.'’-]/gu, "").replace(/\s+/g, " ").slice(0, 30).trim(); }
+      function update() {
+        var n = clean(who.value);
+        out.value = n ? base + "?for=" + encodeURIComponent(n) : base;
+        dm.value = n
+          ? "Hi " + n + ",\n\nI'm Ifham, a graphic designer who makes YouTube thumbnails, carousels and social posts. I put together a quick page so you can see how my work looks for a channel like yours:\n\n" + out.value + "\n\nIf it's useful, I'm happy to send a free concept for your next video.\n\nIfham"
+          : "";
+      }
+      function copy(el, note) {
+        el.select();
+        var ok = false;
+        try { ok = navigator.clipboard ? (navigator.clipboard.writeText(el.value), true) : document.execCommand("copy"); } catch (e) {}
+        var s = document.getElementById("copy-status");
+        s.textContent = ok ? " Copied" : " Press Ctrl+C or Cmd+C to copy";
+        setTimeout(function () { s.textContent = ""; }, 2500);
+      }
+      who.addEventListener("input", update);
+      document.getElementById("copy-link").addEventListener("click", function () { copy(out); });
+      document.getElementById("copy-dm").addEventListener("click", function () { copy(dm); });
+      update();
+    })();
+  </script>
+</body>
+</html>

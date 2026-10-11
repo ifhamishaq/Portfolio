@@ -69,6 +69,22 @@ If it is missing, the animation stays. Keep each video under about 5 MB.
 The hero player picks a new colour style at random each time it plays. Visitors can click its
 play button to replay it.
 
+## Personalised outreach links
+
+Open `link.html` (it is not linked from the site, and search engines are told to skip it). Type a
+channel or person's name and it gives you a link like `https://yoursite.netlify.app/?for=Jane%20Smith`
+plus a short message to send with it. When they open it, the hero says "JANE SMITH, YOU GET
+3 SECONDS", a welcome banner greets them by name, and the contact form quietly records who the
+link was made for (the `for` field in your Netlify form). Only letters, numbers and a few
+punctuation marks are kept from the name, and it is cut to 30 characters.
+
+## Top video
+
+The "My top video" section is set by `TOP_VIDEO` at the top of `script.js`: the YouTube video id, its
+exact title, a view count you type by hand (update it now and then, it will not refresh by itself) and
+the thumbnail file. The thumbnail plays the video in place when clicked (it only contacts YouTube
+at that moment). Set `TOP_VIDEO` to `null` to hide the section.
+
 ## Pricing and availability
 
 At the top of `script.js`:

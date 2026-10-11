@@ -65,6 +65,11 @@
     </nav>
 
     <main id="main">
+      <aside class="hello" id="hello" hidden>
+        <p id="hello-text"></p>
+        <a class="pill pill-red" href="#comments">Start a project</a>
+        <button type="button" class="copy" id="hello-x">Dismiss</button>
+      </aside>
       <div class="watch">
         <div class="primary">
 
@@ -132,7 +137,20 @@
             <button type="button" class="copy desc-toggle" id="desc-toggle" aria-expanded="false" aria-controls="desc-more">Show more</button>
           </section>
 
-          <section class="selected" id="selected" data-section style="--o:5" aria-labelledby="selected-title">
+          <section class="topvideo" id="topvideo" data-section style="--o:5" aria-labelledby="topvideo-title" hidden>
+            <h2 id="topvideo-title">My top video</h2>
+            <div class="tv-card">
+              <div class="tv-media" id="tv-media"></div>
+              <div class="tv-info">
+                <h3 id="tv-title"></h3>
+                <p class="tv-views" id="tv-views"></p>
+                <p class="tv-note">I designed its thumbnail.</p>
+                <a class="pill pill-red" id="tv-link" target="_blank" rel="noopener">Watch on YouTube<span class="sr-only"> (opens in a new tab)</span></a>
+              </div>
+            </div>
+          </section>
+
+          <section class="selected" id="selected" data-section style="--o:6" aria-labelledby="selected-title">
             <div class="selected-head">
               <h2 id="selected-title">Selected work</h2>
               <a class="pill pill-soft" id="view-all-top" href="portfolio.html">View all works</a>
@@ -140,13 +158,13 @@
             <ul class="grid grid-selected" id="featured-grid"></ul>
           </section>
 
-          <section class="pricing" id="pricing" data-section style="--o:7" aria-labelledby="pricing-title">
+          <section class="pricing" id="pricing" data-section style="--o:8" aria-labelledby="pricing-title">
             <h2 id="pricing-title">Pricing</h2>
             <p class="process-intro">Pick a package. Usual turnaround is 24 to 48 hours, with revisions.</p>
             <ul class="tiers" id="tiers"></ul>
           </section>
 
-          <section class="process" id="process" data-section style="--o:8" aria-labelledby="process-title">
+          <section class="process" id="process" data-section style="--o:9" aria-labelledby="process-title">
             <h2 id="process-title">Chapters</h2>
             <p class="process-intro">Usual turnaround is 24 to 48 hours, with revisions.</p>
             <ol class="steps">
@@ -194,13 +212,13 @@
             </ol>
           </section>
 
-          <section id="testimonials" class="testimonials" data-section style="--o:9" aria-labelledby="testimonials-title" hidden>
+          <section id="testimonials" class="testimonials" data-section style="--o:10" aria-labelledby="testimonials-title" hidden>
             <h2 id="testimonials-title">Testimonials</h2>
             <p class="process-intro">Hear it from the people I've worked with.</p>
             <ul class="tgrid" id="tgrid"></ul>
           </section>
 
-          <section id="comments" class="comments" data-section style="--o:10" aria-labelledby="comments-title">
+          <section id="comments" class="comments" data-section style="--o:11" aria-labelledby="comments-title">
             <div class="cta-card">
               <div class="cta-head">
                 <img class="cta-photo" src="images/ifham.jpg" alt="Ifham Ishaq" width="96" height="96">
@@ -213,6 +231,7 @@
               <form class="form" id="contact-form" name="contact" method="POST" action="thanks.html"
                     data-netlify="true" netlify-honeypot="bot-field">
                 <input type="hidden" name="form-name" value="contact">
+                <input type="hidden" name="for" id="for-field" value="">
                 <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
                 <div class="form-grid">
                   <label>Your name
@@ -251,7 +270,7 @@
           </section>
         </div>
 
-        <aside class="upnext" style="--o:6" aria-labelledby="upnext-title">
+        <aside class="upnext" style="--o:7" aria-labelledby="upnext-title">
           <h2 id="upnext-title">Up next</h2>
           <div class="ad" id="ad" aria-label="Advertisement, by me">
             <div class="ad-box">
