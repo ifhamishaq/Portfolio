@@ -4,37 +4,40 @@
 
 // One line per thumbnail. Put the 1280x720 JPG in thumbs/ and match the file name.
 // client is optional: leave it "" to show only the title.
+// top: true marks your best thumbnails. The home page player flips through every one of them
+// in its first 3 seconds, so keep this to your strongest work. Put the best ones first:
+// the first lines also fill the "Selected work" block.
 // niche is the topic chip on the portfolio page (Medicare, Finance, Business...).
 // Leave it "" for none. The chips appear when two or more topics are used.
 // The full portfolio page (portfolio.html) shows every line. Add as many as you need.
 // The home page "Selected work" shows lines marked featured: true, or the first SELECTED_COUNT if none are.
 // "Up next" then lists the following UPNEXT_COUNT lines.
 const WORKS = [
-  { file: "thumbs/01.jpg", client: "", niche: "Business", title: "The full breakdown" },
+  { file: "thumbs/17.jpg", client: "", niche: "Business", top: true, title: "The science of scaling" },
+  { file: "thumbs/23.jpg", client: "", niche: "Business", top: true, title: "What pros know that amateurs don't" },
+  { file: "thumbs/24.jpg", client: "", niche: "Business", top: true, title: "Just do it" },
+  { file: "thumbs/07.jpg", client: "", niche: "Business", top: true, title: "5 mistakes losing the sale" },
+  { file: "thumbs/18.jpg", client: "", niche: "Medicare", top: true, title: "Is Medicare broken???" },
+  { file: "thumbs/12.jpg", client: "", niche: "Finance", top: true, title: "Is a bank the safest place to keep your money?" },
+  { file: "thumbs/22.jpg", client: "", niche: "Business", top: true, title: "This is why you are not growing" },
+  { file: "thumbs/15.jpg", client: "", niche: "Business", top: true, title: "Environment builds success" },
+  { file: "thumbs/01.jpg", client: "", niche: "Business", top: true, title: "The full breakdown" },
+  { file: "thumbs/16.jpg", client: "", niche: "Business", top: true, title: "Proximity to power explained" },
+  { file: "thumbs/10.jpg", client: "", niche: "Business", top: true, title: "This is why you aren't growing" },
+  { file: "thumbs/25.jpg", client: "", niche: "Medicare", top: true, title: "Avoiding late Medicare enrollment" },
+  { file: "thumbs/05.jpg", client: "", niche: "Medicare", top: true, title: "Medicare Plan G or Plan N: which is right for you?" },
+  { file: "thumbs/04.jpg", client: "", niche: "Business", top: true, title: "Why does nobody know you?" },
+  { file: "thumbs/09.jpg", client: "", niche: "Medicare", top: true, title: "Costly Medicare mistakes" },
+  { file: "thumbs/03.jpg", client: "", niche: "Business", top: true, title: "I grew up in poverty, now I'm a president" },
+  { file: "thumbs/08.jpg", client: "", niche: "Business", top: true, title: "Your frequency is your future" },
+  { file: "thumbs/20.jpg", client: "", niche: "Education", top: true, title: "Does school = average?" },
   { file: "thumbs/02.jpg", client: "", niche: "Business", title: "Inside the mind of a monster" },
-  { file: "thumbs/03.jpg", client: "", niche: "Business", title: "I grew up in poverty, now I'm a president" },
-  { file: "thumbs/04.jpg", client: "", niche: "Business", title: "Why does nobody know you?" },
-  { file: "thumbs/05.jpg", client: "", niche: "Medicare", title: "Medicare Plan G or Plan N: which is right for you?" },
   { file: "thumbs/06.jpg", client: "", niche: "Business", title: "The greatest comeback" },
-  { file: "thumbs/07.jpg", client: "", niche: "Business", title: "5 mistakes losing the sale" },
-  { file: "thumbs/08.jpg", client: "", niche: "Business", title: "Your frequency is your future" },
-  { file: "thumbs/09.jpg", client: "", niche: "Medicare", title: "Costly Medicare mistakes" },
-  { file: "thumbs/10.jpg", client: "", niche: "Business", title: "This is why you aren't growing" },
   { file: "thumbs/11.jpg", client: "", niche: "Podcast", title: "Talk show podcast #20" },
-  { file: "thumbs/12.jpg", client: "", niche: "Finance", title: "Is a bank the safest place to keep your money?" },
   { file: "thumbs/13.jpg", client: "", niche: "Business", title: "The system that actually scales" },
   { file: "thumbs/14.jpg", client: "", niche: "Finance", title: "Approximate earning $80506.13" },
-  { file: "thumbs/15.jpg", client: "", niche: "Business", title: "Environment builds success" },
-  { file: "thumbs/16.jpg", client: "", niche: "Business", title: "Proximity to power explained" },
-  { file: "thumbs/17.jpg", client: "", niche: "Business", title: "The science of scaling" },
-  { file: "thumbs/18.jpg", client: "", niche: "Medicare", title: "Is Medicare broken???" },
   { file: "thumbs/19.jpg", client: "", niche: "Business", title: "Why most people fail" },
-  { file: "thumbs/20.jpg", client: "", niche: "Education", title: "Does school = average?" },
   { file: "thumbs/21.jpg", client: "", niche: "Finance", title: "The 3-bucket retirement strategy" },
-  { file: "thumbs/22.jpg", client: "", niche: "Business", title: "This is why you are not growing" },
-  { file: "thumbs/23.jpg", client: "", niche: "Business", title: "What pros know that amateurs don't" },
-  { file: "thumbs/24.jpg", client: "", niche: "Business", title: "Just do it" },
-  { file: "thumbs/25.jpg", client: "", niche: "Medicare", title: "Avoiding late Medicare enrollment" },
   { file: "thumbs/26.jpg", client: "", niche: "Finance", title: "Make money on social media" },
 ];
 
@@ -414,10 +417,28 @@ function setupHero() {
   const clearTimers = () => { timers.forEach((t) => { clearTimeout(t); clearInterval(t); }); timers = []; };
   const setTime = (s) => { timeEl.textContent = `0:0${s} / 0:03`; };
 
-  async function findShot() {
-    const pool = [...WORKS].sort(() => Math.random() - 0.5).slice(0, 6);
-    for (const w of pool) { if (await probe(w.file)) return w.file; }
-    return "";
+  // The montage pool: every line marked top: true (or all work if none are).
+  const pool = () => {
+    const tops = WORKS.filter((w) => w.top);
+    return (tops.length ? tops : WORKS).map((w) => w.file);
+  };
+  const cache = new Map(); // file -> loaded Image
+  function preload() {
+    return Promise.all(pool().map((f) => cache.has(f) ? Promise.resolve() : new Promise((res) => {
+      const im = new Image();
+      im.onload = () => { cache.set(f, im); res(); };
+      im.onerror = () => res();
+      im.src = f;
+    })));
+  }
+  const ready = preload();
+
+  // 3 seconds split into frames that get shorter and shorter, like scrolling a feed faster.
+  function schedule(n) {
+    const w = Array.from({ length: n }, (_, i) => 1 - 0.8 * (i / Math.max(1, n - 1)));
+    const sum = w.reduce((a, b) => a + b, 0);
+    let t = 0;
+    return w.map((x) => { const at = t; t += (3000 * x) / sum; return at; });
   }
 
   async function play() {
@@ -427,22 +448,24 @@ function setupHero() {
     pick();
     setTime(3);
     if (reduced) return; // reduced motion: show the end state, the design card
-    tn.classList.add("shot"); // hide the card while we look for a thumbnail
-    const file = await findShot();
+    tn.classList.add("shot"); // hide the card while the thumbnails load
+    await Promise.race([ready, new Promise((r) => setTimeout(r, 1500))]);
     if (mine !== run) return;
-    if (!file) {
-      // No thumbnail available: play the card on its own, bar fills while the cursor clicks
+    const files = pool().filter((f) => cache.has(f)).sort(() => Math.random() - 0.5);
+    if (files.length < 3) {
+      // Not enough thumbnails: play the card on its own, bar fills while the cursor clicks
       tn.classList.remove("shot");
       void tn.offsetWidth;
       tn.classList.add("bar-run", "cursor-run");
       return;
     }
-    shot.src = file;
+    shot.src = files[0];
     void tn.offsetWidth;
     tn.classList.add("bar-run");
     let s = 0;
     setTime(0);
     timers.push(setInterval(() => { s++; if (s <= 3) setTime(s); }, 1000));
+    schedule(files.length).forEach((at, i) => { if (i > 0) timers.push(setTimeout(() => { shot.src = files[i]; }, at)); });
     timers.push(setTimeout(() => {
       tn.classList.remove("shot", "bar-run");
       void tn.offsetWidth;

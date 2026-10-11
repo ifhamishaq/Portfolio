@@ -81,9 +81,11 @@ At the top of `script.js`:
   text true and update it when your availability changes (for example "Taking new projects").
   Set `show: false` to hide it.
 
-The hero player first shows one of your thumbnails for 3 seconds (picked at random from `WORKS`,
-while the red bar fills), then hides it and shows "YOU GET 3 SECONDS". If no thumbnail loads, it
-plays the "YOU GET 3 SECONDS" card on its own. The play button replays it.
+The hero player flips through your best thumbnails for its first 3 seconds (every line marked
+`top: true` in `WORKS`, in a new random order each time, getting faster as the red bar fills), then
+hides them and shows "YOU GET 3 SECONDS". Keep `top: true` for your strongest work only, and put
+the best ones first in the list. If fewer than 3 thumbnails load, it plays the card on its own.
+The play button replays it.
 
 The "CC" button on the hero player (or the `c` key) turns on a few fun captions.
 
