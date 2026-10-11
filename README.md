@@ -19,7 +19,7 @@ testimonial/    zack.mp4 and optional zack.jpg
 3. Open `script.js` and edit the `WORKS` list at the top. One line per thumbnail:
 
    ```js
-   { file: "thumbs/14.jpg", client: "Good Financial Cents", title: "Your video title" },
+   { file: "thumbs/14.jpg", client: "Client name", title: "Your video title" },
    ```
 
 Add as many lines as you have thumbnails. The 9 lines that come with the site are

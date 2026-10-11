@@ -28,7 +28,7 @@ const SHOW_PLACEHOLDERS = true;
 // Leave quote empty ("") to show the video without a quote.
 const TESTIMONIAL = {
   name: "Zack",
-  role: "Evy Media",
+  role: "",
   quote: "",
 };
 
