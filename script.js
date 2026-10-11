@@ -3,18 +3,36 @@
    ------------------------------------------------------------------ */
 
 // One line per thumbnail. Put the 1280x720 JPG in thumbs/ and match the file name.
+// client is optional: leave it "" to show only the title.
 // The full portfolio page (portfolio.html) shows every line. Add as many as you need.
 // The home page shows the ones marked featured: true, or the first FEATURED_COUNT if none are.
 const WORKS = [
-  { file: "thumbs/01.jpg", client: "Client name", title: "Thumbnail title 1" },
-  { file: "thumbs/02.jpg", client: "Client name", title: "Thumbnail title 2" },
-  { file: "thumbs/03.jpg", client: "Client name", title: "Thumbnail title 3" },
-  { file: "thumbs/04.jpg", client: "Client name", title: "Thumbnail title 4" },
-  { file: "thumbs/05.jpg", client: "Client name", title: "Thumbnail title 5" },
-  { file: "thumbs/06.jpg", client: "Client name", title: "Thumbnail title 6" },
-  { file: "thumbs/07.jpg", client: "Client name", title: "Thumbnail title 7" },
-  { file: "thumbs/08.jpg", client: "Client name", title: "Thumbnail title 8" },
-  { file: "thumbs/09.jpg", client: "Client name", title: "Thumbnail title 9" },
+  { file: "thumbs/01.jpg", client: "", title: "The full breakdown" },
+  { file: "thumbs/02.jpg", client: "", title: "Inside the mind of a monster" },
+  { file: "thumbs/03.jpg", client: "", title: "I grew up in poverty, now I'm a president" },
+  { file: "thumbs/04.jpg", client: "", title: "Why does nobody know you?" },
+  { file: "thumbs/05.jpg", client: "", title: "Medicare Plan G or Plan N: which is right for you?" },
+  { file: "thumbs/06.jpg", client: "", title: "The greatest comeback" },
+  { file: "thumbs/07.jpg", client: "", title: "5 mistakes losing the sale" },
+  { file: "thumbs/08.jpg", client: "", title: "Your frequency is your future" },
+  { file: "thumbs/09.jpg", client: "", title: "Costly Medicare mistakes" },
+  { file: "thumbs/10.jpg", client: "", title: "This is why you aren't growing" },
+  { file: "thumbs/11.jpg", client: "", title: "Talk show podcast #20" },
+  { file: "thumbs/12.jpg", client: "", title: "Is a bank the safest place to keep your money?" },
+  { file: "thumbs/13.jpg", client: "", title: "The system that actually scales" },
+  { file: "thumbs/14.jpg", client: "", title: "Approximate earning $80506.13" },
+  { file: "thumbs/15.jpg", client: "", title: "Environment builds success" },
+  { file: "thumbs/16.jpg", client: "", title: "Proximity to power explained" },
+  { file: "thumbs/17.jpg", client: "", title: "The science of scaling" },
+  { file: "thumbs/18.jpg", client: "", title: "Is Medicare broken???" },
+  { file: "thumbs/19.jpg", client: "", title: "Why most people fail" },
+  { file: "thumbs/20.jpg", client: "", title: "Does school = average?" },
+  { file: "thumbs/21.jpg", client: "", title: "The 3-bucket retirement strategy" },
+  { file: "thumbs/22.jpg", client: "", title: "This is why you are not growing" },
+  { file: "thumbs/23.jpg", client: "", title: "What pros know that amateurs don't" },
+  { file: "thumbs/24.jpg", client: "", title: "Just do it" },
+  { file: "thumbs/25.jpg", client: "", title: "Avoiding late Medicare enrollment" },
+  { file: "thumbs/26.jpg", client: "", title: "Make money on social media" },
 ];
 
 const FEATURED_COUNT = 6;
@@ -22,7 +40,7 @@ const FEATURED_COUNT = 6;
 // true: missing images show a labelled empty frame for everyone (use while setting up).
 // false: missing images are hidden on the live site. Empty frames still show on
 // localhost, file:// and any URL ending in ?edit.
-const SHOW_PLACEHOLDERS = true;
+const SHOW_PLACEHOLDERS = false;
 
 // Zack's video lives at testimonial/zack.mp4. The section stays hidden until that file exists.
 // Leave quote empty ("") to show the video without a quote.
@@ -69,17 +87,19 @@ function makeCard(work, eager, settle) {
   cap.className = "cap";
   cap.innerHTML = "<b></b><span></span>";
   cap.firstChild.textContent = work.client;
+  cap.firstChild.hidden = !work.client;
   cap.lastChild.textContent = work.title;
+  const label = work.client ? `${work.client}: ${work.title}` : work.title;
 
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "card-btn";
-  btn.setAttribute("aria-label", `Enlarge: ${work.client}, ${work.title}`);
+  btn.setAttribute("aria-label", `Enlarge: ${label}`);
   btn.work = work;
 
   const img = document.createElement("img");
   img.className = "thumb";
-  img.alt = `${work.client} thumbnail: ${work.title}`;
+  img.alt = `YouTube thumbnail: ${label}`;
   img.width = 1280;
   img.height = 720;
   img.decoding = "async";
@@ -171,8 +191,9 @@ function showAt(i) {
   current = (i + list.length) % list.length;
   const w = list[current].work;
   $("viewer-img").src = w.file;
-  $("viewer-img").alt = `${w.client} thumbnail: ${w.title}`;
-  $("viewer-cap").textContent = `${w.client}: ${w.title}`;
+  const label = w.client ? `${w.client}: ${w.title}` : w.title;
+  $("viewer-img").alt = `YouTube thumbnail: ${label}`;
+  $("viewer-cap").textContent = label;
   $("viewer-count").textContent = `${current + 1} of ${list.length}`;
 }
 

@@ -22,8 +22,10 @@ testimonial/    zack.mp4 and optional zack.jpg
    { file: "thumbs/14.jpg", client: "Client name", title: "Your video title" },
    ```
 
-Add as many lines as you have thumbnails. The 9 lines that come with the site are
-placeholders (`thumbs/01.jpg` to `thumbs/09.jpg`): replace the files, or change the lines.
+Add as many lines as you have thumbnails. `client` is optional: leave it `""` to show only
+the title. The 26 lines that come with the site are your thumbnails from your Canva
+portfolio, in the same order, with titles taken from the text on each thumbnail. Change
+any title, reorder lines, or delete lines freely.
 
 **Two places show your work:**
 
@@ -35,11 +37,12 @@ placeholders (`thumbs/01.jpg` to `thumbs/09.jpg`): replace the files, or change 
 - **Full portfolio (`portfolio.html`):** every line of `WORKS`, with a filter by client.
   The filter buttons appear on their own once you have two or more client names.
 
-Spell a client name the same way on every line, because the filter groups by exact name.
+If you fill in `client`, spell it the same way on every line, because the filter groups
+by exact name.
 
-**Missing images.** `SHOW_PLACEHOLDERS` at the top of `script.js` is `true` for now, so
-every empty slot shows a labelled dashed frame. Once your real images are in, set it to
-`false`. After that, a missing image is hidden on the live site. The empty frame still
+**Missing images.** `SHOW_PLACEHOLDERS` at the top of `script.js` is `false`, so a missing image is hidden
+on the live site. Set it to `true` while you are adding images if you want every empty slot
+to show a labelled dashed frame. The empty frame still
 appears on localhost, when opening the file directly, and on any URL ending in `?edit`
 (for example `https://yoursite.netlify.app/portfolio.html?edit`). If no image loads on the
 live site, the work sections show a short "samples are being added" line instead.
