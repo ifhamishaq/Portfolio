@@ -95,7 +95,7 @@
           <h1 class="title" style="--o:2">Graphic design for creators and agencies</h1>
 
           <div class="channel-row" style="--o:3">
-            <span class="avatar" aria-hidden="true">I</span>
+            <img class="avatar" src="images/ifham.jpg" alt="Ifham Ishaq" width="40" height="40">
             <div class="channel-id">
               <p class="channel-name">Ifham Ishaq</p>
               <p class="channel-sub">Graphic designer in Srinagar, India</p>
@@ -193,45 +193,41 @@
           </section>
 
           <section id="comments" class="comments" data-section style="--o:9" aria-labelledby="comments-title">
-            <div class="comments-head">
-              <div class="scene s4" data-video="process/step-4.mp4" aria-hidden="true">
-                <span class="s4-box"><span class="s4-av"></span><span class="type tc">Hi Ifham, I need thumbnails</span></span>
-                <span class="s-btn s4-btn">Send message</span>
-                <svg class="s4-mail" viewBox="0 0 24 24"><path d="M3 6h18v12H3z M3 7l9 7 9-7" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
-                <span class="s4-ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Message sent</span>
-                <svg class="s-cursor s4-cursor" viewBox="0 0 14 21" focusable="false"><path d="M1.5 1.5v15.2l3.9-3.6 2.6 6 2.6-1.1-2.6-5.9h5.2z" fill="#fff" stroke="#0F1B33" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            <div class="cta-card">
+              <div class="cta-head">
+                <img class="cta-photo" src="images/ifham.jpg" alt="Ifham Ishaq" width="96" height="96">
+                <div>
+                  <h2 id="comments-title">Start a project</h2>
+                  <p class="comments-sub">Tell me what you need. I reply by email.</p>
+                </div>
               </div>
-              <div>
-                <h2 id="comments-title">Start a project</h2>
-                <p class="comments-sub">Tell me what you need. I reply by email.</p>
-              </div>
+              <form class="form" id="contact-form" name="contact" method="POST" action="thanks.html"
+                    data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="contact">
+                <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+                <div class="form-grid">
+                  <label>Your name
+                    <input type="text" name="name" autocomplete="name" required>
+                  </label>
+                  <label>Your email
+                    <input type="email" name="email" autocomplete="email" required>
+                  </label>
+                </div>
+                <label>What do you need?
+                  <select name="service">
+                    <option>YouTube thumbnails</option>
+                    <option>Carousels</option>
+                    <option>Social posts</option>
+                    <option>Something else</option>
+                  </select>
+                </label>
+                <label>Tell me about it
+                  <textarea name="message" rows="4" required></textarea>
+                </label>
+                <button class="pill pill-white" type="submit">Send message</button>
+                <p class="form-status" id="form-status" role="status"></p>
+              </form>
             </div>
-            <form class="form" id="contact-form" name="contact" method="POST" action="thanks.html"
-                  data-netlify="true" netlify-honeypot="bot-field">
-              <input type="hidden" name="form-name" value="contact">
-              <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-              <div class="form-grid">
-                <label>Your name
-                  <input type="text" name="name" autocomplete="name" required>
-                </label>
-                <label>Your email
-                  <input type="email" name="email" autocomplete="email" required>
-                </label>
-              </div>
-              <label>What do you need?
-                <select name="service">
-                  <option>YouTube thumbnails</option>
-                  <option>Carousels</option>
-                  <option>Social posts</option>
-                  <option>Something else</option>
-                </select>
-              </label>
-              <label>Tell me about it
-                <textarea name="message" rows="4" required></textarea>
-              </label>
-              <button class="pill pill-red" type="submit">Send message</button>
-              <p class="form-status" id="form-status" role="status"></p>
-            </form>
           </section>
         </div>
 

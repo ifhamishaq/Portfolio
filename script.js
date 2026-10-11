@@ -94,7 +94,7 @@ function makeCard(work, eager, settle) {
   const label = work.client ? `${work.client}: ${work.title}` : work.title;
   const cap = document.createElement("span");
   cap.className = "cap";
-  cap.innerHTML = '<i class="cap-av" aria-hidden="true">I</i><span class="cap-text"><b></b><span></span></span>';
+  cap.innerHTML = '<img class="cap-av" src="images/ifham.jpg" alt="" width="36" height="36"><span class="cap-text"><b></b><span></span></span>';
   cap.querySelector("b").textContent = work.title;
   cap.querySelector(".cap-text > span").textContent = work.client || CHANNEL;
 

@@ -48,15 +48,20 @@ appears on localhost, when opening the file directly, and on any URL ending in `
 (for example `https://yoursite.netlify.app/portfolio.html?edit`). If no image loads on the
 live site, the work sections show a short "samples are being added" line instead.
 
+## Profile picture
+
+Your photo is `images/ifham.jpg` (a square crop). It is used for the channel avatar, the small
+circle under each thumbnail, and the "Start a project" card. Replace the file to change it
+(square, about 480 x 480 pixels works best).
+
 ## Replace a step animation with your own video
 
-The four "how it works" and "Start a project" panels are built-in animations. To swap one for
+The three "how it works" panels are built-in animations. To swap one for
 your own video, save it as 16:9 MP4 (muted is fine) in `process/`:
 
 - `process/step-1.mp4` for "Send title and topic"
 - `process/step-2.mp4` for "I send 2 to 3 concepts"
 - `process/step-3.mp4` for "I polish the pick"
-- `process/step-4.mp4` for "Start a project"
 
 If the file exists it plays (muted, looping, only while on screen) in place of the animation.
 If it is missing, the animation stays. Keep each video under about 5 MB.
