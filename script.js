@@ -4,38 +4,40 @@
 
 // One line per thumbnail. Put the 1280x720 JPG in thumbs/ and match the file name.
 // client is optional: leave it "" to show only the title.
+// niche is the topic chip on the portfolio page (Medicare, Finance, Business...).
+// Leave it "" for none. The chips appear when two or more topics are used.
 // The full portfolio page (portfolio.html) shows every line. Add as many as you need.
 // The home page shows the ones marked featured: true, or the first FEATURED_COUNT if none are.
 const WORKS = [
-  { file: "thumbs/01.jpg", client: "", title: "The full breakdown" },
-  { file: "thumbs/02.jpg", client: "", title: "Inside the mind of a monster" },
-  { file: "thumbs/03.jpg", client: "", title: "I grew up in poverty, now I'm a president" },
-  { file: "thumbs/04.jpg", client: "", title: "Why does nobody know you?" },
-  { file: "thumbs/05.jpg", client: "", title: "Medicare Plan G or Plan N: which is right for you?" },
-  { file: "thumbs/06.jpg", client: "", title: "The greatest comeback" },
-  { file: "thumbs/07.jpg", client: "", title: "5 mistakes losing the sale" },
-  { file: "thumbs/08.jpg", client: "", title: "Your frequency is your future" },
-  { file: "thumbs/09.jpg", client: "", title: "Costly Medicare mistakes" },
-  { file: "thumbs/10.jpg", client: "", title: "This is why you aren't growing" },
-  { file: "thumbs/11.jpg", client: "", title: "Talk show podcast #20" },
-  { file: "thumbs/12.jpg", client: "", title: "Is a bank the safest place to keep your money?" },
-  { file: "thumbs/13.jpg", client: "", title: "The system that actually scales" },
-  { file: "thumbs/14.jpg", client: "", title: "Approximate earning $80506.13" },
-  { file: "thumbs/15.jpg", client: "", title: "Environment builds success" },
-  { file: "thumbs/16.jpg", client: "", title: "Proximity to power explained" },
-  { file: "thumbs/17.jpg", client: "", title: "The science of scaling" },
-  { file: "thumbs/18.jpg", client: "", title: "Is Medicare broken???" },
-  { file: "thumbs/19.jpg", client: "", title: "Why most people fail" },
-  { file: "thumbs/20.jpg", client: "", title: "Does school = average?" },
-  { file: "thumbs/21.jpg", client: "", title: "The 3-bucket retirement strategy" },
-  { file: "thumbs/22.jpg", client: "", title: "This is why you are not growing" },
-  { file: "thumbs/23.jpg", client: "", title: "What pros know that amateurs don't" },
-  { file: "thumbs/24.jpg", client: "", title: "Just do it" },
-  { file: "thumbs/25.jpg", client: "", title: "Avoiding late Medicare enrollment" },
-  { file: "thumbs/26.jpg", client: "", title: "Make money on social media" },
+  { file: "thumbs/01.jpg", client: "", niche: "Business", title: "The full breakdown" },
+  { file: "thumbs/02.jpg", client: "", niche: "Business", title: "Inside the mind of a monster" },
+  { file: "thumbs/03.jpg", client: "", niche: "Business", title: "I grew up in poverty, now I'm a president" },
+  { file: "thumbs/04.jpg", client: "", niche: "Business", title: "Why does nobody know you?" },
+  { file: "thumbs/05.jpg", client: "", niche: "Medicare", title: "Medicare Plan G or Plan N: which is right for you?" },
+  { file: "thumbs/06.jpg", client: "", niche: "Business", title: "The greatest comeback" },
+  { file: "thumbs/07.jpg", client: "", niche: "Business", title: "5 mistakes losing the sale" },
+  { file: "thumbs/08.jpg", client: "", niche: "Business", title: "Your frequency is your future" },
+  { file: "thumbs/09.jpg", client: "", niche: "Medicare", title: "Costly Medicare mistakes" },
+  { file: "thumbs/10.jpg", client: "", niche: "Business", title: "This is why you aren't growing" },
+  { file: "thumbs/11.jpg", client: "", niche: "Podcast", title: "Talk show podcast #20" },
+  { file: "thumbs/12.jpg", client: "", niche: "Finance", title: "Is a bank the safest place to keep your money?" },
+  { file: "thumbs/13.jpg", client: "", niche: "Business", title: "The system that actually scales" },
+  { file: "thumbs/14.jpg", client: "", niche: "Finance", title: "Approximate earning $80506.13" },
+  { file: "thumbs/15.jpg", client: "", niche: "Business", title: "Environment builds success" },
+  { file: "thumbs/16.jpg", client: "", niche: "Business", title: "Proximity to power explained" },
+  { file: "thumbs/17.jpg", client: "", niche: "Business", title: "The science of scaling" },
+  { file: "thumbs/18.jpg", client: "", niche: "Medicare", title: "Is Medicare broken???" },
+  { file: "thumbs/19.jpg", client: "", niche: "Business", title: "Why most people fail" },
+  { file: "thumbs/20.jpg", client: "", niche: "Education", title: "Does school = average?" },
+  { file: "thumbs/21.jpg", client: "", niche: "Finance", title: "The 3-bucket retirement strategy" },
+  { file: "thumbs/22.jpg", client: "", niche: "Business", title: "This is why you are not growing" },
+  { file: "thumbs/23.jpg", client: "", niche: "Business", title: "What pros know that amateurs don't" },
+  { file: "thumbs/24.jpg", client: "", niche: "Business", title: "Just do it" },
+  { file: "thumbs/25.jpg", client: "", niche: "Medicare", title: "Avoiding late Medicare enrollment" },
+  { file: "thumbs/26.jpg", client: "", niche: "Finance", title: "Make money on social media" },
 ];
 
-const FEATURED_COUNT = 6;
+const FEATURED_COUNT = 8;
 
 // true: missing images show a labelled empty frame for everyone (use while setting up).
 // false: missing images are hidden on the live site. Empty frames still show on
@@ -56,6 +58,8 @@ const TESTIMONIAL = {
 
 const $ = (id) => document.getElementById(id);
 const page = document.body.dataset.page;
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const scrollBehavior = reduced ? "auto" : "smooth";
 
 const host = location.hostname;
 const isLocal =
@@ -73,23 +77,24 @@ function probe(src) {
   });
 }
 
-/* Work grid ---------------------------------------------------------- */
+/* Work cards ---------------------------------------------------------- */
 
 const grid = $("grid");
 const viewer = $("viewer");
+const CHANNEL = "Ifham Ishaq";
 
 function makeCard(work, eager, settle) {
   const li = document.createElement("li");
   li.className = "card";
-  li.dataset.client = work.client;
+  li.dataset.niche = work.niche || "";
+  li.dataset.search = `${work.title} ${work.client || ""} ${work.niche || ""}`.toLowerCase();
 
+  const label = work.client ? `${work.client}: ${work.title}` : work.title;
   const cap = document.createElement("span");
   cap.className = "cap";
-  cap.innerHTML = "<b></b><span></span>";
-  cap.firstChild.textContent = work.client;
-  cap.firstChild.hidden = !work.client;
-  cap.lastChild.textContent = work.title;
-  const label = work.client ? `${work.client}: ${work.title}` : work.title;
+  cap.innerHTML = '<i class="cap-av" aria-hidden="true">I</i><span class="cap-text"><b></b><span></span></span>';
+  cap.querySelector("b").textContent = work.title;
+  cap.querySelector(".cap-text > span").textContent = work.client || CHANNEL;
 
   const btn = document.createElement("button");
   btn.type = "button";
@@ -127,6 +132,7 @@ function makeCard(work, eager, settle) {
 }
 
 function buildWork() {
+  if (!grid) return;
   let items = WORKS;
   if (page === "home") {
     const flagged = WORKS.filter((w) => w.featured);
@@ -142,44 +148,58 @@ function buildWork() {
     showEmptyState();
   };
 
-  items.forEach((w, i) => {
-    grid.append(makeCard(w, i < eagerCount, i < eagerCount ? settle : null));
-  });
-  if (page === "all") buildFilters(items);
+  items.forEach((w, i) => grid.append(makeCard(w, i < eagerCount, i < eagerCount ? settle : null)));
+  if (page === "all") setupBrowse(items);
 }
 
 function showEmptyState() {
   grid.hidden = true;
   $("work-empty").hidden = false;
-  ["filters", "work-note", "view-all"].forEach((id) => {
-    const el = $(id);
-    if (el) el.hidden = true;
-  });
+  ["filters", "view-all"].forEach((id) => { const el = $(id); if (el) el.hidden = true; });
 }
 
-/* Filter by client (portfolio page) ---------------------------------- */
+/* Search and topic chips (portfolio page) ------------------------------ */
 
-function buildFilters(items) {
+function setupBrowse(items) {
   const box = $("filters");
-  const clients = [...new Set(items.map((w) => w.client))];
-  if (clients.length < 2) return;
-  const make = (label, value) => {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "filter";
-    b.textContent = label;
-    b.dataset.value = value;
-    b.setAttribute("aria-pressed", value === "" ? "true" : "false");
-    b.addEventListener("click", () => {
-      box.querySelectorAll(".filter").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-      grid.querySelectorAll(".card").forEach((li) => {
-        li.hidden = value !== "" && li.dataset.client !== value;
-      });
+  const input = $("q");
+  let niche = "";
+  let query = new URLSearchParams(location.search).get("q") || "";
+  input.value = query;
+
+  const apply = () => {
+    const q = query.trim().toLowerCase();
+    let shown = 0;
+    grid.querySelectorAll(".card").forEach((li) => {
+      const hide = (niche && li.dataset.niche !== niche) || (q && !li.dataset.search.includes(q));
+      li.hidden = hide;
+      if (!hide) shown++;
     });
-    return b;
+    $("no-match").hidden = shown > 0 || grid.hidden;
   };
-  box.append(make("All", ""), ...clients.map((c) => make(c, c)));
-  box.hidden = false;
+
+  const niches = [...new Set(items.map((w) => w.niche).filter(Boolean))];
+  if (niches.length > 1) {
+    const make = (label, value) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip";
+      b.textContent = label;
+      b.setAttribute("aria-pressed", String(value === ""));
+      b.addEventListener("click", () => {
+        niche = value;
+        box.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        apply();
+      });
+      return b;
+    };
+    box.append(make("All", ""), ...niches.map((n) => make(n, n)));
+    box.hidden = false;
+  }
+
+  input.addEventListener("input", () => { query = input.value; apply(); });
+  $("search").addEventListener("submit", (e) => { e.preventDefault(); query = input.value; apply(); });
+  apply();
 }
 
 /* Enlarge dialog ----------------------------------------------------- */
@@ -190,8 +210,8 @@ let current = 0;
 function showAt(i) {
   current = (i + list.length) % list.length;
   const w = list[current].work;
-  $("viewer-img").src = w.file;
   const label = w.client ? `${w.client}: ${w.title}` : w.title;
+  $("viewer-img").src = w.file;
   $("viewer-img").alt = `YouTube thumbnail: ${label}`;
   $("viewer-cap").textContent = label;
   $("viewer-count").textContent = `${current + 1} of ${list.length}`;
@@ -259,6 +279,7 @@ function buildTestimonial() {
 
 function startClock() {
   const el = $("clock");
+  if (!el) return;
   const fmt = new Intl.DateTimeFormat("en-IN", {
     hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Asia/Kolkata",
   });
@@ -298,7 +319,7 @@ function setupForm() {
   });
 }
 
-/* Hero: type your own title ------------------------------------------ */
+/* Hero: type your own title, pick a style, mini player ----------------- */
 
 function setupTry() {
   const input = $("try-title");
@@ -311,20 +332,11 @@ function setupTry() {
   const DEFAULT = { a: "YOU GET", b: "3 SECONDS" };
   const defaultLabel = tn.getAttribute("aria-label");
 
-  document.querySelectorAll(".swatch").forEach((sw) => {
-    sw.addEventListener("click", () => {
-      document.querySelectorAll(".swatch").forEach((x) => x.setAttribute("aria-pressed", String(x === sw)));
-      tn.dataset.style = sw.dataset.style;
-      tn.classList.add("typed");
-      syncMini();
-    });
-  });
-
   const mini = document.createElement("div");
   mini.className = "mini";
   mini.id = "mini";
   mini.hidden = true;
-  mini.innerHTML = '<div class="tn-wrap"></div><div class="mini-row"><a class="btn btn-small" href="#contact">Start a project</a><button type="button" class="btn btn-small btn-quiet" id="mini-close">Close</button></div>';
+  mini.innerHTML = '<div class="tn-wrap"></div><div class="mini-row"><a class="pill pill-red" href="#comments">Start a project</a><button type="button" class="pill pill-quiet" id="mini-close">Close</button></div>';
   const miniTn = tn.cloneNode(true);
   miniTn.classList.add("typed");
   miniTn.removeAttribute("role");
@@ -339,16 +351,25 @@ function setupTry() {
     mini.hidden = true;
     try { sessionStorage.setItem("miniClosed", "1"); } catch (e) {}
   });
+  window.__miniShow = (on) => { mini.hidden = !on || miniClosed; };
   function syncMini() {
     miniTn.dataset.style = tn.dataset.style || "";
     const a = miniTn.querySelector(".tn-line"), b = miniTn.querySelector(".tn-box-text");
     a.textContent = line.textContent; a.hidden = line.hidden; b.textContent = box.textContent;
     miniTn.querySelector(".tn-text").style.setProperty("--fs", text.style.getPropertyValue("--fs") || 17);
   }
-  window.__miniShow = (on) => { mini.hidden = !on || miniClosed; };
+
+  document.querySelectorAll(".swatch").forEach((sw) => {
+    sw.addEventListener("click", () => {
+      document.querySelectorAll(".swatch").forEach((x) => x.setAttribute("aria-pressed", String(x === sw)));
+      tn.dataset.style = sw.dataset.style;
+      tn.classList.add("typed");
+      syncMini();
+    });
+  });
 
   const replay = $("replay");
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (reduced) {
     replay.hidden = true;
   } else {
     replay.addEventListener("click", () => {
@@ -368,7 +389,7 @@ function setupTry() {
     for (let i = 1; i < words.length; i++) {
       const a = words.slice(0, i).join(" ").length;
       const b = words.slice(i).join(" ").length;
-      const score = Math.max(a, b) + (a > b ? 0.5 : 0); // keep the yellow line the longer one
+      const score = Math.max(a, b) + (a > b ? 0.5 : 0); // keep the boxed line the longer one
       if (score < bestScore) { bestScore = score; best = i; }
     }
     return { a: words.slice(0, best).join(" "), b: words.slice(best).join(" ") };
@@ -407,49 +428,43 @@ function setupTry() {
   });
 }
 
-/* Progress bar, copy email, sticky call to action ---------------------- */
+/* Header, theme, channel row, ad, chapters, shortcuts ----------------- */
 
-function setupExtras() {
-  const bar = $("progress-bar");
-  let ticking = false;
-  const update = () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
-    ticking = false;
+function setupTheme() {
+  const btn = $("theme-btn");
+  const moon = '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/>';
+  const sun = '<circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+  const paint = () => {
+    const dark = document.documentElement.dataset.theme !== "light";
+    btn.querySelector("svg").innerHTML = dark ? moon : sun;
+    btn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+    document.querySelector('meta[name="theme-color"]').setAttribute("content", dark ? "#0f0f0f" : "#ffffff");
   };
-  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  addEventListener("resize", update);
-  update();
+  window.__toggleTheme = () => {
+    const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    paint();
+  };
+  btn.addEventListener("click", window.__toggleTheme);
+  paint();
 
-  const copy = $("copy-email");
-  if (copy) {
-    copy.addEventListener("click", async () => {
-      const note = $("copy-note");
-      try {
-        await navigator.clipboard.writeText("ifham.wani89@gmail.com");
-        note.textContent = "Copied";
-      } catch (e) {
-        note.textContent = "Select and copy the address above";
-      }
-      setTimeout(() => (note.textContent = ""), 2500);
+  const menu = $("menu-btn");
+  menu.addEventListener("click", () => {
+    const min = document.body.classList.toggle("guide-min");
+    menu.setAttribute("aria-pressed", String(min));
+    menu.setAttribute("aria-label", min ? "Expand the side menu" : "Collapse the side menu");
+  });
+
+  const search = $("search");
+  if (page === "home") {
+    search.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const q = $("q").value.trim();
+      location.href = "portfolio.html" + (q ? `?q=${encodeURIComponent(q)}` : "");
     });
   }
-
-  const cta = $("sticky-cta");
-  const contact = $("contact");
-  const hero = document.querySelector(".hero, .page-head");
-  if (cta && contact && "IntersectionObserver" in window) {
-    let pastHero = false, atContact = false;
-    const show = () => { cta.hidden = !pastHero || atContact; if (window.__miniShow) window.__miniShow(pastHero && !atContact); };
-    new IntersectionObserver(([en]) => { pastHero = !en.isIntersecting; show(); }).observe(hero);
-    new IntersectionObserver(([en]) => { atContact = en.isIntersecting; show(); }).observe(contact);
-  }
 }
-
-/* YouTube-style extras ------------------------------------------------ */
-
-const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const scrollBehavior = reduced ? "auto" : "smooth";
 
 function setupChannel() {
   const sub = $("subscribe");
@@ -466,6 +481,25 @@ function setupChannel() {
     sub.textContent = on ? "Subscribed" : "Subscribe";
     $("sub-note").textContent = lines[Math.min(taps++, lines.length - 1)];
   });
+
+  const like = $("like");
+  like.addEventListener("click", () => {
+    const on = like.getAttribute("aria-pressed") !== "true";
+    like.setAttribute("aria-pressed", String(on));
+    $("sub-note").textContent = on ? "Liked. Thank you. A comment below would be even better." : "";
+  });
+
+  $("share").addEventListener("click", async () => {
+    const url = location.href.split("#")[0];
+    try {
+      if (navigator.share) { await navigator.share({ title: document.title, url }); return; }
+      await navigator.clipboard.writeText(url);
+      $("sub-note").textContent = "Link copied.";
+    } catch (e) {
+      $("sub-note").textContent = "Copy the address from your browser's address bar.";
+    }
+  });
+
   const toggle = $("desc-toggle");
   toggle.addEventListener("click", () => {
     const open = toggle.getAttribute("aria-expanded") !== "true";
@@ -515,33 +549,62 @@ function setupChapters() {
   update();
 }
 
-function setupEndScreen() {
-  const btn = $("end-replay");
-  if (!btn) return;
-  btn.addEventListener("click", () => {
-    scrollTo({ top: 0, behavior: scrollBehavior });
-    const replay = $("replay");
-    if (replay && !replay.hidden) setTimeout(() => replay.click(), reduced ? 0 : 500);
-  });
+function setupExtras() {
+  const bar = $("progress-bar");
+  let ticking = false;
+  const update = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
+    ticking = false;
+  };
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener("resize", update);
+  update();
+
+  const copy = $("copy-email");
+  if (copy) {
+    copy.addEventListener("click", async () => {
+      const note = $("copy-note");
+      try {
+        await navigator.clipboard.writeText("ifham.wani89@gmail.com");
+        note.textContent = "Copied";
+      } catch (e) {
+        note.textContent = "Select and copy the address";
+      }
+      setTimeout(() => (note.textContent = ""), 2500);
+    });
+  }
+
+  // Miniplayer follows the visitor once the player scrolls away, until the contact form is on screen.
+  const player = document.querySelector(".player");
+  const contact = $("comments");
+  if (player && contact && "IntersectionObserver" in window) {
+    let pastPlayer = false, atContact = false;
+    const show = () => { if (window.__miniShow) window.__miniShow(pastPlayer && !atContact); };
+    new IntersectionObserver(([en]) => { pastPlayer = !en.isIntersecting; show(); }).observe(player);
+    new IntersectionObserver(([en]) => { atContact = en.isIntersecting; show(); }).observe(contact);
+  }
 }
 
 function setupShortcuts() {
   const keys = $("keys");
-  const sections = () => [...document.querySelectorAll("main > section, main > aside")].filter((el) => !el.hidden && el.offsetParent !== null);
+  const sections = () => [...document.querySelectorAll("main [data-section]")].filter((el) => !el.hidden && el.offsetParent !== null);
   document.addEventListener("keydown", (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     const t = e.target;
     if (t.matches("input, textarea, select") || t.isContentEditable) return;
     if (document.querySelector("dialog[open]") && e.key !== "?") return;
     if (e.key === "?") { keys.open ? keys.close() : keys.showModal(); return; }
-    if (e.key === "w") { location.href = page === "home" ? "portfolio.html" : "portfolio.html"; return; }
-    if (e.key === "/" && page === "home") { e.preventDefault(); $("try-title").focus(); scrollTo({ top: 0, behavior: scrollBehavior }); return; }
+    if (e.key === "w") { location.href = "portfolio.html"; return; }
+    if (e.key === "t" && window.__toggleTheme) { window.__toggleTheme(); return; }
+    if (e.key === "/") { e.preventDefault(); $("q").focus(); return; }
     if (e.key === "k" && page === "home" && $("replay") && !$("replay").hidden) { scrollTo({ top: 0, behavior: scrollBehavior }); $("replay").click(); return; }
     if (e.key === "j" || e.key === "l") {
-      const list = sections();
-      const here = list.filter((el) => el.getBoundingClientRect().top <= 8).length - 1;
-      const next = e.key === "l" ? Math.min(list.length - 1, here + 1) : here >= 0 && list[here].getBoundingClientRect().top < -8 ? here : Math.max(0, here - 1);
-      list[next].scrollIntoView({ behavior: scrollBehavior, block: "start" });
+      const list2 = sections();
+      if (!list2.length) return;
+      const here = list2.filter((el) => el.getBoundingClientRect().top <= 80).length - 1;
+      const next = e.key === "l" ? Math.min(list2.length - 1, here + 1) : here >= 0 && list2[here].getBoundingClientRect().top < -8 ? here : Math.max(0, here - 1);
+      list2[next].scrollIntoView({ behavior: scrollBehavior, block: "start" });
     }
   });
   keys.addEventListener("click", (e) => { if (e.target === keys) keys.close(); });
@@ -555,6 +618,7 @@ function setupTabTitle() {
   console.log("%cLooking for a thumbnail designer?", "font-weight:bold;font-size:14px", "\nifham.wani89@gmail.com");
 }
 
+setupTheme();
 buildWork();
 buildTestimonial();
 startClock();
@@ -564,6 +628,5 @@ setupExtras();
 setupChannel();
 setupAd();
 setupChapters();
-setupEndScreen();
 setupShortcuts();
 setupTabTitle();

@@ -7,7 +7,7 @@ index.html      home page
 portfolio.html  full portfolio page (all thumbnails)
 style.css       all styling
 script.js       the lists you edit (WORKS, TESTIMONIAL) and the page behaviour
-fonts/          Schibsted Grotesk and Anton, self-hosted
+fonts/          Roboto and Anton, self-hosted
 thumbs/         your 1280x720 JPGs
 testimonial/    zack.mp4 and optional zack.jpg
 ```
@@ -23,22 +23,22 @@ testimonial/    zack.mp4 and optional zack.jpg
    ```
 
 Add as many lines as you have thumbnails. `client` is optional: leave it `""` to show only
-the title. The 26 lines that come with the site are your thumbnails from your Canva
+the title. `niche` is the topic chip on the portfolio page (for example `"Medicare"`, `"Finance"`,
+`"Business"`). Leave it `""` for none. The chips appear once two or more topics are used. The 26 lines that come with the site are your thumbnails from your Canva
 portfolio, in the same order, with titles taken from the text on each thumbnail. Change
 any title, reorder lines, or delete lines freely.
 
 **Two places show your work:**
 
-- **Home page (`index.html`):** a short selection with a "View all works" button.
-  It shows the first 6 lines of `WORKS`. To choose which ones, add `featured: true` to
+- **Home page (`index.html`):** a YouTube-style watch page. The thumbnails sit in the "Up next"
+  list with a "View all works" button. It shows the first 8 lines of `WORKS`. To choose which ones, add `featured: true` to
   those lines instead, for example
   `{ file: "thumbs/14.jpg", client: "...", title: "...", featured: true },`.
   Change how many show by default with `FEATURED_COUNT`.
-- **Full portfolio (`portfolio.html`):** every line of `WORKS`, with a filter by client.
-  The filter buttons appear on their own once you have two or more client names.
+- **Full portfolio (`portfolio.html`):** every line of `WORKS`, with a search box and topic chips.
+  Visitors can also search from any page, and press `/` to jump to the search box.
 
-If you fill in `client`, spell it the same way on every line, because the filter groups
-by exact name.
+The visitor's theme choice (dark or light) is remembered in their browser. Dark is the default.
 
 **Missing images.** `SHOW_PLACEHOLDERS` at the top of `script.js` is `false`, so a missing image is hidden
 on the live site. Set it to `true` while you are adding images if you want every empty slot

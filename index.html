@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ifham Ishaq, graphic designer</title>
   <meta name="description" content="Graphic designer in Srinagar, India. I make YouTube thumbnails, carousels and social posts for creators and agencies, including finance, business and educational channels. Usual turnaround is 24 to 48 hours, with revisions.">
   <meta name="author" content="Ifham Ishaq">
-  <meta name="theme-color" content="#FFD400">
+  <meta name="theme-color" content="#0f0f0f">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Ifham Ishaq">
@@ -18,7 +18,8 @@
   <meta name="twitter:description" content="YouTube thumbnails, carousels and social posts for creators and agencies. Usual turnaround is 24 to 48 hours, with revisions.">
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="preload" href="fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"dark"}catch(e){}</script>
+  <link rel="preload" href="fonts/roboto.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/anton.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -26,197 +27,222 @@
   <a class="skip" href="#main">Skip to content</a>
   <div class="progress" aria-hidden="true"><i id="progress-bar"></i></div>
 
-  <header class="top wrap">
-    <a class="brand" href="#top">Ifham Ishaq</a>
-    <nav class="top-nav" aria-label="Main">
-      <a class="textlink top-link" href="portfolio.html">All work</a>
-      <a class="btn btn-small" href="#contact">Start a project</a>
-    </nav>
+  <header class="yt-top">
+    <div class="yt-left">
+      <button type="button" class="icon-btn menu-btn" id="menu-btn" aria-label="Collapse the side menu" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      </button>
+      <a class="logo" href="index.html" aria-label="Ifham Ishaq, home">
+        <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 7.5v9l7.5-4.5z" fill="#fff"/></svg></span>
+        <span class="logo-name">Ifham Ishaq</span>
+      </a>
+    </div>
+
+    <form class="search" id="search" role="search" action="portfolio.html">
+      <input type="search" name="q" id="q" placeholder="Search my work" aria-label="Search my work" autocomplete="off">
+      <button type="submit" class="search-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </form>
+
+    <div class="yt-right">
+      <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch to light theme">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="currentColor"/></svg>
+      </button>
+      <a class="pill pill-inv top-cta" href="#comments">Start a project</a>
+    </div>
   </header>
 
-  <main id="main">
+  <div class="shell">
+    <nav class="guide" aria-label="Main">
+      <a href="index.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 10.5V21h6v-6h6v6h6V10.5z" fill="currentColor"/></svg><span>Home</span></a>
+      <a href="portfolio.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H4zM8 19h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10.5 8v5l4-2.5z" fill="currentColor"/></svg><span>All work</span></a>
+      <a href="#about"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>About</span></a>
+      <a href="#process"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg><span>How it works</span></a>
+      <a href="#comments"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Contact</span></a>
+    </nav>
 
-    <section class="hero wrap" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <h1 id="hero-title">Graphic design for creators and agencies</h1>
-        <p>YouTube thumbnails, carousels and social posts, designed to be noticed in a crowded feed. Most orders come back in 24 to 48 hours, with revisions.</p>
-        <p class="hero-actions">
-          <a class="btn" href="#contact">Start a project</a>
-          <a class="textlink" href="#work">See the work</a>
-        </p>
-      </div>
+    <main id="main">
+      <div class="watch">
+        <div class="primary">
 
-      <div class="tn-wrap">
-        <div class="tn" role="img" aria-label="Sample thumbnail that reads: You get 3 seconds">
-          <span class="tn-text" aria-hidden="true">
-          <span class="tn-line" id="tn-line">YOU GET</span>
-          <span class="tn-box">
-            <span class="tn-box-text" id="tn-box-text">3 SECONDS</span>
-            <span class="tn-ripple"></span>
-            <svg class="tn-cursor" viewBox="0 0 14 21" width="14" height="21" focusable="false">
-              <path d="M1.5 1.5v15.2l3.9-3.6 2.6 6 2.6-1.1-2.6-5.9h5.2z" fill="#fff" stroke="#0F1B33" stroke-width="1.4" stroke-linejoin="round"/>
-            </svg>
-          </span>
-          </span>
-          <span class="tn-time" aria-hidden="true">0:03</span>
-          <span class="tn-bar" aria-hidden="true"><i></i></span>
-        </div>
-        <form class="try" id="try" autocomplete="off">
-          <div class="try-head">
-            <label for="try-title">Try your own video title</label>
-            <button type="button" class="copy" id="replay">Replay</button>
+          <section class="player" data-section style="--o:1" aria-label="Sample thumbnail">
+            <div class="tn-wrap">
+              <div class="tn" role="img" aria-label="Sample thumbnail that reads: You get 3 seconds">
+                <span class="tn-text" aria-hidden="true">
+                  <span class="tn-line" id="tn-line">YOU GET</span>
+                  <span class="tn-box">
+                    <span class="tn-box-text" id="tn-box-text">3 SECONDS</span>
+                    <span class="tn-ripple"></span>
+                    <svg class="tn-cursor" viewBox="0 0 14 21" width="14" height="21" focusable="false">
+                      <path d="M1.5 1.5v15.2l3.9-3.6 2.6 6 2.6-1.1-2.6-5.9h5.2z" fill="#fff" stroke="#0F1B33" stroke-width="1.4" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </span>
+                <span class="tn-bar" aria-hidden="true"><i></i></span>
+                <span class="tn-ctrl" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                  <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z" fill="currentColor"/></svg>
+                  <span class="tn-time">0:03 / 0:03</span>
+                  <span class="tn-gap"></span>
+                  <svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3.3h-4l-.4 2.6a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1l.4 2.6h4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5zM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" fill="currentColor"/></svg>
+                  <svg viewBox="0 0 24 24"><path d="M7 14H5v5h5v-2H7zm-2-4h2V7h3V5H5zm12 7h-3v2h5v-5h-2zM14 5v2h3v3h2V5z" fill="currentColor"/></svg>
+                </span>
+              </div>
+            </div>
+          </section>
+
+          <form class="try" id="try" style="--o:4" autocomplete="off">
+            <div class="try-head">
+              <label for="try-title">Try your own video title</label>
+              <button type="button" class="copy" id="replay">Replay</button>
+            </div>
+            <div class="try-row">
+              <input id="try-title" type="text" maxlength="50" placeholder="Type it here">
+              <a class="pill pill-red" id="try-cta" href="#comments" hidden>Design this one for me</a>
+            </div>
+            <p class="try-note" id="try-note" role="status"></p>
+            <div class="styles" role="group" aria-label="Thumbnail style">
+              <span>Style</span>
+              <button type="button" class="swatch" data-style="classic" aria-label="Navy with yellow box" aria-pressed="true"></button>
+              <button type="button" class="swatch" data-style="red" aria-label="Red with white box" aria-pressed="false"></button>
+              <button type="button" class="swatch" data-style="gold" aria-label="Yellow with navy box" aria-pressed="false"></button>
+              <button type="button" class="swatch" data-style="clean" aria-label="Light with yellow box" aria-pressed="false"></button>
+              <button type="button" class="swatch" data-style="black" aria-label="Black with red box" aria-pressed="false"></button>
+            </div>
+          </form>
+
+          <h1 class="title" style="--o:2">Graphic design for creators and agencies</h1>
+
+          <div class="channel-row" style="--o:3">
+            <span class="avatar" aria-hidden="true">I</span>
+            <div class="channel-id">
+              <p class="channel-name">Ifham Ishaq</p>
+              <p class="channel-sub">Graphic designer in Srinagar, India</p>
+            </div>
+            <button type="button" class="pill pill-red" id="subscribe" aria-pressed="false">Subscribe</button>
+            <div class="actions">
+              <button type="button" class="pill pill-soft" id="like" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 21h4V9H2zM23 10a2 2 0 0 0-2-2h-6.3l1-4.6v-.3c0-.4-.2-.8-.4-1.1L14.2 1 7.6 7.6C7.2 8 7 8.5 7 9v10a2 2 0 0 0 2 2h9c.8 0 1.5-.5 1.8-1.2l3-7c.1-.2.2-.5.2-.8z" fill="currentColor"/></svg>
+                Like
+              </button>
+              <button type="button" class="pill pill-soft" id="share">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.1c-.8 0-1.5.3-2 .8l-7.1-4.2c.1-.2.1-.5.1-.7s0-.5-.1-.7L16 7.2c.5.5 1.2.8 2 .8 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3c0 .2 0 .5.1.7L8 9.8C7.5 9.3 6.8 9 6 9c-1.7 0-3 1.3-3 3s1.3 3 3 3c.8 0 1.5-.3 2-.8l7.1 4.2c-.1.2-.1.4-.1.6 0 1.6 1.3 2.9 2.9 2.9s2.9-1.3 2.9-2.9-1.3-2.9-2.8-2.9z" fill="currentColor"/></svg>
+                Share
+              </button>
+            </div>
           </div>
-          <div class="try-row">
-            <input id="try-title" type="text" maxlength="50" placeholder="Type it here">
-            <a class="btn btn-small" id="try-cta" href="#contact" hidden>Design this one for me</a>
+          <p class="sub-note" id="sub-note" role="status" style="--o:3"></p>
+
+          <section class="desc" id="about" data-section style="--o:5" aria-label="About">
+            <p class="desc-lead">I’m Ifham, a graphic designer. I make YouTube thumbnails, carousels and social posts that stop the scroll for creators and agencies.</p>
+            <p>Finance, business and educational channels are a good fit. Usual turnaround is 24 to 48 hours, with revisions.</p>
+            <ul class="desc-more" id="desc-more" hidden>
+              <li>You send a title and topic, I send 2 to 3 concepts, and I polish the pick.</li>
+              <li>Email: <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a> <button type="button" class="copy" id="copy-email">Copy email</button><span class="copy-note" id="copy-note" role="status"></span></li>
+              <li>Local time in Srinagar: <time id="clock" datetime="">--:--</time></li>
+            </ul>
+            <button type="button" class="copy desc-toggle" id="desc-toggle" aria-expanded="false" aria-controls="desc-more">Show more</button>
+          </section>
+
+          <section class="process" id="process" data-section style="--o:7" aria-labelledby="process-title">
+            <h2 id="process-title">Chapters</h2>
+            <p class="process-intro">Usual turnaround is 24 to 48 hours, with revisions.</p>
+            <ol class="steps">
+              <li>
+                <h3>Send title and topic</h3>
+                <p>Tell me what the video is called and what it's about.</p>
+              </li>
+              <li>
+                <h3>I send 2 to 3 concepts</h3>
+                <p>You get a few different directions to compare.</p>
+              </li>
+              <li>
+                <h3>I polish the pick</h3>
+                <p>You choose one and I refine it, with revisions.</p>
+              </li>
+            </ol>
+          </section>
+
+          <section id="testimonial" class="testimonial" data-section style="--o:8" aria-labelledby="testimonial-title" hidden>
+            <h2 id="testimonial-title">Hear from Zack</h2>
+            <div class="testimonial-body" id="testimonial-body">
+              <figure class="video">
+                <video id="zack-video" controls playsinline preload="metadata"></video>
+                <figcaption id="zack-caption"></figcaption>
+              </figure>
+              <blockquote class="quote" id="zack-quote" hidden></blockquote>
+            </div>
+          </section>
+
+          <section id="comments" class="comments" data-section style="--o:9" aria-labelledby="comments-title">
+            <h2 id="comments-title">Start a project</h2>
+            <p class="comments-sub">Tell me what you need. I reply by email.</p>
+            <form class="form" id="contact-form" name="contact" method="POST" action="thanks.html"
+                  data-netlify="true" netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="contact">
+              <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+              <div class="form-grid">
+                <label>Your name
+                  <input type="text" name="name" autocomplete="name" required>
+                </label>
+                <label>Your email
+                  <input type="email" name="email" autocomplete="email" required>
+                </label>
+              </div>
+              <label>What do you need?
+                <select name="service">
+                  <option>YouTube thumbnails</option>
+                  <option>Carousels</option>
+                  <option>Social posts</option>
+                  <option>Something else</option>
+                </select>
+              </label>
+              <label>Tell me about it
+                <textarea name="message" rows="4" required></textarea>
+              </label>
+              <button class="pill pill-red" type="submit">Send message</button>
+              <p class="form-status" id="form-status" role="status"></p>
+            </form>
+          </section>
+        </div>
+
+        <aside class="upnext" style="--o:6" aria-labelledby="upnext-title">
+          <h2 id="upnext-title">Up next</h2>
+          <div class="ad" id="ad" aria-label="Advertisement, by me">
+            <div class="ad-box">
+              <div class="ad-tile" aria-hidden="true"><span>YOUR THUMBNAIL HERE</span></div>
+              <div class="ad-copy">
+                <p class="ad-title">Your next thumbnail could be here</p>
+                <p class="ad-badge"><b>Ad</b> by me</p>
+                <div class="ad-actions">
+                  <a class="pill pill-red" href="#comments">Start a project</a>
+                  <button type="button" class="ad-skip" id="ad-skip" disabled>Skip ad in 5</button>
+                </div>
+              </div>
+              <span class="ad-bar" aria-hidden="true"><i id="ad-bar"></i></span>
+            </div>
+            <p class="ad-done" id="ad-done" hidden>Ad skipped. I'm still here when you're ready to <a href="#comments">start a project</a>.</p>
           </div>
-          <p class="try-note" id="try-note" role="status"></p>
-          <div class="styles" role="group" aria-label="Thumbnail style">
-            <span>Style</span>
-            <button type="button" class="swatch" data-style="classic" aria-label="Navy with yellow box" aria-pressed="true"></button>
-            <button type="button" class="swatch" data-style="gold" aria-label="Yellow with navy box" aria-pressed="false"></button>
-            <button type="button" class="swatch" data-style="clean" aria-label="Light with yellow box" aria-pressed="false"></button>
-            <button type="button" class="swatch" data-style="black" aria-label="Black with red box" aria-pressed="false"></button>
-          </div>
-        </form>
+          <ul class="grid" id="grid"></ul>
+          <p class="work-empty" id="work-empty" hidden>Samples are being added. Email me for the current reel.</p>
+          <a class="pill pill-soft wide" id="view-all" href="portfolio.html">View all works</a>
+        </aside>
       </div>
-    </section>
 
-    <section class="clients wrap" aria-labelledby="clients-title">
-      <h2 id="clients-title" class="sr-only">About</h2>
-      <p class="clients-line">I’m Ifham, a graphic designer. I make YouTube thumbnails, carousels and social posts that stop the scroll for creators and agencies.</p>
-    </section>
+      <footer class="foot">
+        <p>Ifham Ishaq, graphic designer in Srinagar, India.</p>
+        <p class="keys-hint">Press <kbd>?</kbd> for keyboard shortcuts.</p>
+      </footer>
+    </main>
+  </div>
 
-    <section class="channel wrap" aria-label="About Ifham">
-      <div class="channel-row">
-        <span class="avatar" aria-hidden="true">I</span>
-        <div class="channel-id">
-          <p class="channel-name">Ifham Ishaq</p>
-          <p class="channel-sub">Graphic designer in Srinagar, India</p>
-        </div>
-        <button type="button" class="subscribe" id="subscribe" aria-pressed="false">Subscribe</button>
-      </div>
-      <p class="sub-note" id="sub-note" role="status"></p>
-      <div class="desc" id="desc">
-        <p>YouTube thumbnails, carousels and social posts for creators and agencies, including finance, business and educational channels.</p>
-        <ul class="desc-more" id="desc-more" hidden>
-          <li>Usual turnaround is 24 to 48 hours, with revisions.</li>
-          <li>You send a title and topic, I send 2 to 3 concepts, and I polish the pick.</li>
-          <li>Email: <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a></li>
-        </ul>
-        <button type="button" class="copy" id="desc-toggle" aria-expanded="false" aria-controls="desc-more">Show more</button>
-      </div>
-    </section>
-
-    <section id="work" class="work wrap" aria-labelledby="work-title">
-      <div class="work-head">
-        <h2 id="work-title">Work</h2>
-        <a class="btn" id="view-all" href="portfolio.html">View all works</a>
-      </div>
-      <p class="work-note" id="work-note">A selection of my thumbnails. The full portfolio has all of them.</p>
-      <ul class="grid" id="grid"></ul>
-      <p class="work-empty" id="work-empty" hidden>Samples are being added. Email me for the current reel.</p>
-    </section>
-
-    <section id="testimonial" class="testimonial wrap" aria-labelledby="testimonial-title" hidden>
-      <h2 id="testimonial-title">Hear from Zack</h2>
-      <div class="testimonial-body" id="testimonial-body">
-        <figure class="video">
-          <video id="zack-video" controls playsinline preload="metadata"></video>
-          <figcaption id="zack-caption"></figcaption>
-        </figure>
-        <blockquote class="quote" id="zack-quote" hidden></blockquote>
-      </div>
-    </section>
-
-    <aside class="ad wrap" id="ad" aria-label="Advertisement, by me">
-      <div class="ad-box">
-        <div class="ad-tile" aria-hidden="true"><span>YOUR THUMBNAIL HERE</span></div>
-        <div class="ad-copy">
-          <p class="ad-badge"><b>Ad</b> 1 of 1, by me</p>
-          <p class="ad-title">Your next thumbnail could be here</p>
-          <a class="btn btn-small" href="#contact">Start a project</a>
-        </div>
-        <button type="button" class="ad-skip" id="ad-skip" disabled>Skip ad in 5</button>
-        <span class="ad-bar" aria-hidden="true"><i id="ad-bar"></i></span>
-      </div>
-      <p class="ad-done" id="ad-done" hidden>Ad skipped. I'm still here when you're ready to <a href="#contact">start a project</a>.</p>
-    </aside>
-
-    <section id="process" class="process wrap" aria-labelledby="process-title">
-      <h2 id="process-title">How it works</h2>
-      <p class="process-intro">Usual turnaround is 24 to 48 hours, with revisions.</p>
-      <ol class="steps">
-        <li>
-          <h3>Send title and topic</h3>
-          <p>Tell me what the video is called and what it's about.</p>
-        </li>
-        <li>
-          <h3>I send 2 to 3 concepts</h3>
-          <p>You get a few different directions to compare.</p>
-        </li>
-        <li>
-          <h3>I polish the pick</h3>
-          <p>You choose one and I refine it, with revisions.</p>
-        </li>
-      </ol>
-    </section>
-
-    <section id="contact" class="band" aria-labelledby="contact-title">
-      <div class="wrap band-inner">
-        <div class="band-copy">
-          <h2 id="contact-title">Start a project</h2>
-          <p class="band-email">Or write to <a href="mailto:ifham.wani89@gmail.com">ifham.wani89@gmail.com</a> <button type="button" class="copy" id="copy-email">Copy email</button><span class="copy-note" id="copy-note" role="status"></span></p>
-          <p class="clock">It's <time id="clock" datetime="">--:--</time> in Srinagar right now.</p>
-        </div>
-
-        <form class="form" id="contact-form" name="contact" method="POST" action="thanks.html"
-              data-netlify="true" netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="contact">
-          <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-
-          <label>Your name
-            <input type="text" name="name" autocomplete="name" required>
-          </label>
-          <label>Your email
-            <input type="email" name="email" autocomplete="email" required>
-          </label>
-          <label>What do you need?
-            <select name="service">
-              <option>YouTube thumbnails</option>
-              <option>Carousels</option>
-              <option>Social posts</option>
-              <option>Something else</option>
-            </select>
-          </label>
-          <label>Tell me about it
-            <textarea name="message" rows="5" required></textarea>
-          </label>
-          <button class="btn btn-ink" type="submit">Send message</button>
-          <p class="form-status" id="form-status" role="status"></p>
-        </form>
-      </div>
-    </section>
-
-    <section class="end" aria-labelledby="end-title">
-      <div class="wrap end-inner">
-        <h2 id="end-title">Watch next</h2>
-        <div class="end-row">
-          <a class="end-tile end-yellow" href="portfolio.html"><span>All work</span></a>
-          <a class="end-tile end-light" href="#contact"><span>Start a project</span></a>
-          <button type="button" class="end-replay" id="end-replay">Replay</button>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="foot wrap">
-    <p>Ifham Ishaq, graphic designer in Srinagar, India.</p>
-    <p class="keys-hint">Press <kbd>?</kbd> for keyboard shortcuts.</p>
-  </footer>
-
-  <a class="btn sticky-cta" id="sticky-cta" href="#contact" hidden>Start a project</a>
+  <nav class="tabbar" aria-label="Main">
+    <a href="index.html" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 10.5V21h6v-6h6v6h6V10.5z" fill="currentColor"/></svg><span>Home</span></a>
+    <a href="portfolio.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H4zM8 19h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10.5 8v5l4-2.5z" fill="currentColor"/></svg><span>Work</span></a>
+    <a href="#process"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg><span>Process</span></a>
+    <a href="#comments"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z M3 7l9 7 9-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Contact</span></a>
+  </nav>
 
   <dialog id="viewer" aria-label="Enlarged thumbnail">
     <form method="dialog" class="viewer-inner">
@@ -224,9 +250,9 @@
       <p id="viewer-cap" class="viewer-cap"></p>
       <p id="viewer-count" class="viewer-count"></p>
       <div class="viewer-actions">
-        <button type="button" class="btn btn-quiet" id="viewer-prev">Previous</button>
-        <button type="button" class="btn btn-quiet" id="viewer-next">Next</button>
-        <button class="btn" id="viewer-close" autofocus>Close</button>
+        <button type="button" class="pill pill-quiet" id="viewer-prev">Previous</button>
+        <button type="button" class="pill pill-quiet" id="viewer-next">Next</button>
+        <button class="pill pill-red" id="viewer-close" autofocus>Close</button>
       </div>
     </form>
   </dialog>
@@ -235,13 +261,14 @@
     <form method="dialog" class="viewer-inner keys-inner">
       <h2>Keyboard shortcuts</h2>
       <dl class="keys-list">
-        <div class="home-only"><dt><kbd>/</kbd></dt><dd>Type your own video title</dd></div>
-        <div class="home-only"><dt><kbd>k</kbd></dt><dd>Replay the hero</dd></div>
+        <div><dt><kbd>/</kbd></dt><dd>Search my work</dd></div>
+        <div class="home-only"><dt><kbd>k</kbd></dt><dd>Replay the player</dd></div>
         <div><dt><kbd>j</kbd> <kbd>l</kbd></dt><dd>Previous or next section</dd></div>
         <div><dt><kbd>w</kbd></dt><dd>See all work</dd></div>
+        <div><dt><kbd>t</kbd></dt><dd>Switch theme</dd></div>
         <div><dt><kbd>?</kbd></dt><dd>Show this list</dd></div>
       </dl>
-      <button class="btn" autofocus>Close</button>
+      <button class="pill pill-red" autofocus>Close</button>
     </form>
   </dialog>
 
